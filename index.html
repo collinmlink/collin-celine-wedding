@@ -12,6 +12,12 @@
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 :root {
   --white: #fafaf8;
   --black: #080808;
@@ -47,8 +53,6 @@ body {
               background .5s ease, border .5s ease, opacity .3s ease;
 }
 #cursor.hovering { width: 36px; height: 36px; background: transparent; border: 1px solid var(--ink); }
-#cursor.light { background: var(--white); }
-#cursor.light.hovering { background: transparent; border-color: rgba(255,255,255,.7); }
 
 /* PROGRESS */
 #progress {
@@ -74,86 +78,114 @@ body {
 }
 .loader-text span { display: block; }
 
-/* NAV */
+/* ── NAV (always light bg, ink text) ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0;
-  z-index: 200;
+  z-index: 300;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 2.5rem 3.5rem;
+  padding: 2rem 3.5rem;
+  background: var(--white);
+  border-bottom: 1px solid var(--grey-line);
   opacity: 0;
 }
 .nav-logo {
-  font-family: var(--serif); font-size: .95rem; font-weight: 200;
-  letter-spacing: .12em; text-decoration: none; color: var(--white);
-  transition: color .6s ease;
+  font-family: var(--serif); font-size: 1rem; font-weight: 200;
+  letter-spacing: .14em; text-decoration: none; color: var(--ink);
+  font-style: italic;
 }
-.nav-links { display: flex; gap: 3rem; list-style: none; }
+.nav-links { display: flex; gap: 2.75rem; list-style: none; }
 .nav-links a {
-  font-size: .6rem; font-weight: 200; letter-spacing: .25em;
-  text-transform: uppercase; text-decoration: none; color: var(--white);
-  position: relative; transition: color .6s ease;
+  font-size: .58rem; font-weight: 200; letter-spacing: .25em;
+  text-transform: uppercase; text-decoration: none; color: var(--ink);
+  position: relative; transition: color .4s ease;
 }
 .nav-links a::after {
   content: ''; position: absolute; bottom: -3px; left: 0;
-  width: 0; height: 1px; background: currentColor;
-  transition: width .6s cubic-bezier(.16,1,.3,1);
+  width: 0; height: 1px; background: var(--ink);
+  transition: width .5s cubic-bezier(.16,1,.3,1);
 }
 .nav-links a:hover::after { width: 100%; }
-nav.dark .nav-logo, nav.dark .nav-links a { color: var(--ink); }
 
-/* HERO */
+/* ── HERO: white header space + photo strip ── */
 #hero {
-  height: 100vh; position: relative; overflow: hidden; background: var(--ink);
+  padding-top: 82px; /* height of nav */
+  background: var(--white);
+  position: relative;
 }
-.hero-bg {
-  position: absolute; inset: 0;
-  background: url("BW_Tux.jpg") center/cover no-repeat;
+
+/* Photo strip wrapper — clips the track */
+.strip-outer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: clamp(340px, 52vw, 680px);
+}
+
+/* The scrolling track — JS sets width dynamically */
+.strip-track {
+  display: flex;
+  height: 100%;
+  gap: 4px;
   will-change: transform;
 }
-.hero-veil {
+
+/* Each photo slot */
+.strip-item {
+  flex: 0 0 auto;
+  width: clamp(220px, 32vw, 440px);
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.strip-item img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+/* Big C & C monogram centred over the strip */
+.strip-monogram {
   position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,.2) 0%, rgba(0,0,0,.55) 100%);
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none; z-index: 10;
 }
-.hero-curtain {
-  position: absolute; inset: 0;
-  background: var(--white); transform-origin: top; z-index: 10;
+.strip-monogram-inner {
+  display: flex; align-items: center; gap: 0;
+  line-height: 1;
 }
-.hero-body {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 0 3.5rem 4rem; z-index: 20;
-}
-.hero-eye {
-  font-size: .58rem; font-weight: 200; letter-spacing: .35em;
-  text-transform: uppercase; color: var(--white);
-  margin-bottom: 1.5rem; overflow: hidden;
-}
-.hero-eye span { display: block; }
-.hero-names {
+.strip-monogram .m-letter {
   font-family: var(--serif);
-  font-size: clamp(5rem, 10vw, 11rem);
-  font-weight: 200; line-height: .88;
-  color: var(--white); letter-spacing: -.02em;
+  font-size: clamp(7rem, 16vw, 18rem);
+  font-weight: 200;
+  color: rgba(255,255,255,0.88);
+  letter-spacing: -.03em;
+  text-shadow: 0 2px 40px rgba(0,0,0,.18);
+  display: block;
 }
-.hero-names .ln { display: block; overflow: hidden; }
-.hero-names em { font-style: italic; }
-.hero-bar {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-top: 2.5rem; padding-top: 1.5rem;
-  border-top: 1px solid rgba(255,255,255,.2);
+.strip-monogram .m-amp {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 8rem);
+  font-weight: 200; font-style: italic;
+  color: rgba(255,255,255,0.78);
+  margin: 0 .1em;
+  text-shadow: 0 2px 40px rgba(0,0,0,.18);
+  align-self: center;
+  padding-bottom: .15em;
 }
-.hero-dt {
-  font-size: .6rem; font-weight: 200; letter-spacing: .3em;
-  text-transform: uppercase; color: var(--white);
+
+/* thin date line beneath the strip */
+.strip-date {
+  display: flex; align-items: center; justify-content: center; gap: 2rem;
+  padding: 1.4rem 3.5rem;
+  border-bottom: 1px solid var(--grey-line);
 }
-.hero-sc {
-  font-size: .58rem; font-weight: 200; letter-spacing: .25em;
-  text-transform: uppercase; color: var(--white);
-  display: flex; align-items: center; gap: .75rem;
+.strip-date span {
+  font-size: .55rem; font-weight: 200; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--grey-muted);
 }
-.hero-sc::after {
-  content: ''; display: block; width: 28px; height: 1px;
-  background: rgba(255,255,255,.4);
+.strip-date::before, .strip-date::after {
+  content: ''; flex: 1; height: 1px; background: var(--grey-line);
 }
 
 /* EYEBROW */
@@ -345,14 +377,15 @@ footer {
   text-transform: uppercase; color: var(--grey-muted);
 }
 
-/* REVEAL utility — starts invisible */
-.ry { opacity: 0; transform: translateY(28px); will-change: transform; }
+/* REVEAL utility */
+.ry { opacity: 0; transform: translateY(28px) translateZ(0); will-change: transform; backface-visibility: hidden; }
 
 @media (max-width: 860px) {
-  nav { padding: 1.75rem 2rem; }
+  nav { padding: 1.5rem 2rem; }
   .nav-links { display: none; }
-  .hero-body { padding: 0 2rem 3rem; }
-  .hero-names { font-size: clamp(3.5rem, 14vw, 7rem); }
+  .strip-item { width: clamp(160px, 72vw, 320px); }
+  .strip-monogram .m-letter { font-size: clamp(5rem, 22vw, 10rem); }
+  .strip-monogram .m-amp { font-size: clamp(2rem, 10vw, 5rem); }
   #story { padding: 8rem 2rem 0; }
   .story-top { grid-template-columns: 1fr; gap: 3rem; margin-bottom: 4rem; }
   .story-band { margin: 0 -2rem; grid-template-columns: 1fr; }
@@ -389,20 +422,42 @@ footer {
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg" id="hbg"></div>
-  <div class="hero-veil"></div>
-  <div class="hero-curtain" id="hc"></div>
-  <div class="hero-body">
-    <div class="hero-eye"><span id="he">Houston, Texas</span></div>
-    <h1 class="hero-names">
-      <span class="ln"><span id="hn1">Collin</span></span>
-      <span class="ln"><em id="hn2">&amp; Celine</em></span>
-    </h1>
-    <div class="hero-bar" id="hbar">
-      <span class="hero-dt">March 6, 2027</span>
-      <span class="hero-sc">Scroll to explore</span>
+
+  <!-- ── PHOTO STRIP ── -->
+  <div class="strip-outer" id="stripOuter">
+    <div class="strip-track" id="stripTrack">
+      <!--
+        ADD OR REMOVE ITEMS HERE.
+        Just duplicate or delete a .strip-item div.
+        The JS reads however many exist — no other changes needed.
+      -->
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 1"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 2"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 3"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 4"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 5"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 6"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 7"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 8"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 9"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 10"></div>
+    </div>
+
+    <!-- Monogram overlay -->
+    <div class="strip-monogram">
+      <div class="strip-monogram-inner">
+        <span class="m-letter">C</span>
+        <span class="m-amp">&amp;</span>
+        <span class="m-letter">C</span>
+      </div>
     </div>
   </div>
+
+  <!-- Date ribbon -->
+  <div class="strip-date" id="stripDate">
+    <span>March 6, 2027 &nbsp;·&nbsp; Houston, Texas</span>
+  </div>
+
 </section>
 
 <!-- STORY -->
@@ -529,52 +584,70 @@ footer {
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-/* Cursor */
+/* ── Cursor ── */
 const cur = document.getElementById('cursor');
 document.addEventListener('mousemove', e => {
   gsap.to(cur, { x: e.clientX, y: e.clientY, duration: .2, ease: 'power2.out' });
-  cur.classList.toggle('light', !!document.elementFromPoint(e.clientX, e.clientY)?.closest('#hero'));
 });
 document.querySelectorAll('a,button,select,input,textarea').forEach(el => {
   el.addEventListener('mouseenter', () => cur.classList.add('hovering'));
   el.addEventListener('mouseleave', () => cur.classList.remove('hovering'));
 });
 
-/* Progress */
+/* ── Progress bar ── */
 window.addEventListener('scroll', () => {
   document.getElementById('progress').style.width =
     (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
 });
 
-/* Nav colour */
+/* ── Loader ── */
 const nav = document.getElementById('nav');
-ScrollTrigger.create({
-  trigger: '#story', start: 'top 8%',
-  onEnter: () => nav.classList.add('dark'),
-  onLeaveBack: () => nav.classList.remove('dark')
-});
-
-/* Loader → curtain lift → hero entrance */
 gsap.timeline()
   .from('#lt', { y: 40, opacity: 0, duration: 1.2, ease: 'expo.out' })
   .to('#lt', { opacity: 0, duration: .6, ease: 'power2.in' }, '+=.7')
-  .to('#loader', {
-    scaleY: 0, transformOrigin: 'top', duration: 1.5, ease: 'expo.inOut',
-    onStart() { gsap.to('#hc', { scaleY: 0, transformOrigin: 'top', duration: 1.5, ease: 'expo.inOut' }); }
-  })
-  .call(() => { gsap.to(nav, { opacity: 1, duration: 1, ease: 'expo.out' }); })
-  .from('#he', { y: 20, opacity: 0, duration: 1, ease: 'expo.out' }, '-=.5')
-  .from('#hn1', { y: 90, opacity: 0, duration: 1.6, ease: 'expo.out' }, '-=.9')
-  .from('#hn2', { y: 90, opacity: 0, duration: 1.6, ease: 'expo.out' }, '-=1.3')
-  .from('#hbar', { opacity: 0, duration: 1.2, ease: 'expo.out' }, '-=.8');
+  .to('#loader', { scaleY: 0, transformOrigin: 'top', duration: 1.4, ease: 'expo.inOut' })
+  .to(nav, { opacity: 1, duration: .8, ease: 'expo.out' }, '-=.4')
+  .from('.strip-outer', { opacity: 0, y: 24, duration: 1.2, ease: 'expo.out' }, '-=.5')
+  .from('.strip-date', { opacity: 0, duration: .8, ease: 'expo.out' }, '-=.6');
 
-/* Hero parallax */
-gsap.to('#hbg', {
-  yPercent: 14, ease: 'none',
-  scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
-});
+/* ── Infinite horizontal marquee ── */
+(function initStrip() {
+  const track = document.getElementById('stripTrack');
+  const items = Array.from(track.querySelectorAll('.strip-item'));
+  if (!items.length) return;
 
-/* Rules draw */
+  // Clone all items once so we have a seamless loop
+  items.forEach(item => {
+    const clone = item.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+  });
+
+  const itemW   = items[0].offsetWidth + 4; // +4 for gap
+  const origW   = itemW * items.length;      // width of one full set
+  let   pos     = 0;
+  const speed   = 0.6; // px per frame — change this to go faster/slower
+  let   paused  = false;
+  let   raf;
+
+  function tick() {
+    if (!paused) {
+      pos -= speed;
+      if (pos <= -origW) pos += origW; // seamless reset
+      track.style.transform = `translateX(${pos}px)`;
+    }
+    raf = requestAnimationFrame(tick);
+  }
+
+  raf = requestAnimationFrame(tick);
+
+  // Pause on hover
+  const outer = document.getElementById('stripOuter');
+  outer.addEventListener('mouseenter', () => { paused = true; });
+  outer.addEventListener('mouseleave', () => { paused = false; });
+})();
+
+/* ── Rules draw ── */
 ['#r1','#r2'].forEach(id => {
   gsap.from(id, {
     scaleX: 0, transformOrigin: 'left', duration: 1.8, ease: 'expo.inOut',
@@ -582,7 +655,7 @@ gsap.to('#hbg', {
   });
 });
 
-/* Image curtain reveals */
+/* ── Image curtain reveals ── */
 gsap.to('#ic1', {
   scaleY: 0, transformOrigin: 'top', duration: 1.6, ease: 'expo.inOut',
   scrollTrigger: { trigger: '.story-band', start: 'top 82%' }
@@ -592,7 +665,7 @@ gsap.to('#ic2', {
   scrollTrigger: { trigger: '.story-band', start: 'top 82%' }
 });
 
-/* Generic reveals */
+/* ── Generic scroll reveals ── */
 gsap.utils.toArray('.ry').forEach((el, i) => {
   gsap.to(el, {
     y: 0, opacity: 1, duration: 1.5, ease: 'expo.out',
@@ -601,7 +674,7 @@ gsap.utils.toArray('.ry').forEach((el, i) => {
   });
 });
 
-/* RSVP submit */
+/* ── RSVP submit ── */
 document.getElementById('rf').addEventListener('submit', function(e) {
   e.preventDefault();
   gsap.to(this, {
