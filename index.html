@@ -28,8 +28,8 @@ html {
 :root {
   --white: #fafaf8;
   --ink: #1a1a18;
-  --grey-line: #c8c7c1;
-  --grey-muted: #999890;
+  --grey-line: #b0afa9;
+  --grey-muted: #6e6d65;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Jost', sans-serif;
 
@@ -248,31 +248,33 @@ nav {
 }
 .strip-monogram-inner {
   display: flex; align-items: center; line-height: 1;
+  transform: rotate(-12deg) skewX(-4deg);
+  transform-origin: center;
+  filter: drop-shadow(0 4px 32px rgba(0,0,0,.22));
 }
 .strip-monogram .m-letter {
   font-family: var(--serif);
   font-size: clamp(5rem, 14vw, 18rem);
   font-weight: 200;
-  color: rgba(255,255,255,.88);
-  letter-spacing: -.03em;
-  text-shadow: 0 2px 40px rgba(0,0,0,.2);
+  font-style: italic;
+  color: rgba(255,255,255,.9);
+  letter-spacing: -.04em;
 }
 .strip-monogram .m-amp {
   font-family: var(--serif);
   font-size: clamp(2.2rem, 6vw, 8rem);
   font-weight: 200; font-style: italic;
-  color: rgba(255,255,255,.78);
-  margin: 0 .12em;
-  text-shadow: 0 2px 40px rgba(0,0,0,.2);
-  padding-bottom: .12em;
+  color: rgba(255,255,255,.8);
+  margin: 0 .08em;
+  padding-bottom: .08em;
+  align-self: center;
 }
 
-/* date ribbon */
+/* date + countdown ribbon — single seamless block */
 .strip-date {
   display: flex; align-items: center; justify-content: center;
   gap: var(--sp-sm);
-  padding: clamp(.9rem, 2vw, 1.4rem) var(--px);
-  border-bottom: 1px solid var(--grey-line);
+  padding: clamp(.7rem, 1.8vw, 1rem) var(--px) 0;
 }
 .strip-date span {
   font-size: clamp(.5rem, 1.5vw, .58rem); font-weight: 200;
@@ -283,10 +285,10 @@ nav {
   content: ''; flex: 1; height: 1px; background: var(--grey-line);
 }
 
-/* countdown beneath the date ribbon */
+/* countdown — no top border, flows directly below date */
 .strip-countdown {
   display: flex; align-items: center; justify-content: center;
-  padding: clamp(.7rem, 1.8vw, 1.1rem) var(--px);
+  padding: clamp(.2rem, .6vw, .4rem) var(--px) clamp(.7rem, 1.8vw, 1rem);
   border-bottom: 1px solid var(--grey-line);
 }
 .strip-countdown em {
@@ -352,7 +354,7 @@ nav {
 }
 .story-body p {
   font-size: clamp(.82rem, 1.8vw, .9rem);
-  font-weight: 200; line-height: 1.9; color: #555;
+  font-weight: 200; line-height: 1.9; color: #3a3a38;
 }
 
 .story-band {
@@ -426,7 +428,7 @@ nav {
 
 .details-sub {
   font-size: clamp(.78rem, 1.8vw, .82rem);
-  font-weight: 200; line-height: 1.95; color: #666;
+  font-weight: 200; line-height: 1.95; color: #484845;
 }
 
 .cards {
@@ -473,12 +475,12 @@ nav {
 }
 .card-addr {
   font-size: clamp(.72rem, 1.6vw, .8rem);
-  font-weight: 200; line-height: 1.9; color: #666;
+  font-weight: 200; line-height: 1.9; color: #484845;
 }
 .card-note {
   margin-top: var(--sp-xs);
   font-size: clamp(.7rem, 1.5vw, .78rem);
-  font-weight: 200; line-height: 1.85; color: #888;
+  font-weight: 200; line-height: 1.85; color: #5c5c59;
 }
 .card-time {
   display: flex; align-items: center; gap: var(--sp-sm);
@@ -520,7 +522,7 @@ nav {
 .rsvp-p {
   font-size: clamp(.78rem, 1.8vw, .82rem);
   font-weight: 200; line-height: 1.95;
-  color: #666; margin-bottom: var(--sp-md);
+  color: #484845; margin-bottom: var(--sp-md);
 }
 
 .rsvp-dl {
@@ -661,7 +663,7 @@ footer {
 
 .accom-intro {
   font-size: clamp(.78rem, 1.8vw, .88rem);
-  font-weight: 200; line-height: 1.95; color: #666;
+  font-weight: 200; line-height: 1.95; color: #484845;
 }
 
 /* category divider */
@@ -720,7 +722,7 @@ footer {
 
 .hotel-desc {
   font-size: clamp(.76rem, 1.6vw, .84rem);
-  font-weight: 200; line-height: 1.9; color: #666;
+  font-weight: 200; line-height: 1.9; color: #484845;
   margin-top: var(--sp-xs);
 }
 
@@ -730,7 +732,7 @@ footer {
 }
 .hotel-addr, .hotel-dist {
   font-size: clamp(.68rem, 1.4vw, .76rem);
-  font-weight: 200; line-height: 1.7; color: #888;
+  font-weight: 200; line-height: 1.7; color: #5c5c59;
   display: flex; align-items: baseline; gap: .6rem;
 }
 .hotel-addr::before {
@@ -804,7 +806,7 @@ footer {
 }
 .hotel-other-meta {
   font-size: clamp(.66rem, 1.3vw, .74rem);
-  font-weight: 200; color: #888; line-height: 1.7;
+  font-weight: 200; color: #5c5c59; line-height: 1.7;
 }
 .hotel-other-btn {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -847,7 +849,7 @@ footer {
 .todo-h em { font-style: italic; }
 .todo-intro {
   font-size: clamp(.78rem, 1.8vw, .88rem);
-  font-weight: 200; line-height: 1.95; color: #666;
+  font-weight: 200; line-height: 1.95; color: #484845;
 }
 
 /* ── Tab bar ── */
@@ -885,37 +887,21 @@ footer {
 .todo-panel { display: none; }
 .todo-panel.active { display: block; }
 
-/* ── Map + list layout ── */
-.todo-layout {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: clamp(2rem, 4vw, 4rem);
-  align-items: start;
-}
-@media (max-width: 900px) {
-  .todo-layout { grid-template-columns: 1fr; }
-}
+/* ── Single-column list layout (map removed) ── */
+.todo-layout { display: block; }
 
 /* ── Place cards list ── */
-.todo-list {
-  display: flex; flex-direction: column;
-}
+.todo-list { display: flex; flex-direction: column; }
 
 .todo-item {
   border-top: 1px solid var(--grey-line);
   padding: clamp(1rem, 2.5vw, 1.5rem) 0;
   display: grid;
-  grid-template-columns: 2rem 1fr auto;
+  grid-template-columns: 2rem 1fr;
   gap: .75rem var(--sp-sm);
   align-items: start;
-  cursor: pointer;
-  transition: background .2s ease;
 }
 .todo-item:last-child { border-bottom: 1px solid var(--grey-line); }
-@media (hover: hover) {
-  .todo-item:hover { background: var(--grey-light); margin: 0 calc(var(--sp-xs) * -1); padding-left: var(--sp-xs); padding-right: var(--sp-xs); }
-}
-.todo-item.selected .todo-item-num { color: var(--ink); }
 
 .todo-item-num {
   font-family: var(--serif);
@@ -940,11 +926,11 @@ footer {
 }
 .todo-item-desc {
   font-size: clamp(.68rem, 1.4vw, .76rem);
-  font-weight: 200; line-height: 1.75; color: #777;
+  font-weight: 200; line-height: 1.75; color: #525250;
 }
 .todo-item-addr {
   font-size: clamp(.62rem, 1.2vw, .68rem);
-  font-weight: 200; color: #aaa; margin-top: .3rem;
+  font-weight: 200; color: #6e6d65; margin-top: .3rem;
 }
 
 .todo-item-arrow {
@@ -955,49 +941,6 @@ footer {
 }
 @media (hover: hover) {
   .todo-item:hover .todo-item-arrow { transform: translateX(4px); color: var(--ink); }
-}
-
-/* ── Map container ── */
-.todo-map-wrap {
-  position: sticky;
-  top: calc(var(--nav-h) + 1.5rem);
-  height: clamp(340px, 52vw, 560px);
-  border: 1px solid var(--grey-line);
-  overflow: hidden;
-  background: var(--grey-light);
-}
-@media (max-width: 900px) {
-  .todo-map-wrap {
-    position: static;
-    height: clamp(280px, 60vw, 400px);
-    margin-top: var(--sp-md);
-    order: -1;
-  }
-}
-
-.todo-map-wrap iframe {
-  width: 100%; height: 100%;
-  border: none; display: block;
-}
-
-/* map placeholder shown before a spot is selected */
-.todo-map-placeholder {
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: var(--sp-sm);
-  padding: var(--sp-lg);
-  text-align: center;
-}
-.todo-map-placeholder p {
-  font-family: var(--serif); font-style: italic;
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  font-weight: 200; color: var(--grey-muted);
-  line-height: 1.5;
-}
-.todo-map-placeholder small {
-  font-size: clamp(.48rem, 1.2vw, .54rem); font-weight: 200;
-  letter-spacing: .3em; text-transform: uppercase; color: var(--grey-line);
 }
 
 /* ────────────────────────────────────────
@@ -1025,7 +968,7 @@ footer {
 
 .gallery-sub {
   font-size: clamp(.78rem, 1.8vw, .88rem);
-  font-weight: 200; line-height: 1.95; color: #666;
+  font-weight: 200; line-height: 1.95; color: #484845;
 }
 
 /* ── Mosaic grid ──
@@ -1175,7 +1118,7 @@ footer {
 
 .faq-intro {
   font-size: clamp(.78rem, 1.8vw, .88rem);
-  font-weight: 200; line-height: 1.95; color: #666;
+  font-weight: 200; line-height: 1.95; color: #484845;
 }
 
 /* category label above each group */
@@ -1261,7 +1204,7 @@ footer {
 }
 .faq-panel-inner p {
   font-size: clamp(.78rem, 1.8vw, .88rem);
-  font-weight: 200; line-height: 1.95; color: #555;
+  font-weight: 200; line-height: 1.95; color: #3a3a38;
 }
 .faq-panel-inner a {
   color: var(--ink); text-underline-offset: 3px;
@@ -1290,7 +1233,7 @@ button:focus-visible {
 
 <!-- NAV -->
 <nav id="nav" role="navigation" aria-label="Main navigation">
-  <a href="#" class="nav-logo" aria-label="Home">C &amp; C</a>
+  <a href="#" class="nav-logo" aria-label="Home">Collin &amp; Celine</a>
 
   <!-- Desktop links -->
   <ul class="nav-links" role="list">
@@ -1610,7 +1553,6 @@ button:focus-visible {
             <div class="todo-item-desc">An open-air collection of boutiques, restaurants, and coffee shops anchored by Uchi and a rotating cast of Houston's best local brands. A perfect afternoon stop — particularly on a weekend.</div>
             <div class="todo-item-addr">888 Westheimer Rd, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7377" data-lng="-95.3985" data-name="The Menil Collection" data-place="ChIJJzfbZH-_QIYRux-QWCrEx4w">
@@ -1621,7 +1563,6 @@ button:focus-visible {
             <div class="todo-item-desc">One of the world's great private art museums, free and open to the public. The campus spans shaded oak lawns and several gallery buildings — including the ethereal Rothko Chapel nearby. A true Houston gem.</div>
             <div class="todo-item-addr">1533 Sul Ross St, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7256" data-lng="-95.3905" data-name="Museum of Fine Arts Houston" data-place="ChIJSx6QT3-_QIYRPaWcHKc3bbI">
@@ -1632,7 +1573,6 @@ button:focus-visible {
             <div class="todo-item-desc">One of the largest art museums in the United States, with a permanent collection spanning 6,000 years of history. Plan for at least half a day — and don't miss the rooftop for panoramic Houston views.</div>
             <div class="todo-item-addr">1001 Bissonnet St, Houston, TX 77005</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7207" data-lng="-95.3865" data-name="McGovern Centennial Gardens" data-place="ChIJK5qZwoO_QIYRF4P0H-ZPZ3I">
@@ -1643,7 +1583,6 @@ button:focus-visible {
             <div class="todo-item-desc">A stunning 5-acre garden in Hermann Park featuring a spectacular spiral walkway, seasonal blooms, and tranquil reflecting pools. Ideal for an early morning stroll or a peaceful afternoon escape.</div>
             <div class="todo-item-addr">1500 Hermann Dr, Houston, TX 77004</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7146" data-lng="-95.3822" data-name="Hermann Park Golf Course" data-place="ChIJJYJ5D5C_QIYRx775_xt_ySg">
@@ -1654,7 +1593,6 @@ button:focus-visible {
             <div class="todo-item-desc">A classic 18-hole public course tucked inside Hermann Park, surrounded by the city's most beautiful green space. Affordable, accessible, and a Houston institution. Great for a casual round before the festivities.</div>
             <div class="todo-item-addr">2155 N MacGregor Way, Houston, TX 77004</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7731" data-lng="-95.4333" data-name="Memorial Park Golf Course" data-place="ChIJabJuQtHAQIYRLU3xzKMTp8E">
@@ -1665,16 +1603,10 @@ button:focus-visible {
             <div class="todo-item-desc">Home of the Houston Open, Memorial Park Golf Course is a meticulously maintained 18-hole championship course set against the backdrop of 1,500 acres of Memorial Park. One of the finest public courses in Texas — book well in advance.</div>
             <div class="todo-item-addr">1001 E Memorial Loop Dr, Houston, TX 77007</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
       </div>
-      <div class="todo-map-wrap" id="map-activities">
-        <div class="todo-map-placeholder">
-          <p>Select a spot to see it on the map.</p>
-          <small>Click any item to the left</small>
-        </div>
-      </div>
+</div>
     </div>
   </div>
 
@@ -1691,7 +1623,6 @@ button:focus-visible {
             <div class="todo-item-desc">A Houston institution. Sizzling fajitas, strong margaritas, and crab nachos that guests talk about for years. Classic Tex-Mex at its most unapologetic — perfect for a casual pre-wedding lunch with family.</div>
             <div class="todo-item-addr">322 Westheimer Rd, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7449" data-lng="-95.3931" data-name="Drake's Hollywood" data-place="ChIJm6uX4I2_QIYRs1mglrixx_M">
@@ -1702,7 +1633,6 @@ button:focus-visible {
             <div class="todo-item-desc">Montrose's most glamorous dining room. Dramatic interiors, an exceptional raw bar, and a menu centered on prime cuts and indulgent sides. The coldest martini in Houston and a silk pie worth every calorie.</div>
             <div class="todo-item-addr">1100 Westheimer Rd, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7357" data-lng="-95.3985" data-name="Perseid at Hotel Saint Augustine" data-place="ChIJj-AuTgDBQIYR-yjUNIytKz0">
@@ -1713,7 +1643,6 @@ button:focus-visible {
             <div class="todo-item-desc">Chef Aaron Bludorn's Gulf Coast-inspired all-day restaurant at Hotel Saint Augustine. Quiet, refined, and quietly exceptional — the hanger steak and Anne potatoes are Houston's best-kept secret. Reserve ahead.</div>
             <div class="todo-item-addr">4110 Loretto Dr, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7390" data-lng="-95.3953" data-name="Southern Yankee Crafthouse" data-place="ChIJT38uPg_BQIYRZpvIOg-do9I">
@@ -1724,7 +1653,6 @@ button:focus-visible {
             <div class="todo-item-desc">Beloved Montrose gastropub with a creative cocktail program and some of the most talked-about pizzas in Houston. The pickle pizza with pepperoni is a genuine revelation. Great patio, even better vibes.</div>
             <div class="todo-item-addr">1312 W Alabama St, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7342" data-lng="-95.3941" data-name="The Pit Room" data-place="ChIJgcrcf4LAQIYREwyikgKgLco">
@@ -1735,7 +1663,6 @@ button:focus-visible {
             <div class="todo-item-desc">Houston's finest Texas barbecue, full stop. The brisket has a bark and smoke ring that rivals anything in central Texas. Lines form early and sell-out is real — arrive before noon. Worth every minute of the wait.</div>
             <div class="todo-item-addr">1201 Richmond Ave, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7385" data-lng="-95.3909" data-name="Clark's Oyster Bar" data-place="ChIJbXeNf1S_QIYR2rQjwtR4sNU">
@@ -1746,16 +1673,10 @@ button:focus-visible {
             <div class="todo-item-desc">A gleaming Montrose seafood counter with an impressive daily oyster selection, excellent chowder, and the most underrated burger in the neighborhood. Half-price martinis at happy hour. Elevated yet effortless.</div>
             <div class="todo-item-addr">3807 Montrose Blvd, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
       </div>
-      <div class="todo-map-wrap" id="map-restaurants">
-        <div class="todo-map-placeholder">
-          <p>Select a spot to see it on the map.</p>
-          <small>Click any item to the left</small>
-        </div>
-      </div>
+</div>
     </div>
   </div>
 
@@ -1772,7 +1693,6 @@ button:focus-visible {
             <div class="todo-item-desc">Tucked inside La Colombe D'or — our reception venue — Bar No. 3 is a moody, speakeasy-adjacent room of dark wood, soft leather, and live piano. Exceptional old fashioneds and a bartender, Sergio, who truly understands his craft.</div>
             <div class="todo-item-addr">3410 Montrose Blvd, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7430" data-lng="-95.3969" data-name="Anvil Bar & Refuge" data-place="ChIJGezjg57AQIYRiivaEi1eVko">
@@ -1783,7 +1703,6 @@ button:focus-visible {
             <div class="todo-item-desc">The gold standard of Houston craft cocktails, and one of the most respected bars in the country. Staff trained to an extraordinary level of precision. The "100 cocktails" list at happy hour is one of the city's greatest bargains.</div>
             <div class="todo-item-addr">1424 Westheimer Rd, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7429" data-lng="-95.4026" data-name="Agora" data-place="ChIJ3VUwj5nAQIYRlAd40VjiTDA">
@@ -1794,7 +1713,6 @@ button:focus-visible {
             <div class="todo-item-desc">A beloved Montrose institution open daily until 2 AM. Part coffee shop, part wine bar, part living room for the neighborhood. Worn-in couches, warm light, and a welcome lack of urgency. Perfect for a quiet afternoon or late-night wind-down.</div>
             <div class="todo-item-addr">1712 Westheimer Rd, Houston, TX 77098</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7448" data-lng="-95.3925" data-name="Blacksmith" data-place="ChIJv9bVuGG_QIYRq3Lf9AaP8XE">
@@ -1805,7 +1723,6 @@ button:focus-visible {
             <div class="todo-item-desc">Montrose's most beloved morning ritual. Exceptional espresso, housemade pastries, and a vibe that somehow feels both effortlessly cool and deeply welcoming. Arrive early on weekends — it fills up fast and for good reason.</div>
             <div class="todo-item-addr">1018 Westheimer Rd, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
         <div class="todo-item" data-lat="29.7384" data-lng="-95.3883" data-name="Siphon Coffee" data-place="ChIJ27_1pGS_QIYRJB3FWgFpN70">
@@ -1816,16 +1733,10 @@ button:focus-visible {
             <div class="todo-item-desc">Artisan-level specialty coffee in a warm, industrial space with excellent natural light and reliable Wi-Fi. A favorite of the neighborhood for focused mornings or long, unhurried afternoons. The cortado is exceptional.</div>
             <div class="todo-item-addr">701 W Alabama St, Houston, TX 77006</div>
           </div>
-          <div class="todo-item-arrow" aria-hidden="true">→</div>
         </div>
 
       </div>
-      <div class="todo-map-wrap" id="map-bars">
-        <div class="todo-map-placeholder">
-          <p>Select a spot to see it on the map.</p>
-          <small>Click any item to the left</small>
-        </div>
-      </div>
+</div>
     </div>
   </div>
 
@@ -2257,25 +2168,6 @@ if (prefersReduced) {
       tab.classList.add('active');
       tab.setAttribute('aria-selected', 'true');
       document.getElementById('tab-' + target).classList.add('active');
-    });
-  });
-
-  // Map: clicking a place item shows Google Maps embed
-  document.querySelectorAll('.todo-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const panel  = item.closest('.todo-panel');
-      const mapId  = panel.querySelector('.todo-map-wrap').id;
-      const mapEl  = document.getElementById(mapId);
-      const placeId = item.dataset.place;
-      const name   = encodeURIComponent(item.dataset.name);
-
-      // deselect siblings, select this
-      panel.querySelectorAll('.todo-item').forEach(i => i.classList.remove('selected'));
-      item.classList.add('selected');
-
-      // Build embed URL using place_id for accuracy
-      const src = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=place_id:${placeId}&zoom=16`;
-      mapEl.innerHTML = `<iframe src="${src}" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${item.dataset.name}"></iframe>`;
     });
   });
 })();
