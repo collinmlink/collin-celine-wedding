@@ -283,6 +283,20 @@ nav {
   content: ''; flex: 1; height: 1px; background: var(--grey-line);
 }
 
+/* countdown beneath the date ribbon */
+.strip-countdown {
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(.7rem, 1.8vw, 1.1rem) var(--px);
+  border-bottom: 1px solid var(--grey-line);
+}
+.strip-countdown em {
+  font-family: var(--serif);
+  font-size: clamp(.85rem, 2.2vw, 1.15rem);
+  font-weight: 200; font-style: italic;
+  color: var(--grey-muted);
+  letter-spacing: .04em;
+}
+
 /* ────────────────────────────────────────
    SHARED UTILITIES
 ──────────────────────────────────────── */
@@ -420,8 +434,8 @@ nav {
   gap: 1px; background: var(--grey-line);
   border: 1px solid var(--grey-line);
 }
-@media (max-width: 680px) {
-  .cards { grid-template-columns: 1fr; }
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr !important; }
 }
 
 .card {
@@ -1281,7 +1295,7 @@ button:focus-visible {
   <!-- Desktop links -->
   <ul class="nav-links" role="list">
     <li><a href="#story">Our Story</a></li>
-    <li><a href="#details">Details</a></li>
+    <li><a href="#details">Schedule</a></li>
     <li><a href="#accommodations">Accommodations</a></li>
     <li><a href="#thingstodo">Things to Do</a></li>
     <li><a href="#gallery">Gallery</a></li>
@@ -1299,7 +1313,7 @@ button:focus-visible {
 <div class="nav-drawer" id="navDrawer" aria-hidden="true">
   <ul role="list">
     <li><a href="#story" class="drawer-link">Our Story</a></li>
-    <li><a href="#details" class="drawer-link">Details</a></li>
+    <li><a href="#details" class="drawer-link">Schedule</a></li>
     <li><a href="#accommodations" class="drawer-link">Accommodations</a></li>
     <li><a href="#thingstodo" class="drawer-link">Things to Do</a></li>
     <li><a href="#gallery" class="drawer-link">Gallery</a></li>
@@ -1342,6 +1356,9 @@ button:focus-visible {
   <div class="strip-date">
     <span>March 6, 2027 &nbsp;·&nbsp; Houston, Texas</span>
   </div>
+  <div class="strip-countdown">
+    <em id="countdown-text">calculating…</em>
+  </div>
 </section>
 
 <!-- STORY -->
@@ -1374,16 +1391,16 @@ button:focus-visible {
 
 <div class="rule" id="r1"></div>
 
-<!-- DETAILS -->
+<!-- SCHEDULE -->
 <section id="details">
   <div class="details-head">
     <div>
-      <div class="eyebrow ry">The Details</div>
+      <div class="eyebrow ry">Schedule</div>
       <h2 class="details-h ry">The<br><em>day itself.</em></h2>
     </div>
     <p class="details-sub ry">We cannot wait to celebrate with you. Please take note of the times and locations below — we look forward to sharing this day with you.</p>
   </div>
-  <div class="cards">
+  <div class="cards" style="grid-template-columns: 1fr 1fr 1fr;">
     <div class="card ry">
       <div class="card-top-row">
         <div class="card-n">01</div>
@@ -1403,10 +1420,24 @@ button:focus-visible {
         <div class="card-n">02</div>
         <img src="LCD.PNG" alt="La Colombe D'or Hotel logo">
       </div>
+      <div class="card-tag">Cocktail Hour</div>
+      <div class="card-venue">Sculpture Garden<br>La Colombe D'or Hotel</div>
+      <div class="card-addr">3410 Montrose Boulevard<br>Houston, Texas 77006</div>
+      <div class="card-note">Hors d'oeuvres and signature cocktails in the garden. Just 187 feet from the cathedral doors — guests are welcome to walk over. Cars may remain parked at Annunciation or be relocated via valet service on Montrose Boulevard.</div>
+      <div class="card-time">
+        <span class="card-time-lbl">Begins</span>
+        <span class="card-time-val">5:00 PM</span>
+      </div>
+    </div>
+    <div class="card ry">
+      <div class="card-top-row">
+        <div class="card-n">03</div>
+        <img src="LCD.PNG" alt="La Colombe D'or Hotel logo">
+      </div>
       <div class="card-tag">Reception</div>
       <div class="card-venue">The Mansion House<br>La Colombe D'or Hotel</div>
       <div class="card-addr">3410 Montrose Boulevard<br>Houston, Texas 77006</div>
-      <div class="card-note">Cocktail Hour, Dinner, dancing, and an open bar follow. Valet parking available. Dress code: Black Tie.</div>
+      <div class="card-note">Dinner, dancing, and an open bar follow inside the Mansion House. Valet parking available on Montrose Boulevard. Dress code: Black Tie.</div>
       <div class="card-time">
         <span class="card-time-lbl">Begins</span>
         <span class="card-time-val">6:30 PM</span>
@@ -2188,6 +2219,29 @@ if (prefersReduced) {
     });
   });
 }
+
+/* ── Countdown ── */
+(function initCountdown() {
+  const el = document.getElementById('countdown-text');
+  if (!el) return;
+  function update() {
+    const wedding = new Date('2027-03-06T00:00:00');
+    const now     = new Date();
+    // strip time — compare date-only
+    const today   = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const target  = new Date(wedding.getFullYear(), wedding.getMonth(), wedding.getDate());
+    const diff    = Math.round((target - today) / (1000 * 60 * 60 * 24));
+    if (diff > 1)       el.textContent = diff + ' days remaining';
+    else if (diff === 1) el.textContent = 'tomorrow';
+    else if (diff === 0) el.textContent = 'today';
+    else                 el.textContent = 'married ♥';
+  }
+  update();
+  // refresh at midnight
+  const now = new Date();
+  const msToMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
+  setTimeout(() => { update(); setInterval(update, 86400000); }, msToMidnight);
+})();
 
 /* ── Things To Do — tabs + map ── */
 (function initThingsToDo() {
