@@ -623,6 +623,123 @@ footer {
 }
 
 /* ────────────────────────────────────────
+   FAQ
+──────────────────────────────────────── */
+#faq { padding: var(--sp-2xl) var(--px); }
+
+.faq-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+  margin-bottom: clamp(3rem, 6vw, 6rem);
+}
+@media (max-width: 680px) {
+  .faq-head { grid-template-columns: 1fr; gap: var(--sp-md); }
+}
+
+.faq-h {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5.5vw, 5.5rem);
+  font-weight: 200; line-height: 1.05; letter-spacing: -.01em;
+}
+.faq-h em { font-style: italic; }
+
+.faq-intro {
+  font-size: clamp(.78rem, 1.8vw, .88rem);
+  font-weight: 200; line-height: 1.95; color: #666;
+}
+
+/* category label above each group */
+.faq-category {
+  font-size: clamp(.48rem, 1.2vw, .54rem); font-weight: 200;
+  letter-spacing: .38em; text-transform: uppercase; color: var(--grey-muted);
+  display: flex; align-items: center; gap: 1.25rem;
+  margin-bottom: var(--sp-xs);
+  margin-top: var(--sp-lg);
+}
+.faq-category:first-of-type { margin-top: 0; }
+.faq-category::before {
+  content: ''; display: block; width: 22px; height: 1px;
+  background: var(--grey-line); flex-shrink: 0;
+}
+
+/* accordion item */
+.faq-item {
+  border-top: 1px solid var(--grey-line);
+}
+.faq-item:last-child { border-bottom: 1px solid var(--grey-line); }
+
+.faq-q {
+  width: 100%; background: none; border: none;
+  display: flex; align-items: center;
+  gap: var(--sp-md);
+  padding: clamp(1rem, 2.5vw, 1.5rem) 0;
+  text-align: left; cursor: pointer;
+  color: var(--ink);
+}
+
+/* the + / × icon */
+.faq-icon {
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  position: relative;
+}
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--grey-muted);
+  transition: transform .45s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+}
+/* horizontal bar */
+.faq-icon::before {
+  width: 14px; height: 1px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* vertical bar */
+.faq-icon::after {
+  width: 1px; height: 14px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* open state — vertical bar rotates to make × */
+.faq-item.open .faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  opacity: 0;
+}
+.faq-item.open .faq-icon::before {
+  background: var(--ink);
+}
+
+.faq-q-text {
+  font-family: var(--sans);
+  font-size: clamp(.58rem, 1.5vw, .68rem); font-weight: 200;
+  letter-spacing: .2em; text-transform: uppercase;
+  line-height: 1.5;
+  transition: color .3s ease;
+}
+.faq-item.open .faq-q-text { color: var(--ink); }
+
+/* answer panel */
+.faq-panel {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .55s cubic-bezier(.16,1,.3,1);
+}
+.faq-panel-inner {
+  padding: 0 0 clamp(1.2rem, 3vw, 1.8rem) calc(18px + var(--sp-md));
+}
+.faq-panel-inner p {
+  font-size: clamp(.78rem, 1.8vw, .88rem);
+  font-weight: 200; line-height: 1.95; color: #555;
+}
+.faq-panel-inner a {
+  color: var(--ink); text-underline-offset: 3px;
+}
+
+/* ────────────────────────────────────────
    FOCUS STYLES (accessibility)
 ──────────────────────────────────────── */
 a:focus-visible,
@@ -651,6 +768,7 @@ button:focus-visible {
   <ul class="nav-links" role="list">
     <li><a href="#story">Our Story</a></li>
     <li><a href="#details">Details</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#rsvp">RSVP</a></li>
   </ul>
 
@@ -665,6 +783,7 @@ button:focus-visible {
   <ul role="list">
     <li><a href="#story" class="drawer-link">Our Story</a></li>
     <li><a href="#details" class="drawer-link">Details</a></li>
+    <li><a href="#faq" class="drawer-link">FAQ</a></li>
     <li><a href="#rsvp" class="drawer-link">RSVP</a></li>
   </ul>
 </div>
@@ -679,16 +798,16 @@ button:focus-visible {
         Change the src on each img to your actual photo filenames.
         The marquee JS adjusts automatically — no other changes needed.
       -->
-      <div class="strip-item"><img src="Proposal.jpg" alt="Photo 1"></div>
-      <div class="strip-item"><img src="Ringfinger.jpg" alt="Photo 2"></div>
-      <div class="strip-item"><img src="Posed.jpg" alt="Photo 3"></div>
-      <div class="strip-item"><img src="Ringfocus.jpg" alt="Photo 4"></div>
-      <div class="strip-item"><img src="Downtownaspen.jpg" alt="Photo 5"></div>
-      <div class="strip-item"><img src="Blur.jpg" alt="Photo 6"></div>
-      <div class="strip-item"><img src="Closeup.jpg" alt="Photo 7"></div>
-      <div class="strip-item"><img src="Aspenmountain.jpg" alt="Photo 8"></div>
-      <div class="strip-item"><img src="Jerome.jpg" alt="Photo 9"></div>
-      <div class="strip-item"><img src="Sweet.jpg" alt="Photo 10"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 1"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 2"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 3"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 4"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 5"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 6"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 7"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 8"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 9"></div>
+      <div class="strip-item"><img src="BW_Tux.jpg" alt="Photo 10"></div>
     </div>
 
     <div class="strip-monogram" aria-hidden="true">
@@ -777,6 +896,146 @@ button:focus-visible {
 </section>
 
 <div class="rule" id="r2"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-head">
+    <div>
+      <div class="eyebrow ry">FAQ</div>
+      <h2 class="faq-h ry">Your<br><em>questions,</em><br>answered.</h2>
+    </div>
+    <p class="faq-intro ry">We want your experience celebrating with us to be as seamless and stress-free as possible. Below you'll find answers to some of the questions we've been asked most.</p>
+  </div>
+
+  <!-- GROUP: Logistics & RSVPs -->
+  <p class="faq-category ry">Logistics &amp; RSVPs</p>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">How do I RSVP, and what is the deadline?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>You can RSVP directly on this website using the form in the RSVP section. Please submit your response no later than <strong>January 3, 2027</strong>. If you have any trouble, don't hesitate to reach out.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">What is the dress code?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>Black Tie. We invite our guests to dress in formal attire — tuxedos and floor-length gowns are encouraged. Please avoid wearing white or ivory.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">What time should I arrive at the ceremony?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>The ceremony begins at <strong>4:00 PM</strong>. We kindly ask that guests arrive and be seated by <strong>3:45 PM</strong>. Doors will open at 3:30 PM.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">Is there parking for the ceremony or reception?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>Street parking is available near the Annunciation Greek Orthodox Cathedral. Valet parking will be provided at La Colombe D'or for the reception — simply pull up to the front entrance on Montrose Boulevard.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">Will the ceremony, cocktail hour, and reception take place indoors or outdoors?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>The ceremony will be held indoors at the Annunciation Greek Orthodox Cathedral. The cocktail hour and reception will take place indoors at The Mansion House at La Colombe D'or.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">Is there a shuttle or transportation provided?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>We are not providing a formal shuttle service, but we encourage guests to use a rideshare service such as Uber or Lyft. Both venues are centrally located in Montrose and are easy to reach. We recommend arranging your return ride in advance.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">Are kids welcome?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>We love your little ones — however, our wedding will be an adults-only celebration. We hope this advance notice allows you to make arrangements, and we look forward to celebrating with you.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">What's the best way to contact you if I have additional questions?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>Please reach out to our wedding coordinator rather than contacting us directly — we'll be a little busy! You can email us at <a href="mailto:hello@collinandceline.com">hello@collinandceline.com</a> and we'll get back to you as soon as possible.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP: Accommodations -->
+  <p class="faq-category ry">Accommodations</p>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">Are there hotel room blocks or recommended places to stay?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>Yes — we have reserved a room block at a nearby hotel for out-of-town guests. Details and booking instructions will be shared here soon. In the meantime, the Montrose and Museum District neighborhoods offer a number of excellent options.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span class="faq-icon" aria-hidden="true"></span>
+      <span class="faq-q-text">How far are the hotels from the venue?</span>
+    </button>
+    <div class="faq-panel" role="region">
+      <div class="faq-panel-inner">
+        <p>Most recommended hotels are within a 5–10 minute drive of both the ceremony and reception venues. Both are located in the heart of Montrose, making it easy to get around by rideshare.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="rule" id="r3"></div>
 
 <!-- RSVP -->
 <section id="rsvp">
@@ -933,7 +1192,7 @@ if (prefersReduced) {
   });
 } else {
   /* Rules draw */
-  ['#r1','#r2'].forEach(id => {
+  ['#r1','#r2','#r3'].forEach(id => {
     gsap.from(id, {
       scaleX: 0, transformOrigin: 'left', duration: 1.8, ease: 'expo.inOut',
       scrollTrigger: { trigger: id, start: 'top 93%' }
@@ -959,6 +1218,36 @@ if (prefersReduced) {
     });
   });
 }
+
+/* ── FAQ accordion ── */
+document.querySelectorAll('.faq-item').forEach(item => {
+  const btn   = item.querySelector('.faq-q');
+  const panel = item.querySelector('.faq-panel');
+
+  btn.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+
+    // Close all other open items
+    document.querySelectorAll('.faq-item.open').forEach(other => {
+      if (other !== item) {
+        other.classList.remove('open');
+        other.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+        other.querySelector('.faq-panel').style.maxHeight = '0';
+      }
+    });
+
+    // Toggle this item
+    if (isOpen) {
+      item.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      panel.style.maxHeight = '0';
+    } else {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+  });
+});
 
 /* ── RSVP submit ── */
 document.getElementById('rf').addEventListener('submit', function(e) {
