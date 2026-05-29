@@ -623,6 +623,520 @@ footer {
 }
 
 /* ────────────────────────────────────────
+   ACCOMMODATIONS
+──────────────────────────────────────── */
+#accommodations { padding: var(--sp-2xl) var(--px); }
+
+.accom-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+  margin-bottom: clamp(3rem, 6vw, 6rem);
+}
+@media (max-width: 680px) {
+  .accom-head { grid-template-columns: 1fr; gap: var(--sp-md); }
+}
+
+.accom-h {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5.5vw, 5.5rem);
+  font-weight: 200; line-height: 1.05; letter-spacing: -.01em;
+}
+.accom-h em { font-style: italic; }
+
+.accom-intro {
+  font-size: clamp(.78rem, 1.8vw, .88rem);
+  font-weight: 200; line-height: 1.95; color: #666;
+}
+
+/* category divider */
+.accom-category {
+  font-size: clamp(.48rem, 1.2vw, .54rem); font-weight: 200;
+  letter-spacing: .38em; text-transform: uppercase; color: var(--grey-muted);
+  display: flex; align-items: center; gap: 1.25rem;
+  margin-bottom: var(--sp-md);
+  margin-top: var(--sp-xl);
+}
+.accom-category:first-of-type { margin-top: 0; }
+.accom-category::before {
+  content: ''; display: block; width: 22px; height: 1px;
+  background: var(--grey-line); flex-shrink: 0;
+}
+
+/* hotel grid — 2 col on desktop, 1 on mobile */
+.hotel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--grey-line);
+  border: 1px solid var(--grey-line);
+  margin-bottom: 1px; /* so consecutive grids merge border */
+}
+@media (max-width: 680px) {
+  .hotel-grid { grid-template-columns: 1fr; }
+}
+
+/* individual hotel card */
+.hotel-card {
+  background: var(--white);
+  padding: clamp(1.75rem, 4vw, 3rem);
+  display: flex; flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.hotel-num {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 200; color: var(--grey-line);
+  line-height: 1; margin-bottom: var(--sp-xs);
+}
+
+.hotel-tag {
+  font-size: clamp(.46rem, 1.1vw, .52rem); font-weight: 200;
+  letter-spacing: .35em; text-transform: uppercase; color: var(--grey-muted);
+}
+
+.hotel-name {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  font-weight: 200; line-height: 1.2;
+  color: var(--ink);
+}
+
+.hotel-desc {
+  font-size: clamp(.76rem, 1.6vw, .84rem);
+  font-weight: 200; line-height: 1.9; color: #666;
+  margin-top: var(--sp-xs);
+}
+
+.hotel-meta {
+  display: flex; flex-direction: column; gap: .35rem;
+  margin-top: var(--sp-xs);
+}
+.hotel-addr, .hotel-dist {
+  font-size: clamp(.68rem, 1.4vw, .76rem);
+  font-weight: 200; line-height: 1.7; color: #888;
+  display: flex; align-items: baseline; gap: .6rem;
+}
+.hotel-addr::before {
+  content: '';
+  display: inline-block; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--grey-line);
+  flex-shrink: 0; margin-bottom: 1px;
+}
+.hotel-dist::before {
+  content: '';
+  display: inline-block; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--grey-line);
+  flex-shrink: 0; margin-bottom: 1px;
+}
+.hotel-dist strong {
+  color: var(--ink); font-weight: 300;
+}
+
+/* book button */
+.hotel-footer {
+  margin-top: auto;
+  padding-top: var(--sp-md);
+  border-top: 1px solid var(--grey-line);
+}
+.hotel-btn {
+  display: inline-flex; align-items: center; gap: .75rem;
+  font-family: var(--sans);
+  font-size: clamp(.5rem, 1.2vw, .56rem); font-weight: 200;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color .3s ease;
+}
+.hotel-btn::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px; background: var(--ink);
+  transition: width .5s cubic-bezier(.16,1,.3,1);
+}
+@media (hover: hover) {
+  .hotel-btn:hover::after { width: 100%; }
+}
+.hotel-btn .arr { transition: transform .4s ease; }
+@media (hover: hover) {
+  .hotel-btn:hover .arr { transform: translateX(5px); }
+}
+
+/* "other" compact list */
+.hotel-others {
+  background: var(--white);
+  border: 1px solid var(--grey-line);
+  border-top: none;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.75rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background-color: var(--grey-line);
+}
+@media (max-width: 680px) {
+  .hotel-others { grid-template-columns: 1fr; }
+}
+.hotel-other-item {
+  background: var(--white);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  display: flex; flex-direction: column; gap: var(--sp-xs);
+}
+.hotel-other-name {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  font-weight: 200; line-height: 1.2; color: var(--ink);
+}
+.hotel-other-meta {
+  font-size: clamp(.66rem, 1.3vw, .74rem);
+  font-weight: 200; color: #888; line-height: 1.7;
+}
+.hotel-other-btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--sans);
+  font-size: clamp(.46rem, 1.1vw, .52rem); font-weight: 200;
+  letter-spacing: .25em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  margin-top: var(--sp-xs);
+  position: relative; padding-bottom: 2px;
+}
+.hotel-other-btn::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px; background: var(--ink);
+  transition: width .5s cubic-bezier(.16,1,.3,1);
+}
+@media (hover: hover) {
+  .hotel-other-btn:hover::after { width: 100%; }
+}
+
+/* ────────────────────────────────────────
+   THINGS TO DO
+──────────────────────────────────────── */
+#thingstodo { padding: var(--sp-2xl) var(--px); }
+
+.todo-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+@media (max-width: 680px) {
+  .todo-head { grid-template-columns: 1fr; gap: var(--sp-md); }
+}
+.todo-h {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5.5vw, 5.5rem);
+  font-weight: 200; line-height: 1.05; letter-spacing: -.01em;
+}
+.todo-h em { font-style: italic; }
+.todo-intro {
+  font-size: clamp(.78rem, 1.8vw, .88rem);
+  font-weight: 200; line-height: 1.95; color: #666;
+}
+
+/* ── Tab bar ── */
+.todo-tabs {
+  display: flex; gap: 0;
+  border-bottom: 1px solid var(--grey-line);
+  margin-bottom: var(--sp-lg);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.todo-tabs::-webkit-scrollbar { display: none; }
+
+.todo-tab {
+  flex-shrink: 0;
+  background: none; border: none;
+  font-family: var(--sans);
+  font-size: clamp(.5rem, 1.3vw, .58rem); font-weight: 200;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--grey-muted);
+  padding: clamp(.75rem, 2vw, 1rem) clamp(1rem, 2.5vw, 1.75rem);
+  cursor: pointer;
+  position: relative;
+  transition: color .3s ease;
+  white-space: nowrap;
+}
+.todo-tab::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 1px; background: var(--ink);
+  transform: scaleX(0); transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+.todo-tab.active { color: var(--ink); }
+.todo-tab.active::after { transform: scaleX(1); }
+
+/* ── Content panels ── */
+.todo-panel { display: none; }
+.todo-panel.active { display: block; }
+
+/* ── Map + list layout ── */
+.todo-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .todo-layout { grid-template-columns: 1fr; }
+}
+
+/* ── Place cards list ── */
+.todo-list {
+  display: flex; flex-direction: column;
+}
+
+.todo-item {
+  border-top: 1px solid var(--grey-line);
+  padding: clamp(1rem, 2.5vw, 1.5rem) 0;
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  gap: .75rem var(--sp-sm);
+  align-items: start;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.todo-item:last-child { border-bottom: 1px solid var(--grey-line); }
+@media (hover: hover) {
+  .todo-item:hover { background: var(--grey-light); margin: 0 calc(var(--sp-xs) * -1); padding-left: var(--sp-xs); padding-right: var(--sp-xs); }
+}
+.todo-item.selected .todo-item-num { color: var(--ink); }
+
+.todo-item-num {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 200; color: var(--grey-line);
+  line-height: 1.2;
+  transition: color .3s ease;
+  padding-top: .1em;
+}
+
+.todo-item-body { min-width: 0; }
+.todo-item-tag {
+  font-size: clamp(.42rem, 1vw, .48rem); font-weight: 200;
+  letter-spacing: .32em; text-transform: uppercase; color: var(--grey-muted);
+  margin-bottom: .25rem;
+}
+.todo-item-name {
+  font-family: var(--serif);
+  font-size: clamp(.95rem, 2.2vw, 1.25rem);
+  font-weight: 200; line-height: 1.2; color: var(--ink);
+  margin-bottom: .3rem;
+}
+.todo-item-desc {
+  font-size: clamp(.68rem, 1.4vw, .76rem);
+  font-weight: 200; line-height: 1.75; color: #777;
+}
+.todo-item-addr {
+  font-size: clamp(.62rem, 1.2vw, .68rem);
+  font-weight: 200; color: #aaa; margin-top: .3rem;
+}
+
+.todo-item-arrow {
+  font-size: .9rem; color: var(--grey-line);
+  padding-top: .2em;
+  transition: transform .3s ease, color .3s ease;
+  flex-shrink: 0;
+}
+@media (hover: hover) {
+  .todo-item:hover .todo-item-arrow { transform: translateX(4px); color: var(--ink); }
+}
+
+/* ── Map container ── */
+.todo-map-wrap {
+  position: sticky;
+  top: calc(var(--nav-h) + 1.5rem);
+  height: clamp(340px, 52vw, 560px);
+  border: 1px solid var(--grey-line);
+  overflow: hidden;
+  background: var(--grey-light);
+}
+@media (max-width: 900px) {
+  .todo-map-wrap {
+    position: static;
+    height: clamp(280px, 60vw, 400px);
+    margin-top: var(--sp-md);
+    order: -1;
+  }
+}
+
+.todo-map-wrap iframe {
+  width: 100%; height: 100%;
+  border: none; display: block;
+}
+
+/* map placeholder shown before a spot is selected */
+.todo-map-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: var(--sp-sm);
+  padding: var(--sp-lg);
+  text-align: center;
+}
+.todo-map-placeholder p {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 200; color: var(--grey-muted);
+  line-height: 1.5;
+}
+.todo-map-placeholder small {
+  font-size: clamp(.48rem, 1.2vw, .54rem); font-weight: 200;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--grey-line);
+}
+
+/* ────────────────────────────────────────
+   GALLERY
+──────────────────────────────────────── */
+#gallery { padding: var(--sp-2xl) var(--px); }
+
+.gallery-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+@media (max-width: 680px) {
+  .gallery-head { grid-template-columns: 1fr; gap: var(--sp-md); }
+}
+
+.gallery-h {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5.5vw, 5.5rem);
+  font-weight: 200; line-height: 1.05; letter-spacing: -.01em;
+}
+.gallery-h em { font-style: italic; }
+
+.gallery-sub {
+  font-size: clamp(.78rem, 1.8vw, .88rem);
+  font-weight: 200; line-height: 1.95; color: #666;
+}
+
+/* ── Mosaic grid ──
+   Uses CSS grid with named span classes.
+   Portrait = tall (spans 2 rows), Landscape = wide (spans 2 cols),
+   Square = 1×1. Pattern repeats every 25 photos.
+   Each .gp (gallery photo) has a reveal curtain built in.
+*/
+.gallery-mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: clamp(140px, 18vw, 260px);
+  gap: 3px;
+  margin: 0 calc(var(--px) * -1);
+}
+
+@media (max-width: 860px) {
+  .gallery-mosaic {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: clamp(120px, 22vw, 220px);
+  }
+}
+@media (max-width: 540px) {
+  .gallery-mosaic {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: clamp(130px, 38vw, 220px);
+  }
+}
+
+.gp {
+  position: relative; overflow: hidden;
+  background: var(--grey-light);
+}
+
+/* span helpers */
+.gp.tall  { grid-row:    span 2; }
+.gp.wide  { grid-column: span 2; }
+.gp.big   { grid-column: span 2; grid-row: span 2; }
+
+/* on small screens collapse spans to avoid orphans */
+@media (max-width: 540px) {
+  .gp.tall { grid-row: span 2; }
+  .gp.wide,
+  .gp.big  { grid-column: span 1; grid-row: span 1; }
+}
+
+.gp img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 1.6s cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+@media (hover: hover) {
+  .gp:hover img { transform: scale(1.06); }
+}
+
+/* reveal curtain per photo */
+.gp-curtain {
+  position: absolute; inset: 0;
+  background: var(--white);
+  transform-origin: top;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* lightbox overlay */
+#lightbox {
+  position: fixed; inset: 0;
+  background: rgba(8,8,8,.92);
+  z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .4s ease;
+  padding: clamp(1rem, 4vw, 3rem);
+}
+#lightbox.active {
+  opacity: 1; pointer-events: auto;
+}
+#lightbox img {
+  max-width: 100%; max-height: 90vh;
+  object-fit: contain;
+  display: block;
+  transform: scale(.96);
+  transition: transform .45s cubic-bezier(.16,1,.3,1);
+  border: none;
+}
+#lightbox.active img { transform: scale(1); }
+
+.lb-close {
+  position: absolute; top: clamp(1rem,3vw,2rem); right: clamp(1rem,3vw,2rem);
+  width: 44px; height: 44px;
+  background: none; border: none;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.lb-close::before, .lb-close::after {
+  content: ''; position: absolute;
+  width: 20px; height: 1px; background: rgba(255,255,255,.7);
+  transition: background .3s ease;
+}
+.lb-close::before { transform: rotate(45deg); }
+.lb-close::after  { transform: rotate(-45deg); }
+.lb-close:hover::before,
+.lb-close:hover::after { background: #fff; }
+
+.lb-prev, .lb-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 44px; height: 44px;
+  background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.6);
+  font-family: var(--serif); font-size: 1.6rem; font-weight: 200;
+  transition: color .3s ease;
+}
+.lb-prev { left: clamp(.5rem,2vw,1.5rem); }
+.lb-next { right: clamp(.5rem,2vw,1.5rem); }
+.lb-prev:hover, .lb-next:hover { color: #fff; }
+
+.lb-counter {
+  position: absolute; bottom: clamp(1rem,3vw,2rem); left: 50%;
+  transform: translateX(-50%);
+  font-size: .5rem; font-weight: 200; letter-spacing: .3em;
+  text-transform: uppercase; color: rgba(255,255,255,.45);
+}
+
+/* ────────────────────────────────────────
    FAQ
 ──────────────────────────────────────── */
 #faq { padding: var(--sp-2xl) var(--px); }
@@ -768,6 +1282,9 @@ button:focus-visible {
   <ul class="nav-links" role="list">
     <li><a href="#story">Our Story</a></li>
     <li><a href="#details">Details</a></li>
+    <li><a href="#accommodations">Accommodations</a></li>
+    <li><a href="#thingstodo">Things to Do</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#rsvp">RSVP</a></li>
   </ul>
@@ -783,6 +1300,9 @@ button:focus-visible {
   <ul role="list">
     <li><a href="#story" class="drawer-link">Our Story</a></li>
     <li><a href="#details" class="drawer-link">Details</a></li>
+    <li><a href="#accommodations" class="drawer-link">Accommodations</a></li>
+    <li><a href="#thingstodo" class="drawer-link">Things to Do</a></li>
+    <li><a href="#gallery" class="drawer-link">Gallery</a></li>
     <li><a href="#faq" class="drawer-link">FAQ</a></li>
     <li><a href="#rsvp" class="drawer-link">RSVP</a></li>
   </ul>
@@ -896,6 +1416,447 @@ button:focus-visible {
 </section>
 
 <div class="rule" id="r2"></div>
+
+<!-- ACCOMMODATIONS -->
+<section id="accommodations">
+  <div class="accom-head">
+    <div>
+      <div class="eyebrow ry">Accommodations</div>
+      <h2 class="accom-h ry">Where<br>to rest<br><em>well.</em></h2>
+    </div>
+    <p class="accom-intro ry">We want your time in Houston to be as enjoyable as the celebration itself. Below are our top recommendations — from intimate boutique inns steps from the church to full-service downtown hotels. All distances are from the ceremony at Annunciation Greek Orthodox Cathedral.</p>
+  </div>
+
+  <!-- Featured Hotels -->
+  <p class="accom-category ry">Our Recommendations</p>
+
+  <div class="hotel-grid">
+
+    <!-- La Colombe D'or -->
+    <div class="hotel-card ry">
+      <div class="hotel-num">01</div>
+      <div class="hotel-tag">Boutique · Reception Venue</div>
+      <div class="hotel-name">La Colombe D'or Hotel</div>
+      <p class="hotel-desc">A Houston landmark and our reception venue, La Colombe D'or is a beautifully restored 1920s mansion on Montrose Boulevard offering 32 luxurious suites. French cuisine, an infinity pool, and old-world elegance — and it is quite literally next door to the church.</p>
+      <div class="hotel-meta">
+        <div class="hotel-addr">3410 Montrose Boulevard, Houston, TX 77006</div>
+        <div class="hotel-dist"><strong>~2 min</strong> from the ceremony · 0.1 miles</div>
+      </div>
+      <div class="hotel-footer">
+        <a href="https://www.lacolombedor.com" target="_blank" rel="noopener" class="hotel-btn">
+          Visit Website <span class="arr" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Hotel Saint Augustine -->
+    <div class="hotel-card ry">
+      <div class="hotel-num">02</div>
+      <div class="hotel-tag">Boutique · Menil Collection</div>
+      <div class="hotel-name">Hotel Saint Augustine</div>
+      <p class="hotel-desc">Opened in late 2024, this 71-room Bunkhouse property sits across from the Menil Collection in the heart of Montrose. Designed around the spirit of Houston — old world meets new — with a circular courtyard pool, lobby bar, and Aaron Bludorn's restaurant Perseid on site.</p>
+      <div class="hotel-meta">
+        <div class="hotel-addr">4110 Loretto Drive, Houston, TX 77006</div>
+        <div class="hotel-dist"><strong>~4 min</strong> from the ceremony · 1.0 mile</div>
+      </div>
+      <div class="hotel-footer">
+        <a href="https://www.bunkhousehotels.com/hotel-saint-augustine" target="_blank" rel="noopener" class="hotel-btn">
+          Visit Website <span class="arr" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- The Marlene -->
+    <div class="hotel-card ry">
+      <div class="hotel-num">03</div>
+      <div class="hotel-tag">Inn · Historic Mansion</div>
+      <div class="hotel-name">The Marlene</div>
+      <p class="hotel-desc">A nine-room boutique inn housed in a restored 1910 neoclassical mansion in Montrose's Avondale Historic District. Individually designed rooms filled with hand-sourced French antiques, complimentary breakfast, and the on-site Bar Madonna. Intimate, romantic, and utterly unique.</p>
+      <div class="hotel-meta">
+        <div class="hotel-addr">109 Stratford Street, Houston, TX 77006</div>
+        <div class="hotel-dist"><strong>~3 min</strong> from the ceremony · 0.6 miles</div>
+      </div>
+      <div class="hotel-footer">
+        <a href="https://www.themarlene.com" target="_blank" rel="noopener" class="hotel-btn">
+          Visit Website <span class="arr" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Hotel ZaZa -->
+    <div class="hotel-card ry">
+      <div class="hotel-num">04</div>
+      <div class="hotel-tag">Boutique · Museum District</div>
+      <div class="hotel-name">Hotel ZaZa Houston</div>
+      <p class="hotel-desc">A Houston original and perennial favourite, Hotel ZaZa sits at the edge of the Museum District across from Rice University. 315 rooms and suites — including the legendary Magnificent Seven concept suites — along with award-winning dining at Monarch Bistro and ZaSpa on site.</p>
+      <div class="hotel-meta">
+        <div class="hotel-addr">5701 Main Street, Houston, TX 77005</div>
+        <div class="hotel-dist"><strong>~7 min</strong> from the ceremony · 2.2 miles</div>
+      </div>
+      <div class="hotel-footer">
+        <a href="https://www.hotelzaza.com/houston-museum-district" target="_blank" rel="noopener" class="hotel-btn">
+          Visit Website <span class="arr" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Other Recommendations -->
+  <p class="accom-category ry">Also Worth Considering</p>
+
+  <div class="hotel-others">
+
+    <div class="hotel-other-item ry">
+      <div class="hotel-other-name">Thompson Houston</div>
+      <div class="hotel-other-meta">
+        1717 Allen Parkway · Houston, TX 77019<br>
+        <strong style="color:var(--ink); font-weight:300;">~9 min</strong> from the ceremony · 2.8 miles<br>
+        A sleek 36-story luxury hotel on Buffalo Bayou Park with rooftop pool, full-service spa, and skyline views. By Hyatt.
+      </div>
+      <a href="https://www.hyatt.com/thompson-hotels/en-US/iahth-thompson-houston" target="_blank" rel="noopener" class="hotel-other-btn">
+        Visit Website <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="hotel-other-item ry">
+      <div class="hotel-other-name">Hilton Americas Downtown</div>
+      <div class="hotel-other-meta">
+        1600 Lamar Street · Houston, TX 77010<br>
+        <strong style="color:var(--ink); font-weight:300;">~12 min</strong> from the ceremony · 5.2 miles<br>
+        1,207-room full-service convention hotel connected to the George R. Brown Convention Center. Rooftop infinity pool and spa.
+      </div>
+      <a href="https://www.hilton.com/en/hotels/houcvhh-hilton-americas-houston/" target="_blank" rel="noopener" class="hotel-other-btn">
+        Visit Website <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="hotel-other-item ry">
+      <div class="hotel-other-name">Marriott Marquis Downtown</div>
+      <div class="hotel-other-meta">
+        1777 Walker Street · Houston, TX 77010<br>
+        <strong style="color:var(--ink); font-weight:300;">~12 min</strong> from the ceremony · 5.3 miles<br>
+        1,000 rooms in the heart of downtown, connected to the Convention Center. Famous for its Texas-shaped rooftop lazy river.
+      </div>
+      <a href="https://www.marriott.com/hotels/travel/houmq-marriott-marquis-houston/" target="_blank" rel="noopener" class="hotel-other-btn">
+        Visit Website <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="rule" id="r2a"></div>
+
+<!-- THINGS TO DO -->
+<section id="thingstodo">
+  <div class="todo-head">
+    <div>
+      <div class="eyebrow ry">Things to Do</div>
+      <h2 class="todo-h ry">Explore<br><em>Houston.</em></h2>
+    </div>
+    <p class="todo-intro ry">Houston's Montrose neighborhood is one of the most vibrant, walkable, and eclectic areas in the city. Whether you're here for a long weekend or just a day, there's something worth discovering at every turn. Click any spot to see it on the map.</p>
+  </div>
+
+  <!-- Tab bar -->
+  <div class="todo-tabs" role="tablist" aria-label="Category">
+    <button class="todo-tab active" role="tab" aria-selected="true"  data-tab="activities">Activities</button>
+    <button class="todo-tab"        role="tab" aria-selected="false" data-tab="restaurants">Restaurants</button>
+    <button class="todo-tab"        role="tab" aria-selected="false" data-tab="bars">Bars &amp; Coffee</button>
+  </div>
+
+  <!-- ── ACTIVITIES ── -->
+  <div class="todo-panel active" id="tab-activities">
+    <div class="todo-layout">
+      <div class="todo-list">
+
+        <div class="todo-item" data-lat="29.7450" data-lng="-95.3903" data-name="Montrose Collective" data-place="ChIJ2wyDXbm_QIYR7BroVAxSKt4">
+          <div class="todo-item-num">01</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Shopping · Dining · Lifestyle</div>
+            <div class="todo-item-name">Montrose Collective</div>
+            <div class="todo-item-desc">An open-air collection of boutiques, restaurants, and coffee shops anchored by Uchi and a rotating cast of Houston's best local brands. A perfect afternoon stop — particularly on a weekend.</div>
+            <div class="todo-item-addr">888 Westheimer Rd, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7377" data-lng="-95.3985" data-name="The Menil Collection" data-place="ChIJJzfbZH-_QIYRux-QWCrEx4w">
+          <div class="todo-item-num">02</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Art Museum · Free Admission</div>
+            <div class="todo-item-name">The Menil Collection</div>
+            <div class="todo-item-desc">One of the world's great private art museums, free and open to the public. The campus spans shaded oak lawns and several gallery buildings — including the ethereal Rothko Chapel nearby. A true Houston gem.</div>
+            <div class="todo-item-addr">1533 Sul Ross St, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7256" data-lng="-95.3905" data-name="Museum of Fine Arts Houston" data-place="ChIJSx6QT3-_QIYRPaWcHKc3bbI">
+          <div class="todo-item-num">03</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Art Museum · Museum District</div>
+            <div class="todo-item-name">Museum of Fine Arts (MFAH)</div>
+            <div class="todo-item-desc">One of the largest art museums in the United States, with a permanent collection spanning 6,000 years of history. Plan for at least half a day — and don't miss the rooftop for panoramic Houston views.</div>
+            <div class="todo-item-addr">1001 Bissonnet St, Houston, TX 77005</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7207" data-lng="-95.3865" data-name="McGovern Centennial Gardens" data-place="ChIJK5qZwoO_QIYRF4P0H-ZPZ3I">
+          <div class="todo-item-num">04</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Gardens · Hermann Park</div>
+            <div class="todo-item-name">McGovern Centennial Gardens</div>
+            <div class="todo-item-desc">A stunning 5-acre garden in Hermann Park featuring a spectacular spiral walkway, seasonal blooms, and tranquil reflecting pools. Ideal for an early morning stroll or a peaceful afternoon escape.</div>
+            <div class="todo-item-addr">1500 Hermann Dr, Houston, TX 77004</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7146" data-lng="-95.3822" data-name="Hermann Park Golf Course" data-place="ChIJJYJ5D5C_QIYRx775_xt_ySg">
+          <div class="todo-item-num">05</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Golf · 18 Holes · Public</div>
+            <div class="todo-item-name">Hermann Park Golf Course</div>
+            <div class="todo-item-desc">A classic 18-hole public course tucked inside Hermann Park, surrounded by the city's most beautiful green space. Affordable, accessible, and a Houston institution. Great for a casual round before the festivities.</div>
+            <div class="todo-item-addr">2155 N MacGregor Way, Houston, TX 77004</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7731" data-lng="-95.4333" data-name="Memorial Park Golf Course" data-place="ChIJabJuQtHAQIYRLU3xzKMTp8E">
+          <div class="todo-item-num">06</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Golf · PGA Tour Stop · Public</div>
+            <div class="todo-item-name">Memorial Park Golf Course</div>
+            <div class="todo-item-desc">Home of the Houston Open, Memorial Park Golf Course is a meticulously maintained 18-hole championship course set against the backdrop of 1,500 acres of Memorial Park. One of the finest public courses in Texas — book well in advance.</div>
+            <div class="todo-item-addr">1001 E Memorial Loop Dr, Houston, TX 77007</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+      </div>
+      <div class="todo-map-wrap" id="map-activities">
+        <div class="todo-map-placeholder">
+          <p>Select a spot to see it on the map.</p>
+          <small>Click any item to the left</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RESTAURANTS ── -->
+  <div class="todo-panel" id="tab-restaurants">
+    <div class="todo-layout">
+      <div class="todo-list">
+
+        <div class="todo-item" data-lat="29.7447" data-lng="-95.3857" data-name="El Tiempo Cantina" data-place="ChIJFyAEXma_QIYRMlE02xjudIw">
+          <div class="todo-item-num">01</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Tex-Mex · Casual</div>
+            <div class="todo-item-name">El Tiempo Cantina</div>
+            <div class="todo-item-desc">A Houston institution. Sizzling fajitas, strong margaritas, and crab nachos that guests talk about for years. Classic Tex-Mex at its most unapologetic — perfect for a casual pre-wedding lunch with family.</div>
+            <div class="todo-item-addr">322 Westheimer Rd, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7449" data-lng="-95.3931" data-name="Drake's Hollywood" data-place="ChIJm6uX4I2_QIYRs1mglrixx_M">
+          <div class="todo-item-num">02</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Steakhouse · Upscale</div>
+            <div class="todo-item-name">Drake's Hollywood</div>
+            <div class="todo-item-desc">Montrose's most glamorous dining room. Dramatic interiors, an exceptional raw bar, and a menu centered on prime cuts and indulgent sides. The coldest martini in Houston and a silk pie worth every calorie.</div>
+            <div class="todo-item-addr">1100 Westheimer Rd, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7357" data-lng="-95.3985" data-name="Perseid at Hotel Saint Augustine" data-place="ChIJj-AuTgDBQIYR-yjUNIytKz0">
+          <div class="todo-item-num">03</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Gulf Coast · All-Day Dining</div>
+            <div class="todo-item-name">Perseid</div>
+            <div class="todo-item-desc">Chef Aaron Bludorn's Gulf Coast-inspired all-day restaurant at Hotel Saint Augustine. Quiet, refined, and quietly exceptional — the hanger steak and Anne potatoes are Houston's best-kept secret. Reserve ahead.</div>
+            <div class="todo-item-addr">4110 Loretto Dr, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7390" data-lng="-95.3953" data-name="Southern Yankee Crafthouse" data-place="ChIJT38uPg_BQIYRZpvIOg-do9I">
+          <div class="todo-item-num">04</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Gastropub · Casual</div>
+            <div class="todo-item-name">Southern Yankee Crafthouse</div>
+            <div class="todo-item-desc">Beloved Montrose gastropub with a creative cocktail program and some of the most talked-about pizzas in Houston. The pickle pizza with pepperoni is a genuine revelation. Great patio, even better vibes.</div>
+            <div class="todo-item-addr">1312 W Alabama St, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7342" data-lng="-95.3941" data-name="The Pit Room" data-place="ChIJgcrcf4LAQIYREwyikgKgLco">
+          <div class="todo-item-num">05</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Texas BBQ · Counter Service</div>
+            <div class="todo-item-name">The Pit Room</div>
+            <div class="todo-item-desc">Houston's finest Texas barbecue, full stop. The brisket has a bark and smoke ring that rivals anything in central Texas. Lines form early and sell-out is real — arrive before noon. Worth every minute of the wait.</div>
+            <div class="todo-item-addr">1201 Richmond Ave, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7385" data-lng="-95.3909" data-name="Clark's Oyster Bar" data-place="ChIJbXeNf1S_QIYR2rQjwtR4sNU">
+          <div class="todo-item-num">06</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Seafood · Oyster Bar</div>
+            <div class="todo-item-name">Clark's Oyster Bar</div>
+            <div class="todo-item-desc">A gleaming Montrose seafood counter with an impressive daily oyster selection, excellent chowder, and the most underrated burger in the neighborhood. Half-price martinis at happy hour. Elevated yet effortless.</div>
+            <div class="todo-item-addr">3807 Montrose Blvd, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+      </div>
+      <div class="todo-map-wrap" id="map-restaurants">
+        <div class="todo-map-placeholder">
+          <p>Select a spot to see it on the map.</p>
+          <small>Click any item to the left</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BARS & COFFEE ── -->
+  <div class="todo-panel" id="tab-bars">
+    <div class="todo-layout">
+      <div class="todo-list">
+
+        <div class="todo-item" data-lat="29.7416" data-lng="-95.3916" data-name="Bar No. 3" data-place="ChIJZT7wHfy_QIYRGCm-0lBAtco">
+          <div class="todo-item-num">01</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Cocktail Bar · Hotel Bar</div>
+            <div class="todo-item-name">Bar No. 3</div>
+            <div class="todo-item-desc">Tucked inside La Colombe D'or — our reception venue — Bar No. 3 is a moody, speakeasy-adjacent room of dark wood, soft leather, and live piano. Exceptional old fashioneds and a bartender, Sergio, who truly understands his craft.</div>
+            <div class="todo-item-addr">3410 Montrose Blvd, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7430" data-lng="-95.3969" data-name="Anvil Bar & Refuge" data-place="ChIJGezjg57AQIYRiivaEi1eVko">
+          <div class="todo-item-num">02</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Cocktail Bar · Late Night</div>
+            <div class="todo-item-name">Anvil</div>
+            <div class="todo-item-desc">The gold standard of Houston craft cocktails, and one of the most respected bars in the country. Staff trained to an extraordinary level of precision. The "100 cocktails" list at happy hour is one of the city's greatest bargains.</div>
+            <div class="todo-item-addr">1424 Westheimer Rd, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7429" data-lng="-95.4026" data-name="Agora" data-place="ChIJ3VUwj5nAQIYRlAd40VjiTDA">
+          <div class="todo-item-num">03</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Coffee · Wine · Open Late</div>
+            <div class="todo-item-name">Agora</div>
+            <div class="todo-item-desc">A beloved Montrose institution open daily until 2 AM. Part coffee shop, part wine bar, part living room for the neighborhood. Worn-in couches, warm light, and a welcome lack of urgency. Perfect for a quiet afternoon or late-night wind-down.</div>
+            <div class="todo-item-addr">1712 Westheimer Rd, Houston, TX 77098</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7448" data-lng="-95.3925" data-name="Blacksmith" data-place="ChIJv9bVuGG_QIYRq3Lf9AaP8XE">
+          <div class="todo-item-num">04</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Coffee · Breakfast</div>
+            <div class="todo-item-name">Blacksmith</div>
+            <div class="todo-item-desc">Montrose's most beloved morning ritual. Exceptional espresso, housemade pastries, and a vibe that somehow feels both effortlessly cool and deeply welcoming. Arrive early on weekends — it fills up fast and for good reason.</div>
+            <div class="todo-item-addr">1018 Westheimer Rd, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+        <div class="todo-item" data-lat="29.7384" data-lng="-95.3883" data-name="Siphon Coffee" data-place="ChIJ27_1pGS_QIYRJB3FWgFpN70">
+          <div class="todo-item-num">05</div>
+          <div class="todo-item-body">
+            <div class="todo-item-tag">Specialty Coffee · All Day</div>
+            <div class="todo-item-name">Siphon</div>
+            <div class="todo-item-desc">Artisan-level specialty coffee in a warm, industrial space with excellent natural light and reliable Wi-Fi. A favorite of the neighborhood for focused mornings or long, unhurried afternoons. The cortado is exceptional.</div>
+            <div class="todo-item-addr">701 W Alabama St, Houston, TX 77006</div>
+          </div>
+          <div class="todo-item-arrow" aria-hidden="true">→</div>
+        </div>
+
+      </div>
+      <div class="todo-map-wrap" id="map-bars">
+        <div class="todo-map-placeholder">
+          <p>Select a spot to see it on the map.</p>
+          <small>Click any item to the left</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="rule" id="r2c"></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-head">
+    <div>
+      <div class="eyebrow ry">Gallery</div>
+      <h2 class="gallery-h ry">Moments<br>we will<br><em>cherish.</em></h2>
+    </div>
+    <p class="gallery-sub ry">A collection of our favourite photographs — from ordinary afternoons to the adventures that brought us here.</p>
+  </div>
+
+  <!--
+    GALLERY PHOTOS — 25 total.
+    Span classes: tall (portrait 1×2), wide (landscape 2×1), big (2×2), [none] (square 1×1)
+    Replace each src with your actual photo filename.
+    Pattern is designed for a mix of orientations.
+  -->
+  <div class="gallery-mosaic">
+    <div class="gp tall"  data-i="0" ><img src="BW_Tux.jpg" alt="Photo 1" ><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="1" ><img src="BW_Tux.jpg" alt="Photo 2" ><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="2" ><img src="BW_Tux.jpg" alt="Photo 3" ><div class="gp-curtain"></div></div>
+    <div class="gp wide"  data-i="3" ><img src="BW_Tux.jpg" alt="Photo 4" ><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="4" ><img src="BW_Tux.jpg" alt="Photo 5" ><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="5" ><img src="BW_Tux.jpg" alt="Photo 6" ><div class="gp-curtain"></div></div>
+    <div class="gp tall"  data-i="6" ><img src="BW_Tux.jpg" alt="Photo 7" ><div class="gp-curtain"></div></div>
+    <div class="gp wide"  data-i="7" ><img src="BW_Tux.jpg" alt="Photo 8" ><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="8" ><img src="BW_Tux.jpg" alt="Photo 9" ><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="9" ><img src="BW_Tux.jpg" alt="Photo 10"><div class="gp-curtain"></div></div>
+    <div class="gp big"   data-i="10"><img src="BW_Tux.jpg" alt="Photo 11"><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="11"><img src="BW_Tux.jpg" alt="Photo 12"><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="12"><img src="BW_Tux.jpg" alt="Photo 13"><div class="gp-curtain"></div></div>
+    <div class="gp tall"  data-i="13"><img src="BW_Tux.jpg" alt="Photo 14"><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="14"><img src="BW_Tux.jpg" alt="Photo 15"><div class="gp-curtain"></div></div>
+    <div class="gp wide"  data-i="15"><img src="BW_Tux.jpg" alt="Photo 16"><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="16"><img src="BW_Tux.jpg" alt="Photo 17"><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="17"><img src="BW_Tux.jpg" alt="Photo 18"><div class="gp-curtain"></div></div>
+    <div class="gp tall"  data-i="18"><img src="BW_Tux.jpg" alt="Photo 19"><div class="gp-curtain"></div></div>
+    <div class="gp wide"  data-i="19"><img src="BW_Tux.jpg" alt="Photo 20"><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="20"><img src="BW_Tux.jpg" alt="Photo 21"><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="21"><img src="BW_Tux.jpg" alt="Photo 22"><div class="gp-curtain"></div></div>
+    <div class="gp big"   data-i="22"><img src="BW_Tux.jpg" alt="Photo 23"><div class="gp-curtain"></div></div>
+    <div class="gp"       data-i="23"><img src="BW_Tux.jpg" alt="Photo 24"><div class="gp-curtain"></div></div>
+    <div class="gp tall"  data-i="24"><img src="BW_Tux.jpg" alt="Photo 25"><div class="gp-curtain"></div></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+  <button class="lb-close" id="lbClose" aria-label="Close"></button>
+  <button class="lb-prev"  id="lbPrev"  aria-label="Previous photo">&#8592;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-next"  id="lbNext"  aria-label="Next photo">&#8594;</button>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<div class="rule" id="r2b"></div>
 
 <!-- FAQ -->
 <section id="faq">
@@ -1192,10 +2153,19 @@ if (prefersReduced) {
   });
 } else {
   /* Rules draw */
-  ['#r1','#r2','#r3'].forEach(id => {
+  ['#r1','#r2','#r2a','#r2b','#r2c','#r3'].forEach(id => {
     gsap.from(id, {
       scaleX: 0, transformOrigin: 'left', duration: 1.8, ease: 'expo.inOut',
       scrollTrigger: { trigger: id, start: 'top 93%' }
+    });
+  });
+
+  /* Gallery curtain reveals — staggered in viewport batches */
+  gsap.utils.toArray('.gp-curtain').forEach((curtain, i) => {
+    gsap.to(curtain, {
+      scaleY: 0, transformOrigin: 'top', duration: 1.4, ease: 'expo.inOut',
+      delay: (i % 6) * .07,
+      scrollTrigger: { trigger: curtain, start: 'top 90%' }
     });
   });
 
@@ -1218,6 +2188,98 @@ if (prefersReduced) {
     });
   });
 }
+
+/* ── Things To Do — tabs + map ── */
+(function initThingsToDo() {
+  // Tab switching
+  document.querySelectorAll('.todo-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      document.querySelectorAll('.todo-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.todo-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      document.getElementById('tab-' + target).classList.add('active');
+    });
+  });
+
+  // Map: clicking a place item shows Google Maps embed
+  document.querySelectorAll('.todo-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const panel  = item.closest('.todo-panel');
+      const mapId  = panel.querySelector('.todo-map-wrap').id;
+      const mapEl  = document.getElementById(mapId);
+      const placeId = item.dataset.place;
+      const name   = encodeURIComponent(item.dataset.name);
+
+      // deselect siblings, select this
+      panel.querySelectorAll('.todo-item').forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+
+      // Build embed URL using place_id for accuracy
+      const src = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=place_id:${placeId}&zoom=16`;
+      mapEl.innerHTML = `<iframe src="${src}" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${item.dataset.name}"></iframe>`;
+    });
+  });
+})();
+
+/* ── Gallery lightbox ── */
+(function initLightbox() {
+  const photos  = Array.from(document.querySelectorAll('.gp img'));
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbCtr   = document.getElementById('lbCounter');
+  let   current = 0;
+
+  function open(idx) {
+    current = idx;
+    lbImg.src = photos[idx].src;
+    lbImg.alt = photos[idx].alt;
+    lbCtr.textContent = (idx + 1) + ' / ' + photos.length;
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function prev() { open((current - 1 + photos.length) % photos.length); }
+  function next() { open((current + 1) % photos.length); }
+
+  // Click photo to open
+  document.querySelectorAll('.gp').forEach((gp, i) => {
+    gp.style.cursor = 'pointer';
+    gp.addEventListener('click', () => open(i));
+  });
+
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', prev);
+  document.getElementById('lbNext').addEventListener('click', next);
+
+  // Click backdrop to close
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'ArrowRight') next();
+  });
+
+  // Touch swipe support
+  let touchStartX = 0;
+  lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
+  }, { passive: true });
+})();
 
 /* ── FAQ accordion ── */
 document.querySelectorAll('.faq-item').forEach(item => {
