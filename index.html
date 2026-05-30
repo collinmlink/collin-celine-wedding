@@ -330,18 +330,20 @@ nav {
 /* ────────────────────────────────────────
    STORY
 ──────────────────────────────────────── */
-#story { padding: var(--sp-2xl) var(--px) 0; }
+#story { padding: var(--sp-2xl) var(--px); }
 
-.story-top {
+.story-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 6vw, 6rem);
-  align-items: end;
-  margin-bottom: clamp(3rem, 6vw, 6rem);
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(3rem, 7vw, 7rem);
+  align-items: start;
 }
 @media (max-width: 680px) {
-  .story-top { grid-template-columns: 1fr; gap: var(--sp-md); }
+  .story-layout { grid-template-columns: 1fr; gap: var(--sp-lg); }
 }
+
+/* left column: eyebrow + heading + small photo */
+.story-left { display: flex; flex-direction: column; gap: var(--sp-md); }
 
 .story-h {
   font-family: var(--serif);
@@ -350,59 +352,32 @@ nav {
 }
 .story-h em { font-style: italic; }
 
-.story-body {
-  display: flex; flex-direction: column;
-  justify-content: flex-end; gap: var(--sp-sm);
+.story-photo {
+  position: relative; overflow: hidden;
+  aspect-ratio: 4/5;
+  width: 100%;
 }
-.story-body p {
-  font-size: clamp(.82rem, 1.8vw, .9rem);
-  font-weight: 200; line-height: 1.9; color: #3a3a38;
-}
-
-.story-band {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 2px; margin: 0 calc(var(--px) * -1);
-}
-@media (max-width: 680px) {
-  .story-band { grid-template-columns: 1fr; }
-}
-
-.img-wrap { position: relative; overflow: hidden; }
-.img-wrap.tall { aspect-ratio: 4/5; }
-.img-wrap.sq {
-  aspect-ratio: 3/4;
-  margin-top: clamp(2px, 6vw, 6rem);
-}
-@media (max-width: 680px) {
-  .img-wrap.sq { margin-top: 2px; }
-}
-.img-wrap img {
+.story-photo img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   transition: transform 1.8s cubic-bezier(.16,1,.3,1);
 }
 @media (hover: hover) {
-  .img-wrap:hover img { transform: scale(1.04); }
+  .story-photo:hover img { transform: scale(1.04); }
 }
-.img-curtain {
+.story-photo .img-curtain {
   position: absolute; inset: 0;
   background: var(--white); transform-origin: top; z-index: 2;
 }
 
-.story-q {
-  padding: var(--sp-xl) var(--px) var(--sp-2xl);
-  max-width: 58ch;
+/* right column: all paragraphs flowing together */
+.story-body {
+  display: flex; flex-direction: column;
+  gap: var(--sp-md);
+  padding-top: clamp(3rem, 6vw, 5rem); /* align roughly with heading baseline */
 }
-.story-q blockquote {
-  font-family: var(--serif);
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
-  font-weight: 200; font-style: italic; line-height: 1.55;
-  color: var(--ink); margin-bottom: var(--sp-sm);
-}
-.story-q cite {
-  font-size: clamp(.5rem, 1.4vw, .58rem); font-weight: 200;
-  letter-spacing: .3em; text-transform: uppercase;
-  color: var(--grey-muted); font-style: normal;
+.story-body p {
+  font-size: clamp(.82rem, 1.8vw, .9rem);
+  font-weight: 200; line-height: 1.95; color: #3a3a38;
 }
 
 /* ────────────────────────────────────────
@@ -1337,25 +1312,27 @@ button:focus-visible {
 
 <!-- STORY -->
 <section id="story">
-  <div class="story-top">
-    <div>
+  <div class="story-layout">
+
+    <!-- Left: eyebrow + heading + small photo -->
+    <div class="story-left">
       <div class="eyebrow ry">Our Story</div>
-      <h2 class="story-h ry">How two<br>worlds became<br><em>one.</em></h2>
+      <h2 class="story-h ry">How it<br>all<br><em>began.</em></h2>
+      <div class="story-photo ry">
+        <img src="BW_Tux.jpg" alt="Collin and Celine">
+        <div class="img-curtain" id="ic1"></div>
+      </div>
     </div>
+
+    <!-- Right: all paragraphs -->
     <div class="story-body">
-      <p class="ry">Collin and Celine met on an ordinary Tuesday that neither of them would ever forget. A coffee shop, a borrowed pen, and one conversation that stretched long past closing time.</p>
-      <p class="ry">In the years that followed, they built a life rich with adventure, laughter, and a love that grew more certain with every passing season. Now, they invite the people they treasure most to witness what comes next.</p>
+      <p class="ry">Collin and Celine first crossed paths on the natural gas trade floor at ExxonMobil, where Celine was interning and Collin had already been part of the team for a few years. There was an easy chemistry from the start — the kind you try not to read too much into when you still have to see each other at work every day.</p>
+      <p class="ry">They waited until Celine's internship was winding down to act on it, starting with drinks at Padre's and dinner at Coltivare in the Houston Heights. A few more dates followed, and the whole thing wrapped up — appropriately enough — at BCN, the night they made things official. A Spanish restaurant for a first chapter that would, not so coincidentally, end with their first international trip together being Barcelona.</p>
+      <p class="ry">Life together quickly found its rhythm — date nights at El Tiempo, Clark's Oyster Bar, and their favorite local dive, Southern Yankee Crafthouse, mixed with frequent trips to Southern California, New York City, and Miami. The kind of life that's equal parts comfortable and always moving.</p>
+      <p class="ry">Two and a half years in, Collin brought Celine to Aspen, Colorado — and popped the question. What felt like a quiet, intimate moment turned into something even better: a room full of family and friends waiting to celebrate them at a local bar. They spent the rest of the weekend the only way they know how — good food, great drinks, and hitting the hiking trails together.</p>
+      <p class="ry">Now, March 6th is right around the corner, and they can't wait to celebrate with everyone who has been part of the journey.</p>
     </div>
-  </div>
-  <div class="story-band">
-    <div class="img-wrap tall">
-      <img src="BW_Tux.jpg" alt="Couple portrait">
-      <div class="img-curtain" id="ic1"></div>
-    </div>
-    <div class="img-wrap sq">
-      <img src="BW_Tux.jpg" alt="Together">
-      <div class="img-curtain" id="ic2"></div>
-    </div>
+
   </div>
 </section>
 
@@ -2166,14 +2143,10 @@ if (prefersReduced) {
     });
   });
 
-  /* Image curtain reveals */
+  /* Story photo curtain reveal */
   gsap.to('#ic1', {
     scaleY: 0, transformOrigin: 'top', duration: 1.6, ease: 'expo.inOut',
-    scrollTrigger: { trigger: '.story-band', start: 'top 82%' }
-  });
-  gsap.to('#ic2', {
-    scaleY: 0, transformOrigin: 'top', duration: 1.6, ease: 'expo.inOut', delay: .18,
-    scrollTrigger: { trigger: '.story-band', start: 'top 82%' }
+    scrollTrigger: { trigger: '.story-photo', start: 'top 82%' }
   });
 
   /* Generic reveals */
