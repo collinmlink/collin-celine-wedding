@@ -277,9 +277,9 @@ nav {
 }
 .strip-date span {
   font-family: var(--sans);
-  font-size: clamp(.85rem, 2.2vw, 1.15rem);
+  font-size: clamp(.5rem, 1.5vw, .62rem);
   font-weight: 200; font-style: normal;
-  letter-spacing: .3em; text-transform: uppercase;
+  letter-spacing: .35em; text-transform: uppercase;
   color: var(--ink);
   white-space: nowrap;
 }
@@ -545,10 +545,9 @@ nav {
 .vsig-body p {
   font-size: clamp(.78rem, 1.7vw, .86rem);
   font-weight: 200; line-height: 1.95; color: #484845;
-  padding-top: var(--sp-sm);
-  border-top: 1px solid var(--grey-line);
+  margin-top: var(--sp-sm);
 }
-.vsig-body p:first-child { border-top: none; padding-top: 0; }
+.vsig-body p:first-child { margin-top: 0; }
 
 /* ────────────────────────────────────────
    RSVP
@@ -1360,36 +1359,6 @@ button:focus-visible {
   </div>
 </section>
 
-<!-- VENUE SIGNIFICANCE -->
-<section id="venue-significance">
-  <div class="vsig-grid">
-
-    <!-- La Colombe D'or -->
-    <div class="vsig-item ry">
-      <div class="vsig-eyebrow">The Reception</div>
-      <h3 class="vsig-title">La Colombe D'or<br><em>Mansion House</em></h3>
-      <div class="vsig-body">
-        <p>Originally built in 1923 as the private residence of Walter W. Fondren, a founder of Humble Oil, this storied mansion is one of the last remaining grand homes along Montrose Boulevard. In 1979, Houston attorney Steve Zimmerman reimagined it as a boutique hotel, drawing inspiration from a French auberge he once visited, where works by Chagall and Picasso adorned the walls. Now a registered Texas Historical Landmark, the hotel blends old-world character with modern refinement.</p>
-        <p>The Mansion holds deep significance for both families. Phil and Renata DeMoes, parents of the bride, had one of their very first lunch dates at the Mansion House restaurant with Phil's parents visiting from Alabama. It was a place of meaning for what is now a 25-year marriage — and now, in a beautiful full-circle moment, it becomes the setting for the next chapter of the DeMoes' story.</p>
-        <p>For the groom, the connection is equally personal. Collin has called the hotel Residences home for the past three years — beginning shortly after he and Celine started dating in August of 2023. Their courtship was woven into the fabric of this neighborhood: evening walks along Montrose, oyster-filled dinners at Clark's or Southern Yankee Crafthouse just around the corner, and pre-dinner cocktails at Bar No. 3, the timeless bar tucked inside the Mansion House itself.</p>
-        <p>Collin and Celine feel deeply humbled and privileged to share their special day with you at such a uniquely meaningful place.</p>
-      </div>
-    </div>
-
-    <!-- Annunciation -->
-    <div class="vsig-item ry">
-      <div class="vsig-eyebrow">The Ceremony</div>
-      <h3 class="vsig-title">Annunciation Greek<br><em>Orthodox Cathedral</em></h3>
-      <div class="vsig-body">
-        <p>In 1917, the Annunciation community organized the first Greek Orthodox Church in Houston, located on Walker Avenue in what is now Tranquility Park in downtown Houston. Required to move due to city construction and its own growing membership, the congregation erected its present sanctuary on Yoakum Boulevard in 1952. Annunciation gained the distinction of "Cathedral" in 1967 when Houston became the See of the 8th Diocesan District of the Greek Orthodox Archdiocese of North and South America. While the Metropolitan Center is now located in Denver, Colorado, Annunciation Cathedral remains one of the largest Orthodox churches in America and a center for Orthodox education, ministry, and Greek cultural life in the Houston area.</p>
-        <p>Phil and Renata DeMoes raised their twin daughters, Celine and Danielle, in the Annunciation Greek Orthodox Church. The girls grew up deeply connected to the parish community, and Celine has since introduced Collin to one of her family's favorite annual traditions — the Greek Festival, held each October to celebrate Greek culture, food, and Orthodox life.</p>
-        <p>The DeMoes' are overjoyed to welcome you to their church and to share this magnificent cathedral and ceremony with the family and friends they love most.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
 <div class="rule" id="r1"></div>
 
 <!-- SCHEDULE -->
@@ -1444,6 +1413,36 @@ button:focus-visible {
         <span class="card-time-val">6:30 PM</span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- VENUE SIGNIFICANCE -->
+<section id="venue-significance">
+  <div class="vsig-grid">
+
+    <!-- Annunciation — LEFT -->
+    <div class="vsig-item ry">
+      <div class="vsig-eyebrow">The Ceremony</div>
+      <h3 class="vsig-title">Annunciation Greek<br><em>Orthodox Cathedral</em></h3>
+      <div class="vsig-body">
+        <p>In 1917, the Annunciation community organized the first Greek Orthodox Church in Houston, located on Walker Avenue in what is now Tranquility Park in downtown Houston. Required to move due to city construction and its own growing membership, the congregation erected its present sanctuary on Yoakum Boulevard in 1952. Annunciation gained the distinction of "Cathedral" in 1967 when Houston became the See of the 8th Diocesan District of the Greek Orthodox Archdiocese of North and South America. While the Metropolitan Center is now located in Denver, Colorado, Annunciation Cathedral remains one of the largest Orthodox churches in America and a center for Orthodox education, ministry, and Greek cultural life in the Houston area.</p>
+        <p>Phil and Renata DeMoes raised their twin daughters, Celine and Danielle, in the Annunciation Greek Orthodox Church. The girls grew up deeply connected to the parish community, and Celine has since introduced Collin to one of her family's favorite annual traditions — the Greek Festival, held each October to celebrate Greek culture, food, and Orthodox life.</p>
+        <p>The DeMoes' are overjoyed to welcome you to their church and to share this magnificent cathedral and ceremony with the family and friends they love most.</p>
+      </div>
+    </div>
+
+    <!-- La Colombe D'or — RIGHT -->
+    <div class="vsig-item ry">
+      <div class="vsig-eyebrow">The Reception</div>
+      <h3 class="vsig-title">La Colombe D'or<br><em>Mansion House</em></h3>
+      <div class="vsig-body">
+        <p>Originally built in 1923 as the private residence of Walter W. Fondren, a founder of Humble Oil, this storied mansion is one of the last remaining grand homes along Montrose Boulevard. In 1979, Houston attorney Steve Zimmerman reimagined it as a boutique hotel, drawing inspiration from a French auberge he once visited, where works by Chagall and Picasso adorned the walls. Now a registered Texas Historical Landmark, the hotel blends old-world character with modern refinement.</p>
+        <p>The Mansion holds deep significance for both families. Phil and Renata DeMoes, parents of the bride, had one of their very first lunch dates at the Mansion House restaurant with Phil's parents visiting from Alabama. It was a place of meaning for what is now a 25-year marriage — and now, in a beautiful full-circle moment, it becomes the setting for the next chapter of the DeMoes' story.</p>
+        <p>For the groom, the connection is equally personal. Collin has called the hotel Residences home for the past three years — beginning shortly after he and Celine started dating in August of 2023. Their courtship was woven into the fabric of this neighborhood: evening walks along Montrose, oyster-filled dinners at Clark's or Southern Yankee Crafthouse just around the corner, and pre-dinner cocktails at Bar No. 3, the timeless bar tucked inside the Mansion House itself.</p>
+        <p>Collin and Celine feel deeply humbled and privileged to share their special day with you at such a uniquely meaningful place.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
