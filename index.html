@@ -136,7 +136,7 @@ nav {
   letter-spacing: .25em; text-transform: uppercase;
   text-decoration: none; color: var(--ink);
   position: relative; transition: color .4s ease;
-  padding: .5rem 0; /* touch target height */
+  padding: .5rem 0;
 }
 .nav-links a::after {
   content: ''; position: absolute; bottom: 0; left: 0;
@@ -457,12 +457,12 @@ nav {
 }
 .card-top-row {
   display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 0;
+  margin-bottom: var(--sp-sm);
 }
 .card-top-row img {
-  height: clamp(100px, 18vw, 220px);
+  height: clamp(80px, 12vw, 160px);
   width: auto; object-fit: contain;
-  max-width: 45%;
+  max-width: 40%;
   flex-shrink: 0;
 }
 .card-tag {
@@ -502,6 +502,52 @@ nav {
   font-size: clamp(.95rem, 2.2vw, 1.1rem);
   font-weight: 200; color: var(--ink);
 }
+
+/* ────────────────────────────────────────
+   VENUE SIGNIFICANCE
+──────────────────────────────────────── */
+#venue-significance { padding: var(--sp-xl) var(--px) var(--sp-2xl); }
+
+.vsig-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+@media (max-width: 680px) {
+  .vsig-grid { grid-template-columns: 1fr; }
+}
+
+.vsig-item { display: flex; flex-direction: column; gap: var(--sp-sm); }
+
+.vsig-eyebrow {
+  font-size: clamp(.48rem, 1.2vw, .54rem); font-weight: 200;
+  letter-spacing: .38em; text-transform: uppercase; color: var(--grey-muted);
+  display: flex; align-items: center; gap: 1rem;
+}
+.vsig-eyebrow::before {
+  content: ''; display: block; width: 18px; height: 1px;
+  background: var(--grey-line); flex-shrink: 0;
+}
+
+.vsig-title {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 200; line-height: 1.15; letter-spacing: -.01em;
+  color: var(--ink);
+}
+.vsig-title em { font-style: italic; }
+
+.vsig-body {
+  display: flex; flex-direction: column; gap: var(--sp-sm);
+  padding-top: var(--sp-xs);
+}
+.vsig-body p {
+  font-size: clamp(.78rem, 1.7vw, .86rem);
+  font-weight: 200; line-height: 1.95; color: #484845;
+  padding-top: var(--sp-sm);
+  border-top: 1px solid var(--grey-line);
+}
+.vsig-body p:first-child { border-top: none; padding-top: 0; }
 
 /* ────────────────────────────────────────
    RSVP
@@ -1313,6 +1359,36 @@ button:focus-visible {
   </div>
 </section>
 
+<!-- VENUE SIGNIFICANCE -->
+<section id="venue-significance">
+  <div class="vsig-grid">
+
+    <!-- La Colombe D'or -->
+    <div class="vsig-item ry">
+      <div class="vsig-eyebrow">The Reception</div>
+      <h3 class="vsig-title">La Colombe D'or<br><em>Mansion House</em></h3>
+      <div class="vsig-body">
+        <p>Originally built in 1923 as the private residence of Walter W. Fondren, a founder of Humble Oil, this storied mansion is one of the last remaining grand homes along Montrose Boulevard. In 1979, Houston attorney Steve Zimmerman reimagined it as a boutique hotel, drawing inspiration from a French auberge he once visited, where works by Chagall and Picasso adorned the walls. Now a registered Texas Historical Landmark, the hotel blends old-world character with modern refinement.</p>
+        <p>The Mansion holds deep significance for both families. Phil and Renata DeMoes, parents of the bride, had one of their very first lunch dates at the Mansion House restaurant with Phil's parents visiting from Alabama. It was a place of meaning for what is now a 25-year marriage — and now, in a beautiful full-circle moment, it becomes the setting for the next chapter of the DeMoes' story.</p>
+        <p>For the groom, the connection is equally personal. Collin has called the hotel Residences home for the past three years — beginning shortly after he and Celine started dating in August of 2023. Their courtship was woven into the fabric of this neighborhood: evening walks along Montrose, oyster-filled dinners at Clark's or Southern Yankee Crafthouse just around the corner, and pre-dinner cocktails at Bar No. 3, the timeless bar tucked inside the Mansion House itself.</p>
+        <p>Collin and Celine feel deeply humbled and privileged to share their special day with you at such a uniquely meaningful place.</p>
+      </div>
+    </div>
+
+    <!-- Annunciation -->
+    <div class="vsig-item ry">
+      <div class="vsig-eyebrow">The Ceremony</div>
+      <h3 class="vsig-title">Annunciation Greek<br><em>Orthodox Cathedral</em></h3>
+      <div class="vsig-body">
+        <p>In 1917, the Annunciation community organized the first Greek Orthodox Church in Houston, located on Walker Avenue in what is now Tranquility Park in downtown Houston. Required to move due to city construction and its own growing membership, the congregation erected its present sanctuary on Yoakum Boulevard in 1952. Annunciation gained the distinction of "Cathedral" in 1967 when Houston became the See of the 8th Diocesan District of the Greek Orthodox Archdiocese of North and South America. While the Metropolitan Center is now located in Denver, Colorado, Annunciation Cathedral remains one of the largest Orthodox churches in America and a center for Orthodox education, ministry, and Greek cultural life in the Houston area.</p>
+        <p>Phil and Renata DeMoes raised their twin daughters, Celine and Danielle, in the Annunciation Greek Orthodox Church. The girls grew up deeply connected to the parish community, and Celine has since introduced Collin to one of her family's favorite annual traditions — the Greek Festival, held each October to celebrate Greek culture, food, and Orthodox life.</p>
+        <p>The DeMoes' are overjoyed to welcome you to their church and to share this magnificent cathedral and ceremony with the family and friends they love most.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <div class="rule" id="r1"></div>
 
 <!-- SCHEDULE -->
@@ -1466,8 +1542,7 @@ button:focus-visible {
       <div class="hotel-other-name">Thompson Houston</div>
       <div class="hotel-other-meta">
         1717 Allen Parkway · Houston, TX 77019<br>
-        <strong style="color:var(--ink); font-weight:300;">~9 min</strong> from the ceremony · 2.8 miles<br>
-        A sleek 36-story luxury hotel on Buffalo Bayou Park with rooftop pool, full-service spa, and skyline views. By Hyatt.
+        <strong style="color:var(--ink); font-weight:300;">~9 min</strong> from the ceremony · 2.8 miles
       </div>
       <a href="https://www.hyatt.com/thompson-hotels/en-US/iahth-thompson-houston" target="_blank" rel="noopener" class="hotel-other-btn">
         Visit Website <span aria-hidden="true">→</span>
@@ -1478,8 +1553,7 @@ button:focus-visible {
       <div class="hotel-other-name">Hilton Americas Downtown</div>
       <div class="hotel-other-meta">
         1600 Lamar Street · Houston, TX 77010<br>
-        <strong style="color:var(--ink); font-weight:300;">~12 min</strong> from the ceremony · 5.2 miles<br>
-        1,207-room full-service convention hotel connected to the George R. Brown Convention Center. Rooftop infinity pool and spa.
+        <strong style="color:var(--ink); font-weight:300;">~12 min</strong> from the ceremony · 5.2 miles
       </div>
       <a href="https://www.hilton.com/en/hotels/houcvhh-hilton-americas-houston/" target="_blank" rel="noopener" class="hotel-other-btn">
         Visit Website <span aria-hidden="true">→</span>
@@ -1490,8 +1564,7 @@ button:focus-visible {
       <div class="hotel-other-name">Marriott Marquis Downtown</div>
       <div class="hotel-other-meta">
         1777 Walker Street · Houston, TX 77010<br>
-        <strong style="color:var(--ink); font-weight:300;">~12 min</strong> from the ceremony · 5.3 miles<br>
-        1,000 rooms in the heart of downtown, connected to the Convention Center. Famous for its Texas-shaped rooftop lazy river.
+        <strong style="color:var(--ink); font-weight:300;">~12 min</strong> from the ceremony · 5.3 miles
       </div>
       <a href="https://www.marriott.com/hotels/travel/houmq-marriott-marquis-houston/" target="_blank" rel="noopener" class="hotel-other-btn">
         Visit Website <span aria-hidden="true">→</span>
@@ -1751,7 +1824,7 @@ button:focus-visible {
     <div class="gp" style="flex-basis:200px" data-i="5" ><img src="excellence.jpeg"    alt="Excellence"    ><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:200px" data-i="6" ><img src="grad.jpeg"          alt="Graduation"    ><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:450px" data-i="7" ><img src="Laurelwedding.jpg"  alt="Laurel Wedding"><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:530px" data-i="8" ><img src="maroonbells.JPG"    alt="Maroon Bells"  ><div class="gp-curtain"></div></div>
+    <div class="gp" style="flex-basis:530px" data-i="8" ><img src="maroonbells.JPG"    alt="Maroon Bells"   style="object-position: center 30%;"><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:300px" data-i="9" ><img src="met.jpeg"           alt="The Met"       ><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:200px" data-i="10"><img src="miami.jpeg"         alt="Miami"         ><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:200px" data-i="11"><img src="nola.jpeg"          alt="New Orleans"   ><div class="gp-curtain"></div></div>
@@ -1760,7 +1833,7 @@ button:focus-visible {
     <div class="gp" style="flex-basis:450px" data-i="14"><img src="pebble.JPG"         alt="Pebble Beach"  ><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:450px" data-i="15"><img src="petitpali.JPG"      alt="Petit Pali"    ><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:300px" data-i="16"><img src="rehearsal.jpeg"     alt="Rehearsal"     ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:530px" data-i="17"><img src="rockefeller.JPG"    alt="Rockefeller"   ><div class="gp-curtain"></div></div>
+    <div class="gp" style="flex-basis:530px" data-i="17"><img src="rockefeller.JPG"    alt="Rockefeller"    style="object-position: center 20%;"><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:200px" data-i="18"><img src="santabarbara.jpeg"  alt="Santa Barbara" ><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:200px" data-i="19"><img src="sanysidro.JPG"      alt="San Ysidro"    ><div class="gp-curtain"></div></div>
     <div class="gp" style="flex-basis:300px" data-i="20"><img src="smproper1.JPG"      alt="Photo"         ><div class="gp-curtain"></div></div>
@@ -1802,7 +1875,7 @@ button:focus-visible {
     </button>
     <div class="faq-panel" role="region">
       <div class="faq-panel-inner">
-        <p>You can RSVP directly on this website using the form in the RSVP section. Please submit your response no later than <strong>January 3, 2027</strong>. If you have any trouble, don't hesitate to reach out.</p>
+        <p>You can RSVP directly on this website using the form in the RSVP section. Please submit your response no later than <strong>January 23, 2027</strong>. If you have any trouble, don't hesitate to reach out.</p>
       </div>
     </div>
   </div>
@@ -1926,9 +1999,9 @@ button:focus-visible {
 <section id="rsvp">
   <div>
     <div class="eyebrow ry">RSVP</div>
-    <h2 class="rsvp-h ry">Kindly<br><em>reply</em><br>by January 3.</h2>
+    <h2 class="rsvp-h ry">Kindly<br><em>reply</em><br>by January 23.</h2>
     <p class="rsvp-p ry">Your presence is the only gift we need. Let us know if you are able to join us, and please note any dietary requirements.</p>
-    <p class="rsvp-dl ry">Deadline — January 3, 2027</p>
+    <p class="rsvp-dl ry">Deadline — January 23, 2027</p>
   </div>
   <div>
     <form class="rsvp-form" id="rf" novalidate>
