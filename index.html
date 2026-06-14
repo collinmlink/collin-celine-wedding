@@ -19,7 +19,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
-  /* prevent iOS text size inflation */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -33,7 +32,6 @@ html {
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Jost', sans-serif;
 
-  /* fluid spacing scale */
   --sp-xs:  clamp(.75rem,  2vw,  1rem);
   --sp-sm:  clamp(1rem,    3vw,  1.5rem);
   --sp-md:  clamp(1.5rem,  4vw,  2.5rem);
@@ -41,10 +39,7 @@ html {
   --sp-xl:  clamp(4rem,    8vw,  7rem);
   --sp-2xl: clamp(5rem,   10vw, 10rem);
 
-  /* fluid page padding */
   --px: clamp(1.25rem, 5vw, 3.5rem);
-
-  /* nav height — used for padding-top on hero */
   --nav-h: clamp(56px, 10vw, 82px);
 }
 
@@ -54,14 +49,13 @@ body {
   font-family: var(--sans);
   font-weight: 200;
   overflow-x: hidden;
-  /* only hide system cursor on devices that have one */
   cursor: none;
 }
 @media (hover: none) {
   body { cursor: auto; }
 }
 
-/* ── Custom cursor (desktop only) ── */
+/* ── Custom cursor ── */
 #cursor {
   width: 6px; height: 6px;
   background: var(--ink);
@@ -102,9 +96,7 @@ body {
 }
 .loader-text span { display: block; }
 
-/* ────────────────────────────────────────
-   NAV
-──────────────────────────────────────── */
+/* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 300;
@@ -114,7 +106,6 @@ nav {
   background: var(--white);
   border-bottom: 1px solid var(--grey-line);
   opacity: 0;
-  /* safe-area padding for notched phones */
   padding-left: max(var(--px), env(safe-area-inset-left));
   padding-right: max(var(--px), env(safe-area-inset-right));
 }
@@ -125,8 +116,6 @@ nav {
   padding: .5rem 0;
   flex-shrink: 0;
 }
-
-/* desktop links */
 .nav-links {
   display: flex; gap: clamp(1.5rem, 3vw, 2.75rem);
   list-style: none;
@@ -146,11 +135,10 @@ nav {
 .nav-links a:hover::after,
 .nav-links a:focus-visible::after { width: 100%; }
 
-/* hamburger button — hidden on desktop */
 .nav-burger {
   display: none;
   flex-direction: column; justify-content: center; gap: 5px;
-  width: 44px; height: 44px; /* min touch target */
+  width: 44px; height: 44px;
   background: none; border: none; cursor: pointer;
   padding: 10px; flex-shrink: 0;
 }
@@ -160,7 +148,6 @@ nav {
   transition: transform .4s cubic-bezier(.16,1,.3,1), opacity .3s ease;
 }
 
-/* mobile drawer */
 .nav-drawer {
   display: none;
   position: fixed; top: var(--nav-h); left: 0; right: 0;
@@ -171,13 +158,8 @@ nav {
   transform: translateY(-8px); opacity: 0;
   transition: transform .4s cubic-bezier(.16,1,.3,1), opacity .3s ease;
 }
-.nav-drawer.open {
-  transform: translateY(0); opacity: 1;
-}
-.nav-drawer ul {
-  list-style: none;
-  display: flex; flex-direction: column; gap: var(--sp-sm);
-}
+.nav-drawer.open { transform: translateY(0); opacity: 1; }
+.nav-drawer ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-sm); }
 .nav-drawer a {
   font-size: .65rem; font-weight: 200; letter-spacing: .28em;
   text-transform: uppercase; text-decoration: none; color: var(--ink);
@@ -192,14 +174,11 @@ nav {
   .nav-drawer.open { pointer-events: auto; }
 }
 
-/* hamburger → X animation */
 .nav-burger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .nav-burger.active span:nth-child(2) { opacity: 0; }
 .nav-burger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-/* ────────────────────────────────────────
-   HERO / PHOTO STRIP
-──────────────────────────────────────── */
+/* ── HERO ── */
 #hero {
   padding-top: var(--nav-h);
   background: var(--white);
@@ -219,7 +198,6 @@ nav {
 
 .strip-item {
   flex: 0 0 auto;
-  /* wider on mobile so fewer photos are visible at once = feels more intentional */
   width: clamp(180px, 60vw, 440px);
   height: 100%; overflow: hidden;
 }
@@ -239,7 +217,6 @@ nav {
   user-select: none;
 }
 
-/* monogram overlay */
 .strip-monogram {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
@@ -254,8 +231,7 @@ nav {
 .strip-monogram .m-letter {
   font-family: var(--serif);
   font-size: clamp(5rem, 14vw, 18rem);
-  font-weight: 200;
-  font-style: italic;
+  font-weight: 200; font-style: italic;
   color: rgba(255,255,255,.9);
   letter-spacing: -.04em;
 }
@@ -269,7 +245,6 @@ nav {
   align-self: center;
 }
 
-/* date + countdown ribbon — single seamless block */
 .strip-date {
   display: flex; align-items: center; justify-content: center;
   gap: var(--sp-sm);
@@ -287,7 +262,6 @@ nav {
   content: ''; flex: 1; height: 1px; background: var(--grey-line);
 }
 
-/* countdown — no top border, flows directly below date */
 .strip-countdown {
   display: flex; align-items: center; justify-content: center;
   padding: clamp(.2rem, .6vw, .4rem) var(--px) clamp(.7rem, 1.8vw, 1rem);
@@ -301,12 +275,13 @@ nav {
   letter-spacing: .04em;
 }
 
-/* ────────────────────────────────────────
-   SHARED UTILITIES
-──────────────────────────────────────── */
+/* ── SHARED UTILITIES ── */
+/* UPDATED: eyebrow now bigger + black */
 .eyebrow {
-  font-size: clamp(.5rem, 1.4vw, .58rem); font-weight: 200;
-  letter-spacing: .35em; text-transform: uppercase; color: var(--grey-muted);
+  font-size: clamp(.65rem, 1.8vw, .8rem);
+  font-weight: 200;
+  letter-spacing: .35em; text-transform: uppercase;
+  color: var(--ink);
   display: flex; align-items: center; gap: 1.25rem;
   margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
@@ -327,10 +302,9 @@ nav {
   backface-visibility: hidden;
 }
 
-/* ────────────────────────────────────────
-   STORY
-──────────────────────────────────────── */
-#story { padding: var(--sp-2xl) var(--px); }
+/* ── STORY ── */
+/* Reduced vertical padding to cut white space */
+#story { padding: var(--sp-lg) var(--px) var(--sp-xl); }
 
 .story-layout {
   display: grid;
@@ -342,7 +316,6 @@ nav {
   .story-layout { grid-template-columns: 1fr; gap: var(--sp-lg); }
 }
 
-/* left column: eyebrow + heading + small photo */
 .story-left { display: flex; flex-direction: column; gap: var(--sp-md); }
 
 .story-h {
@@ -369,20 +342,18 @@ nav {
   background: var(--white); transform-origin: top; z-index: 2;
 }
 
-/* right column: all paragraphs flowing together */
+/* Reduced top padding on story body */
 .story-body {
   display: flex; flex-direction: column;
   gap: var(--sp-md);
-  padding-top: clamp(3rem, 6vw, 5rem); /* align roughly with heading baseline */
+  padding-top: clamp(2rem, 4vw, 3.5rem);
 }
 .story-body p {
   font-size: clamp(.82rem, 1.8vw, .9rem);
   font-weight: 200; line-height: 1.95; color: #3a3a38;
 }
 
-/* ────────────────────────────────────────
-   DETAILS
-──────────────────────────────────────── */
+/* ── DETAILS ── */
 #details { padding: var(--sp-2xl) var(--px); }
 
 .details-head {
@@ -435,16 +406,18 @@ nav {
   display: flex; justify-content: space-between; align-items: flex-start;
   margin-bottom: var(--sp-sm);
 }
+/* UPDATED: logos larger */
 .card-top-row img {
-  height: clamp(80px, 12vw, 160px);
+  height: clamp(100px, 16vw, 200px);
   width: auto; object-fit: contain;
-  max-width: 40%;
+  max-width: 45%;
   flex-shrink: 0;
 }
+/* UPDATED: card-tag bigger + black */
 .card-tag {
-  font-size: clamp(.48rem, 1.2vw, .55rem); font-weight: 200;
-  letter-spacing: .35em; text-transform: uppercase;
-  color: var(--grey-muted);
+  font-size: clamp(.6rem, 1.5vw, .72rem); font-weight: 200;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--ink);
   margin-bottom: var(--sp-sm);
   margin-top: var(--sp-sm);
 }
@@ -479,9 +452,7 @@ nav {
   font-weight: 200; color: var(--ink);
 }
 
-/* ────────────────────────────────────────
-   VENUE SIGNIFICANCE
-──────────────────────────────────────── */
+/* ── VENUE SIGNIFICANCE ── */
 #venue-significance { padding: var(--sp-xl) var(--px) var(--sp-2xl); }
 
 .vsig-grid {
@@ -496,8 +467,8 @@ nav {
 .vsig-item { display: flex; flex-direction: column; gap: var(--sp-sm); }
 
 .vsig-eyebrow {
-  font-size: clamp(.48rem, 1.2vw, .54rem); font-weight: 200;
-  letter-spacing: .38em; text-transform: uppercase; color: var(--grey-muted);
+  font-size: clamp(.65rem, 1.6vw, .78rem); font-weight: 200;
+  letter-spacing: .35em; text-transform: uppercase; color: var(--ink);
   display: flex; align-items: center; gap: 1rem;
 }
 .vsig-eyebrow::before {
@@ -524,9 +495,7 @@ nav {
 }
 .vsig-body p:first-child { margin-top: 0; }
 
-/* ────────────────────────────────────────
-   RSVP
-──────────────────────────────────────── */
+/* ── RSVP ── */
 #rsvp {
   padding: var(--sp-2xl) var(--px) var(--sp-xl);
   display: grid;
@@ -553,8 +522,8 @@ nav {
 }
 
 .rsvp-dl {
-  font-size: clamp(.48rem, 1.3vw, .55rem); font-weight: 200;
-  letter-spacing: .3em; text-transform: uppercase; color: var(--grey-muted);
+  font-size: clamp(.65rem, 1.5vw, .72rem); font-weight: 200;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--ink);
   display: flex; align-items: center; gap: 1rem;
 }
 .rsvp-dl::before {
@@ -583,13 +552,11 @@ nav {
 .frow input, .frow select, .frow textarea {
   width: 100%; background: transparent; border: none; outline: none;
   font-family: var(--sans);
-  /* 16px minimum prevents iOS auto-zoom on focus */
   font-size: max(1rem, 16px);
   font-weight: 200; color: var(--ink);
   appearance: none;
   -webkit-appearance: none;
 }
-/* restore normal cursor on form elements for touch */
 @media (hover: none) {
   .frow input, .frow select, .frow textarea { cursor: auto; }
 }
@@ -608,7 +575,6 @@ nav {
   letter-spacing: .3em; text-transform: uppercase; color: var(--ink);
   position: relative; overflow: hidden;
   transition: color .6s ease;
-  /* large enough touch target */
   min-height: 48px;
   cursor: pointer;
 }
@@ -624,8 +590,6 @@ nav {
 }
 .btn-go span, .btn-go .arr { position: relative; z-index: 1; }
 .btn-go .arr { transition: transform .4s ease; }
-
-/* active state for touch */
 .btn-go:active::before { transform: scaleX(1); }
 .btn-go:active { color: var(--white); }
 
@@ -641,16 +605,13 @@ nav {
   letter-spacing: .3em; text-transform: uppercase; color: var(--grey-muted);
 }
 
-/* ────────────────────────────────────────
-   FOOTER
-──────────────────────────────────────── */
+/* ── FOOTER ── */
 footer {
   border-top: 1px solid var(--grey-line);
   padding: clamp(1.5rem, 4vw, 2.5rem) var(--px);
   display: flex; justify-content: space-between; align-items: center;
   gap: var(--sp-sm);
   flex-wrap: wrap;
-  /* safe-area bottom padding for iPhones with home bar */
   padding-bottom: max(clamp(1.5rem, 4vw, 2.5rem), env(safe-area-inset-bottom));
 }
 .ft-names {
@@ -665,9 +626,7 @@ footer {
   footer { justify-content: center; text-align: center; }
 }
 
-/* ────────────────────────────────────────
-   ACCOMMODATIONS
-──────────────────────────────────────── */
+/* ── ACCOMMODATIONS ── */
 #accommodations { padding: var(--sp-2xl) var(--px); }
 
 .accom-head {
@@ -693,10 +652,9 @@ footer {
   font-weight: 200; line-height: 1.95; color: #484845;
 }
 
-/* category divider */
 .accom-category {
-  font-size: clamp(.48rem, 1.2vw, .54rem); font-weight: 200;
-  letter-spacing: .38em; text-transform: uppercase; color: var(--grey-muted);
+  font-size: clamp(.65rem, 1.6vw, .78rem); font-weight: 200;
+  letter-spacing: .35em; text-transform: uppercase; color: var(--ink);
   display: flex; align-items: center; gap: 1.25rem;
   margin-bottom: var(--sp-md);
   margin-top: var(--sp-xl);
@@ -707,20 +665,18 @@ footer {
   background: var(--grey-line); flex-shrink: 0;
 }
 
-/* hotel grid — 2 col on desktop, 1 on mobile */
 .hotel-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1px;
   background: var(--grey-line);
   border: 1px solid var(--grey-line);
-  margin-bottom: 1px; /* so consecutive grids merge border */
+  margin-bottom: 1px;
 }
 @media (max-width: 680px) {
   .hotel-grid { grid-template-columns: 1fr; }
 }
 
-/* individual hotel card */
 .hotel-card {
   background: var(--white);
   padding: clamp(1.75rem, 4vw, 3rem);
@@ -736,8 +692,8 @@ footer {
 }
 
 .hotel-tag {
-  font-size: clamp(.46rem, 1.1vw, .52rem); font-weight: 200;
-  letter-spacing: .35em; text-transform: uppercase; color: var(--grey-muted);
+  font-size: clamp(.65rem, 1.5vw, .72rem); font-weight: 200;
+  letter-spacing: .32em; text-transform: uppercase; color: var(--ink);
 }
 
 .hotel-name {
@@ -761,11 +717,8 @@ footer {
   font-size: clamp(.68rem, 1.4vw, .76rem);
   font-weight: 200; line-height: 1.7; color: #5c5c59;
 }
-.hotel-dist strong {
-  color: var(--ink); font-weight: 300;
-}
+.hotel-dist strong { color: var(--ink); font-weight: 300; }
 
-/* book button */
 .hotel-footer {
   margin-top: auto;
   padding-top: var(--sp-md);
@@ -794,7 +747,6 @@ footer {
   .hotel-btn:hover .arr { transform: translateX(5px); }
 }
 
-/* "other" compact list */
 .hotel-others {
   background: var(--white);
   border: 1px solid var(--grey-line);
@@ -840,9 +792,7 @@ footer {
   .hotel-other-btn:hover::after { width: 100%; }
 }
 
-/* ────────────────────────────────────────
-   THINGS TO DO
-──────────────────────────────────────── */
+/* ── THINGS TO DO ── */
 #thingstodo { padding: var(--sp-2xl) var(--px); }
 
 .todo-head {
@@ -866,7 +816,6 @@ footer {
   font-weight: 200; line-height: 1.95; color: #484845;
 }
 
-/* ── Tab bar ── */
 .todo-tabs {
   display: flex; gap: .4rem;
   border-bottom: 1px solid var(--grey-line);
@@ -902,14 +851,11 @@ footer {
   font-weight: 300;
 }
 
-/* ── Content panels ── */
 .todo-panel { display: none; }
 .todo-panel.active { display: block; }
 
-/* ── Single-column list layout (map removed) ── */
 .todo-layout { display: block; }
 
-/* ── Place cards list ── */
 .todo-list { display: flex; flex-direction: column; }
 
 .todo-item {
@@ -927,7 +873,6 @@ footer {
   font-size: clamp(1rem, 2.5vw, 1.4rem);
   font-weight: 200; color: var(--grey-line);
   line-height: 1.2;
-  transition: color .3s ease;
   padding-top: .1em;
 }
 
@@ -952,19 +897,7 @@ footer {
   font-weight: 200; color: #6e6d65; margin-top: .3rem;
 }
 
-.todo-item-arrow {
-  font-size: .9rem; color: var(--grey-line);
-  padding-top: .2em;
-  transition: transform .3s ease, color .3s ease;
-  flex-shrink: 0;
-}
-@media (hover: hover) {
-  .todo-item:hover .todo-item-arrow { transform: translateX(4px); color: var(--ink); }
-}
-
-/* ────────────────────────────────────────
-   GALLERY
-──────────────────────────────────────── */
+/* ── GALLERY — Carousel ── */
 #gallery { padding: var(--sp-2xl) var(--px); }
 
 .gallery-head {
@@ -990,57 +923,101 @@ footer {
   font-weight: 200; line-height: 1.95; color: #484845;
 }
 
-/* ── Justified row gallery ──
-   Each row fills the full width at a fixed row height.
-   Images flex based on their natural aspect ratio — no forced cropping.
-   Portrait photos naturally get less width, landscape more.
-   A small gap between photos keeps it clean.
-*/
-.gallery-justified {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
+/* Carousel wrapper — bleeds to page edges */
+.gallery-carousel-wrap {
+  position: relative;
   margin: 0 calc(var(--px) * -1);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.gp {
-  position: relative; overflow: hidden;
-  background: var(--grey-light);
-  /* flex-grow based on aspect ratio set inline — fills row naturally */
-  flex-grow: 1;
-  height: clamp(160px, 22vw, 300px);
-}
-
-/* last row: don't let lone photos stretch absurdly wide */
-.gp:last-child { max-width: 40%; }
-@media (max-width: 680px) {
-  .gp:last-child { max-width: 100%; }
-}
-
-@media (max-width: 680px) {
-  .gp { height: clamp(140px, 42vw, 240px); }
-}
-
-.gp img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-  transition: transform 1.6s cubic-bezier(.16,1,.3,1);
+.gallery-track {
+  display: flex;
+  gap: 3px;
+  transition: transform 0.55s cubic-bezier(.16,1,.3,1);
   will-change: transform;
+  cursor: grab;
+}
+.gallery-track.dragging {
+  transition: none;
+  cursor: grabbing;
+}
+
+/* Each slide: full viewport width (minus page padding on each side = full bleed) */
+.gallery-slide {
+  flex: 0 0 calc(100% / var(--slides-visible, 1));
+  min-width: 0;
+}
+
+/* At wider screens show partial next slide for "more" cue */
+@media (min-width: 680px) {
+  .gallery-slide {
+    flex: 0 0 calc((100% - 3px) / 2);
+  }
+}
+@media (min-width: 1100px) {
+  .gallery-slide {
+    flex: 0 0 calc((100% - 6px) / 3);
+  }
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: clamp(280px, 50vw, 580px);
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+/* Nav arrows */
+.gallery-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: var(--sp-md) 0 0;
+  padding: 0 var(--px);
+}
+.gallery-arrow {
+  background: none; border: 1px solid var(--grey-line);
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: var(--serif); font-size: 1.2rem;
+  transition: border-color .3s ease, background .3s ease, color .3s ease;
 }
 @media (hover: hover) {
-  .gp:hover img { transform: scale(1.04); }
+  .gallery-arrow:hover {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--white);
+  }
+}
+.gallery-arrow:disabled {
+  opacity: .3; cursor: default;
+}
+.gallery-arrow:disabled:hover {
+  background: none; color: var(--ink); border-color: var(--grey-line);
 }
 
-/* reveal curtain per photo */
-.gp-curtain {
-  position: absolute; inset: 0;
-  background: var(--white);
-  transform-origin: top;
-  z-index: 2;
-  pointer-events: none;
+/* Dots */
+.gallery-dots {
+  display: flex; gap: 6px; align-items: center;
+}
+.gallery-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--grey-line);
+  border: none; cursor: pointer; padding: 0;
+  transition: background .3s ease, transform .3s ease;
+}
+.gallery-dot.active {
+  background: var(--ink);
+  transform: scale(1.4);
 }
 
-/* lightbox overlay */
+/* Lightbox (retained from original) */
 #lightbox {
   position: fixed; inset: 0;
   background: rgba(8,8,8,.92);
@@ -1050,13 +1027,10 @@ footer {
   transition: opacity .4s ease;
   padding: clamp(1rem, 4vw, 3rem);
 }
-#lightbox.active {
-  opacity: 1; pointer-events: auto;
-}
+#lightbox.active { opacity: 1; pointer-events: auto; }
 #lightbox img {
   max-width: 100%; max-height: 90vh;
-  object-fit: contain;
-  display: block;
+  object-fit: contain; display: block;
   transform: scale(.96);
   transition: transform .45s cubic-bezier(.16,1,.3,1);
   border: none;
@@ -1076,8 +1050,7 @@ footer {
 }
 .lb-close::before { transform: rotate(45deg); }
 .lb-close::after  { transform: rotate(-45deg); }
-.lb-close:hover::before,
-.lb-close:hover::after { background: #fff; }
+.lb-close:hover::before, .lb-close:hover::after { background: #fff; }
 
 .lb-prev, .lb-next {
   position: absolute; top: 50%; transform: translateY(-50%);
@@ -1099,9 +1072,7 @@ footer {
   text-transform: uppercase; color: rgba(255,255,255,.45);
 }
 
-/* ────────────────────────────────────────
-   FAQ
-──────────────────────────────────────── */
+/* ── FAQ ── */
 #faq { padding: var(--sp-2xl) var(--px); }
 
 .faq-head {
@@ -1127,10 +1098,9 @@ footer {
   font-weight: 200; line-height: 1.95; color: #484845;
 }
 
-/* category label above each group */
 .faq-category {
-  font-size: clamp(.48rem, 1.2vw, .54rem); font-weight: 200;
-  letter-spacing: .38em; text-transform: uppercase; color: var(--grey-muted);
+  font-size: clamp(.65rem, 1.6vw, .78rem); font-weight: 200;
+  letter-spacing: .35em; text-transform: uppercase; color: var(--ink);
   display: flex; align-items: center; gap: 1.25rem;
   margin-bottom: var(--sp-xs);
   margin-top: var(--sp-lg);
@@ -1141,10 +1111,7 @@ footer {
   background: var(--grey-line); flex-shrink: 0;
 }
 
-/* accordion item */
-.faq-item {
-  border-top: 1px solid var(--grey-line);
-}
+.faq-item { border-top: 1px solid var(--grey-line); }
 .faq-item:last-child { border-bottom: 1px solid var(--grey-line); }
 
 .faq-q {
@@ -1156,39 +1123,32 @@ footer {
   color: var(--ink);
 }
 
-/* the + / × icon */
 .faq-icon {
   flex-shrink: 0;
   width: 18px; height: 18px;
   position: relative;
 }
-.faq-icon::before,
-.faq-icon::after {
+.faq-icon::before, .faq-icon::after {
   content: '';
   position: absolute;
   background: var(--grey-muted);
   transition: transform .45s cubic-bezier(.16,1,.3,1), opacity .3s ease;
 }
-/* horizontal bar */
 .faq-icon::before {
   width: 14px; height: 1px;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
-/* vertical bar */
 .faq-icon::after {
   width: 1px; height: 14px;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
-/* open state — vertical bar rotates to make × */
 .faq-item.open .faq-icon::after {
   transform: translate(-50%, -50%) rotate(90deg);
   opacity: 0;
 }
-.faq-item.open .faq-icon::before {
-  background: var(--ink);
-}
+.faq-item.open .faq-icon::before { background: var(--ink); }
 
 .faq-q-text {
   font-family: var(--sans);
@@ -1199,7 +1159,6 @@ footer {
 }
 .faq-item.open .faq-q-text { color: var(--ink); }
 
-/* answer panel */
 .faq-panel {
   overflow: hidden;
   max-height: 0;
@@ -1212,15 +1171,10 @@ footer {
   font-size: clamp(.78rem, 1.8vw, .88rem);
   font-weight: 200; line-height: 1.95; color: #3a3a38;
 }
-.faq-panel-inner a {
-  color: var(--ink); text-underline-offset: 3px;
-}
+.faq-panel-inner a { color: var(--ink); text-underline-offset: 3px; }
 
-/* ────────────────────────────────────────
-   FOCUS STYLES (accessibility)
-──────────────────────────────────────── */
-a:focus-visible,
-button:focus-visible {
+/* ── FOCUS ── */
+a:focus-visible, button:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
   border-radius: 2px;
@@ -1240,8 +1194,6 @@ button:focus-visible {
 <!-- NAV -->
 <nav id="nav" role="navigation" aria-label="Main navigation">
   <a href="#" class="nav-logo" aria-label="Home">Collin &amp; Celine</a>
-
-  <!-- Desktop links -->
   <ul class="nav-links" role="list">
     <li><a href="#story">Our Story</a></li>
     <li><a href="#details">Schedule</a></li>
@@ -1251,8 +1203,6 @@ button:focus-visible {
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#rsvp">RSVP</a></li>
   </ul>
-
-  <!-- Mobile hamburger -->
   <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
     <span></span><span></span><span></span>
   </button>
@@ -1275,12 +1225,6 @@ button:focus-visible {
 <section id="hero">
   <div class="strip-outer" id="stripOuter">
     <div class="strip-track" id="stripTrack">
-      <!--
-        TO ADD/REMOVE PHOTOS:
-        Just add or delete .strip-item divs below.
-        Change the src on each img to your actual photo filenames.
-        The marquee JS adjusts automatically — no other changes needed.
-      -->
       <div class="strip-item"><img src="Proposal.jpg" alt="Photo 1"></div>
       <div class="strip-item"><img src="Ringfocus.jpg" alt="Photo 2"></div>
       <div class="strip-item"><img src="Lookback.jpg" alt="Photo 3"></div>
@@ -1313,18 +1257,14 @@ button:focus-visible {
 <!-- STORY -->
 <section id="story">
   <div class="story-layout">
-
-    <!-- Left: eyebrow + heading + small photo -->
     <div class="story-left">
       <div class="eyebrow ry">Our Story</div>
       <h2 class="story-h ry">How it<br>all<br><em>began.</em></h2>
       <div class="story-photo ry">
-        <img src="Streetcrossing.jpg" alt="Collin and Celine">
+        <img src="Streetcrossing.jpg" alt="Collin and Celine" onerror="this.parentElement.style.display='none'">
         <div class="img-curtain" id="ic1"></div>
       </div>
     </div>
-
-    <!-- Right: all paragraphs -->
     <div class="story-body">
       <p class="ry">Collin and Celine first crossed paths on the natural gas trade floor at ExxonMobil, where Celine was interning and Collin had already been part of the team for a few years.</p>
       <p class="ry">They waited until Celine's internship was winding down to act on it, starting with drinks at Padre's and dinner at Coltivare in the Houston Heights. A few more dates followed, and the whole thing wrapped up at BCN, the night they made things official. A Spanish restaurant for a first chapter that would, coincidentally, continue with their first international trip together being Barcelona.</p>
@@ -1332,7 +1272,6 @@ button:focus-visible {
       <p class="ry">Two and a half years in, Collin brought Celine to Aspen, Colorado — and proposed. What felt like a quiet, intimate moment turned into something even better: a room full of family and friends waiting to celebrate them at a local bar. They spent the rest of the weekend with good food, great drinks, and hitting the hiking trails together.</p>
       <p class="ry">Now, March 6th is right around the corner, and they can't wait to celebrate with everyone who has been part of the journey.</p>
     </div>
-
   </div>
 </section>
 
@@ -1396,8 +1335,6 @@ button:focus-visible {
 <!-- VENUE SIGNIFICANCE -->
 <section id="venue-significance">
   <div class="vsig-grid">
-
-    <!-- Annunciation — LEFT -->
     <div class="vsig-item ry">
       <div class="vsig-eyebrow">The Ceremony</div>
       <h3 class="vsig-title">Annunciation Greek<br><em>Orthodox Cathedral</em></h3>
@@ -1407,8 +1344,6 @@ button:focus-visible {
         <p>The DeMoes' are overjoyed to welcome you to their church and to share this magnificent cathedral and ceremony with the family and friends they love most.</p>
       </div>
     </div>
-
-    <!-- La Colombe D'or — RIGHT -->
     <div class="vsig-item ry">
       <div class="vsig-eyebrow">The Reception</div>
       <h3 class="vsig-title">La Colombe D'or<br><em>Mansion House</em></h3>
@@ -1419,7 +1354,6 @@ button:focus-visible {
         <p>Collin and Celine feel deeply humbled and privileged to share their special day with you at such a uniquely meaningful place.</p>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -1435,12 +1369,9 @@ button:focus-visible {
     <p class="accom-intro ry">We want your time in Houston to be as enjoyable as the celebration itself. Below are our top recommendations — from intimate boutique inns steps from the church to full-service downtown hotels. All distances are from the ceremony at Annunciation Greek Orthodox Cathedral.</p>
   </div>
 
-  <!-- Featured Hotels -->
   <p class="accom-category ry">Our Recommendations</p>
 
   <div class="hotel-grid">
-
-    <!-- La Colombe D'or -->
     <div class="hotel-card ry">
       <div class="hotel-num">01</div>
       <div class="hotel-tag">Boutique · Reception Venue</div>
@@ -1457,7 +1388,6 @@ button:focus-visible {
       </div>
     </div>
 
-    <!-- Hotel Saint Augustine -->
     <div class="hotel-card ry">
       <div class="hotel-num">02</div>
       <div class="hotel-tag">Boutique · Menil Collection</div>
@@ -1474,7 +1404,6 @@ button:focus-visible {
       </div>
     </div>
 
-    <!-- The Marlene -->
     <div class="hotel-card ry">
       <div class="hotel-num">03</div>
       <div class="hotel-tag">Inn · Historic Mansion</div>
@@ -1491,7 +1420,6 @@ button:focus-visible {
       </div>
     </div>
 
-    <!-- Hotel ZaZa -->
     <div class="hotel-card ry">
       <div class="hotel-num">04</div>
       <div class="hotel-tag">Boutique · Museum District</div>
@@ -1507,14 +1435,11 @@ button:focus-visible {
         </a>
       </div>
     </div>
-
   </div>
 
-  <!-- Other Recommendations -->
   <p class="accom-category ry">Also Worth Considering</p>
 
   <div class="hotel-others">
-
     <div class="hotel-other-item ry">
       <div class="hotel-other-name">Thompson Houston</div>
       <div class="hotel-other-meta">
@@ -1525,7 +1450,6 @@ button:focus-visible {
         Visit Website <span aria-hidden="true">→</span>
       </a>
     </div>
-
     <div class="hotel-other-item ry">
       <div class="hotel-other-name">Hilton Americas Downtown</div>
       <div class="hotel-other-meta">
@@ -1536,7 +1460,6 @@ button:focus-visible {
         Visit Website <span aria-hidden="true">→</span>
       </a>
     </div>
-
     <div class="hotel-other-item ry">
       <div class="hotel-other-name">Marriott Marquis Downtown</div>
       <div class="hotel-other-meta">
@@ -1547,9 +1470,7 @@ button:focus-visible {
         Visit Website <span aria-hidden="true">→</span>
       </a>
     </div>
-
   </div>
-
 </section>
 
 <div class="rule" id="r2a"></div>
@@ -1564,213 +1485,182 @@ button:focus-visible {
     <p class="todo-intro ry">Houston's Montrose neighborhood is one of the most vibrant, walkable, and eclectic areas in the city. Whether you're here for a long weekend or just a day, there's something worth discovering at every turn.</p>
   </div>
 
-  <!-- Tab bar -->
   <div class="todo-tabs" role="tablist" aria-label="Category">
     <button class="todo-tab active" role="tab" aria-selected="true"  data-tab="activities">Activities</button>
     <button class="todo-tab"        role="tab" aria-selected="false" data-tab="restaurants">Restaurants</button>
     <button class="todo-tab"        role="tab" aria-selected="false" data-tab="bars">Bars &amp; Coffee</button>
   </div>
 
-  <!-- ── ACTIVITIES ── -->
+  <!-- ACTIVITIES -->
   <div class="todo-panel active" id="tab-activities">
-    <div class="todo-layout">
-      <div class="todo-list">
-
-        <div class="todo-item" data-lat="29.7450" data-lng="-95.3903" data-name="Montrose Collective" data-place="ChIJ2wyDXbm_QIYR7BroVAxSKt4">
-          <div class="todo-item-num">01</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Shopping · Dining · Lifestyle</div>
-            <div class="todo-item-name">Montrose Collective</div>
-            <div class="todo-item-desc">An open-air collection of boutiques, restaurants, and coffee shops anchored by Uchi and a rotating cast of Houston's best local brands. A perfect afternoon stop — particularly on a weekend.</div>
-            <div class="todo-item-addr">888 Westheimer Rd, Houston, TX 77006</div>
-          </div>
+    <div class="todo-layout"><div class="todo-list">
+      <div class="todo-item">
+        <div class="todo-item-num">01</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Shopping · Dining · Lifestyle</div>
+          <div class="todo-item-name">Montrose Collective</div>
+          <div class="todo-item-desc">An open-air collection of boutiques, restaurants, and coffee shops anchored by Uchi and a rotating cast of Houston's best local brands. A perfect afternoon stop — particularly on a weekend.</div>
+          <div class="todo-item-addr">888 Westheimer Rd, Houston, TX 77006</div>
         </div>
-
-        <div class="todo-item" data-lat="29.7377" data-lng="-95.3985" data-name="The Menil Collection" data-place="ChIJJzfbZH-_QIYRux-QWCrEx4w">
-          <div class="todo-item-num">02</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Art Museum · Free Admission</div>
-            <div class="todo-item-name">The Menil Collection</div>
-            <div class="todo-item-desc">One of the world's great private art museums, free and open to the public. The campus spans shaded oak lawns and several gallery buildings — including the ethereal Rothko Chapel nearby. A true Houston gem.</div>
-            <div class="todo-item-addr">1533 Sul Ross St, Houston, TX 77006</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7256" data-lng="-95.3905" data-name="Museum of Fine Arts Houston" data-place="ChIJSx6QT3-_QIYRPaWcHKc3bbI">
-          <div class="todo-item-num">03</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Art Museum · Museum District</div>
-            <div class="todo-item-name">Museum of Fine Arts (MFAH)</div>
-            <div class="todo-item-desc">One of the largest art museums in the United States, with a permanent collection spanning 6,000 years of history. Plan for at least half a day — and don't miss the rooftop for panoramic Houston views.</div>
-            <div class="todo-item-addr">1001 Bissonnet St, Houston, TX 77005</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7207" data-lng="-95.3865" data-name="McGovern Centennial Gardens" data-place="ChIJK5qZwoO_QIYRF4P0H-ZPZ3I">
-          <div class="todo-item-num">04</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Gardens · Hermann Park</div>
-            <div class="todo-item-name">McGovern Centennial Gardens</div>
-            <div class="todo-item-desc">A stunning 5-acre garden in Hermann Park featuring a spectacular spiral walkway, seasonal blooms, and tranquil reflecting pools. Ideal for an early morning stroll or a peaceful afternoon escape.</div>
-            <div class="todo-item-addr">1500 Hermann Dr, Houston, TX 77004</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7146" data-lng="-95.3822" data-name="Hermann Park Golf Course" data-place="ChIJJYJ5D5C_QIYRx775_xt_ySg">
-          <div class="todo-item-num">05</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Golf · 18 Holes · Public</div>
-            <div class="todo-item-name">Hermann Park Golf Course</div>
-            <div class="todo-item-desc">A classic 18-hole public course tucked inside Hermann Park, surrounded by the city's most beautiful green space. Affordable, accessible, and a Houston institution. Great for a casual round before the festivities.</div>
-            <div class="todo-item-addr">2155 N MacGregor Way, Houston, TX 77004</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7731" data-lng="-95.4333" data-name="Memorial Park Golf Course" data-place="ChIJabJuQtHAQIYRLU3xzKMTp8E">
-          <div class="todo-item-num">06</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Golf · PGA Tour Stop · Public</div>
-            <div class="todo-item-name">Memorial Park Golf Course</div>
-            <div class="todo-item-desc">Home of the Houston Open, Memorial Park Golf Course is a meticulously maintained 18-hole championship course set against the backdrop of 1,500 acres of Memorial Park. One of the finest public courses in Texas — book well in advance.</div>
-            <div class="todo-item-addr">1001 E Memorial Loop Dr, Houston, TX 77007</div>
-          </div>
-        </div>
-
       </div>
-</div>
-    </div>
+      <div class="todo-item">
+        <div class="todo-item-num">02</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Art Museum · Free Admission</div>
+          <div class="todo-item-name">The Menil Collection</div>
+          <div class="todo-item-desc">One of the world's great private art museums, free and open to the public. The campus spans shaded oak lawns and several gallery buildings — including the ethereal Rothko Chapel nearby. A true Houston gem.</div>
+          <div class="todo-item-addr">1533 Sul Ross St, Houston, TX 77006</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">03</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Art Museum · Museum District</div>
+          <div class="todo-item-name">Museum of Fine Arts (MFAH)</div>
+          <div class="todo-item-desc">One of the largest art museums in the United States, with a permanent collection spanning 6,000 years of history. Plan for at least half a day — and don't miss the rooftop for panoramic Houston views.</div>
+          <div class="todo-item-addr">1001 Bissonnet St, Houston, TX 77005</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">04</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Gardens · Hermann Park</div>
+          <div class="todo-item-name">McGovern Centennial Gardens</div>
+          <div class="todo-item-desc">A stunning 5-acre garden in Hermann Park featuring a spectacular spiral walkway, seasonal blooms, and tranquil reflecting pools. Ideal for an early morning stroll or a peaceful afternoon escape.</div>
+          <div class="todo-item-addr">1500 Hermann Dr, Houston, TX 77004</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">05</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Golf · 18 Holes · Public</div>
+          <div class="todo-item-name">Hermann Park Golf Course</div>
+          <div class="todo-item-desc">A classic 18-hole public course tucked inside Hermann Park, surrounded by the city's most beautiful green space. Affordable, accessible, and a Houston institution. Great for a casual round before the festivities.</div>
+          <div class="todo-item-addr">2155 N MacGregor Way, Houston, TX 77004</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">06</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Golf · PGA Tour Stop · Public</div>
+          <div class="todo-item-name">Memorial Park Golf Course</div>
+          <div class="todo-item-desc">Home of the Houston Open, Memorial Park Golf Course is a meticulously maintained 18-hole championship course set against the backdrop of 1,500 acres of Memorial Park. One of the finest public courses in Texas — book well in advance.</div>
+          <div class="todo-item-addr">1001 E Memorial Loop Dr, Houston, TX 77007</div>
+        </div>
+      </div>
+    </div></div>
   </div>
 
-  <!-- ── RESTAURANTS ── -->
+  <!-- RESTAURANTS -->
   <div class="todo-panel" id="tab-restaurants">
-    <div class="todo-layout">
-      <div class="todo-list">
-
-        <div class="todo-item" data-lat="29.7385" data-lng="-95.3909" data-name="Clark's Oyster Bar" data-place="ChIJbXeNf1S_QIYR2rQjwtR4sNU">
-          <div class="todo-item-num">06</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Seafood · Oyster Bar</div>
-            <div class="todo-item-name">Clark's Oyster Bar</div>
-            <div class="todo-item-desc">A gleaming Montrose seafood counter with an impressive daily oyster selection, excellent chowder, and the most underrated burger in the neighborhood. Half-price martinis at happy hour. Collin & Celine's favorites are the Clark's Vesper Martinis and Steak Tartare.</div>
-            <div class="todo-item-addr">3807 Montrose Blvd, Houston, TX 77006</div>
-          </div>
+    <div class="todo-layout"><div class="todo-list">
+      <div class="todo-item">
+        <div class="todo-item-num">01</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Tex-Mex · Casual</div>
+          <div class="todo-item-name">El Tiempo Cantina</div>
+          <div class="todo-item-desc">A Houston institution. Sizzling fajitas and strong margaritas. Classic Tex-Mex at its best.</div>
+          <div class="todo-item-addr">322 Westheimer Rd, Houston, TX 77006</div>
         </div>
-
-        <div class="todo-item" data-lat="29.7447" data-lng="-95.3857" data-name="El Tiempo Cantina" data-place="ChIJFyAEXma_QIYRMlE02xjudIw">
-          <div class="todo-item-num">01</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Tex-Mex · Casual</div>
-            <div class="todo-item-name">El Tiempo Cantina</div>
-            <div class="todo-item-desc">A Houston institution. Sizzling fajitas and strong margaritas. Classic Tex-Mex at its best.</div>
-            <div class="todo-item-addr">322 Westheimer Rd, Houston, TX 77006</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7390" data-lng="-95.3953" data-name="Southern Yankee Crafthouse" data-place="ChIJT38uPg_BQIYRZpvIOg-do9I">
-          <div class="todo-item-num">04</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Gastropub · Casual</div>
-            <div class="todo-item-name">Southern Yankee Crafthouse</div>
-            <div class="todo-item-desc">Beloved Montrose gastropub with arguably the best bar food in Houston. Unique pizzas, wood-fired wings, and craft burgers.</div>
-            <div class="todo-item-addr">1312 W Alabama St, Houston, TX 77006</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7449" data-lng="-95.3931" data-name="Drake's Hollywood" data-place="ChIJm6uX4I2_QIYRs1mglrixx_M">
-          <div class="todo-item-num">02</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Steakhouse · Upscale</div>
-            <div class="todo-item-name">Drake's Hollywood</div>
-            <div class="todo-item-desc">Montrose's most glamorous dining room. Dramatic interiors, an exceptional raw bar, and a menu centered on prime cuts and indulgent sides. The coldest martini in Houston.</div>
-            <div class="todo-item-addr">1100 Westheimer Rd, Houston, TX 77006</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7357" data-lng="-95.3985" data-name="Perseid at Hotel Saint Augustine" data-place="ChIJj-AuTgDBQIYR-yjUNIytKz0">
-          <div class="todo-item-num">03</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Gulf Coast · All-Day Dining</div>
-            <div class="todo-item-name">Perseid</div>
-            <div class="todo-item-desc">Chef Aaron Bludorn's Gulf Coast-inspired all-day restaurant at Hotel Saint Augustine. Quiet, refined, and quietly exceptional — the hanger steak and Anne potatoes are Houston's best-kept secret. Reserve ahead.</div>
-            <div class="todo-item-addr">4110 Loretto Dr, Houston, TX 77006</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7342" data-lng="-95.3941" data-name="The Pit Room" data-place="ChIJgcrcf4LAQIYREwyikgKgLco">
-          <div class="todo-item-num">05</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Texas BBQ · Counter Service</div>
-            <div class="todo-item-name">The Pit Room</div>
-            <div class="todo-item-desc">One of Houston's finest Texas barbecue stops.</div>
-            <div class="todo-item-addr">1201 Richmond Ave, Houston, TX 77006</div>
-          </div>
-        </div>
-
       </div>
-</div>
-    </div>
+      <div class="todo-item">
+        <div class="todo-item-num">02</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Steakhouse · Upscale</div>
+          <div class="todo-item-name">Drake's Hollywood</div>
+          <div class="todo-item-desc">Montrose's most glamorous dining room. Dramatic interiors, an exceptional raw bar, and a menu centered on prime cuts and indulgent sides. The coldest martini in Houston.</div>
+          <div class="todo-item-addr">1100 Westheimer Rd, Houston, TX 77006</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">03</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Gulf Coast · All-Day Dining</div>
+          <div class="todo-item-name">Perseid</div>
+          <div class="todo-item-desc">Chef Aaron Bludorn's Gulf Coast-inspired all-day restaurant at Hotel Saint Augustine. Quiet, refined, and quietly exceptional — the hanger steak and Anne potatoes are Houston's best-kept secret. Reserve ahead.</div>
+          <div class="todo-item-addr">4110 Loretto Dr, Houston, TX 77006</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">04</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Gastropub · Casual</div>
+          <div class="todo-item-name">Southern Yankee Crafthouse</div>
+          <div class="todo-item-desc">Beloved Montrose gastropub with arguably the best bar food in Houston. Unique pizzas, wood-fired wings, and craft burgers.</div>
+          <div class="todo-item-addr">1312 W Alabama St, Houston, TX 77006</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">05</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Texas BBQ · Counter Service</div>
+          <div class="todo-item-name">The Pit Room</div>
+          <div class="todo-item-desc">One of Houston's finest Texas barbecue stops.</div>
+          <div class="todo-item-addr">1201 Richmond Ave, Houston, TX 77006</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">06</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Seafood · Oyster Bar</div>
+          <div class="todo-item-name">Clark's Oyster Bar</div>
+          <div class="todo-item-desc">A gleaming Montrose seafood counter with an impressive daily oyster selection, excellent chowder, and the most underrated burger in the neighborhood. Half-price martinis at happy hour. Collin & Celine's favorites are the Clark's Vesper Martinis and Steak Tartare.</div>
+          <div class="todo-item-addr">3807 Montrose Blvd, Houston, TX 77006</div>
+        </div>
+      </div>
+    </div></div>
   </div>
 
-  <!-- ── BARS & COFFEE ── -->
+  <!-- BARS & COFFEE -->
   <div class="todo-panel" id="tab-bars">
-    <div class="todo-layout">
-      <div class="todo-list">
-
-        <div class="todo-item" data-lat="29.7416" data-lng="-95.3916" data-name="Bar No. 3" data-place="ChIJZT7wHfy_QIYRGCm-0lBAtco">
-          <div class="todo-item-num">01</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Cocktail Bar · Hotel Bar</div>
-            <div class="todo-item-name">Bar No. 3</div>
-            <div class="todo-item-desc">Tucked inside La Colombe D'or — our reception venue — Bar No. 3 is a moody, speakeasy-adjacent room of dark wood, soft leather, and great vibes.</div>
-            <div class="todo-item-addr">3410 Montrose Blvd, Houston, TX 77006</div>
-          </div>
+    <div class="todo-layout"><div class="todo-list">
+      <div class="todo-item">
+        <div class="todo-item-num">01</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Cocktail Bar · Hotel Bar</div>
+          <div class="todo-item-name">Bar No. 3</div>
+          <div class="todo-item-desc">Tucked inside La Colombe D'or — our reception venue — Bar No. 3 is a moody, speakeasy-adjacent room of dark wood, soft leather, and great vibes.</div>
+          <div class="todo-item-addr">3410 Montrose Blvd, Houston, TX 77006</div>
         </div>
-
-        <div class="todo-item" data-lat="29.7430" data-lng="-95.3969" data-name="Anvil Bar & Refuge" data-place="ChIJGezjg57AQIYRiivaEi1eVko">
-          <div class="todo-item-num">02</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Cocktail Bar · Late Night</div>
-            <div class="todo-item-name">Anvil</div>
-            <div class="todo-item-desc">The gold standard of Houston craft cocktails and a Montrose neighborhood staple.</div>
-            <div class="todo-item-addr">1424 Westheimer Rd, Houston, TX 77006</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7429" data-lng="-95.4026" data-name="Agora" data-place="ChIJ3VUwj5nAQIYRlAd40VjiTDA">
-          <div class="todo-item-num">03</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Coffee · Wine · Open Late</div>
-            <div class="todo-item-name">Agora</div>
-            <div class="todo-item-desc">A beloved Montrose institution open daily until 2 AM. Part coffee shop, part wine bar, part living room for the neighborhood.</div>
-            <div class="todo-item-addr">1712 Westheimer Rd, Houston, TX 77098</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7448" data-lng="-95.3925" data-name="Blacksmith" data-place="ChIJv9bVuGG_QIYRq3Lf9AaP8XE">
-          <div class="todo-item-num">04</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Coffee · Breakfast</div>
-            <div class="todo-item-name">Blacksmith</div>
-            <div class="todo-item-desc">Montrose's most beloved morning ritual. Exceptional espresso, housemade pastries, and great breakfast tacos.</div>
-            <div class="todo-item-addr">1018 Westheimer Rd, Houston, TX 77006</div>
-          </div>
-        </div>
-
-        <div class="todo-item" data-lat="29.7384" data-lng="-95.3883" data-name="Siphon Coffee" data-place="ChIJ27_1pGS_QIYRJB3FWgFpN70">
-          <div class="todo-item-num">05</div>
-          <div class="todo-item-body">
-            <div class="todo-item-tag">Specialty Coffee · All Day</div>
-            <div class="todo-item-name">Siphon</div>
-            <div class="todo-item-desc">Artisan-level specialty coffee in a warm, industrial space. A favorite of the neighborhood for focused mornings or long, unhurried afternoons. The cortado is exceptional.</div>
-            <div class="todo-item-addr">701 W Alabama St, Houston, TX 77006</div>
-          </div>
-        </div>
-
       </div>
-</div>
-    </div>
+      <div class="todo-item">
+        <div class="todo-item-num">02</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Cocktail Bar · Late Night</div>
+          <div class="todo-item-name">Anvil</div>
+          <div class="todo-item-desc">The gold standard of Houston craft cocktails and a Montrose neighborhood staple.</div>
+          <div class="todo-item-addr">1424 Westheimer Rd, Houston, TX 77006</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">03</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Coffee · Wine · Open Late</div>
+          <div class="todo-item-name">Agora</div>
+          <div class="todo-item-desc">A beloved Montrose institution open daily until 2 AM. Part coffee shop, part wine bar, part living room for the neighborhood.</div>
+          <div class="todo-item-addr">1712 Westheimer Rd, Houston, TX 77098</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">04</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Coffee · Breakfast</div>
+          <div class="todo-item-name">Blacksmith</div>
+          <div class="todo-item-desc">Montrose's most beloved morning ritual. Exceptional espresso, housemade pastries, and great breakfast tacos.</div>
+          <div class="todo-item-addr">1018 Westheimer Rd, Houston, TX 77006</div>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-item-num">05</div>
+        <div class="todo-item-body">
+          <div class="todo-item-tag">Specialty Coffee · All Day</div>
+          <div class="todo-item-name">Siphon</div>
+          <div class="todo-item-desc">Artisan-level specialty coffee in a warm, industrial space. A favorite of the neighborhood for focused mornings or long, unhurried afternoons. The cortado is exceptional.</div>
+          <div class="todo-item-addr">701 W Alabama St, Houston, TX 77006</div>
+        </div>
+      </div>
+    </div></div>
   </div>
-
 </section>
 
 <div class="rule" id="r2c"></div>
@@ -1785,39 +1675,42 @@ button:focus-visible {
     <p class="gallery-sub ry">A collection of our favourite photographs — from ordinary afternoons to the adventures that brought us here.</p>
   </div>
 
-  <!--
-    GALLERY PHOTOS — 25 total.
-    flex-basis is set per photo based on its natural aspect ratio.
-    Portrait (~2:3) = 200px basis, Square (~1:1) = 300px, Landscape (~3:2) = 450px, Wide (~16:9) = 530px
-    The browser fills each row automatically — no manual row management needed.
-    To add photos: copy a .gp div, set the right flex-basis for the orientation.
-  -->
-  <div class="gallery-justified">
-    <div class="gp" style="flex-basis:200px" data-i="0" ><img src="alma.jpeg"          alt="Alma"          ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:300px" data-i="1" ><img src="aspendinner.JPG"    alt="Aspen Dinner"  ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:200px" data-i="2" ><img src="bw1.JPG"            alt="Photo"         ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:200px" data-i="3" ><img src="bw2.JPG"            alt="Photo"         ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:450px" data-i="4" ><img src="clarks.JPG"         alt="Clarks"        ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:200px" data-i="5" ><img src="excellence.jpeg"    alt="Excellence"    ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:200px" data-i="6" ><img src="grad.jpeg"          alt="Graduation"    ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:450px" data-i="7" ><img src="Laurelwedding.jpg"  alt="Laurel Wedding"><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:530px" data-i="8" ><img src="maroonbells.JPG"    alt="Maroon Bells"   style="object-position: center 30%;"><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:300px" data-i="9" ><img src="met.jpeg"           alt="The Met"       ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:200px" data-i="10"><img src="miami.jpeg"         alt="Miami"         ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:200px" data-i="11"><img src="nola.jpeg"          alt="New Orleans"   ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:300px" data-i="12"><img src="nycbar.JPG"         alt="NYC"           ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:300px" data-i="13"><img src="party.jpeg"         alt="Party"         ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:450px" data-i="14"><img src="pebble.JPG"         alt="Pebble Beach"  ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:450px" data-i="15"><img src="petitpali.JPG"      alt="Petit Pali"    ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:300px" data-i="16"><img src="rehearsal.jpeg"     alt="Rehearsal"     ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:530px" data-i="17"><img src="rockefeller.JPG"    alt="Rockefeller"    style="object-position: center 20%;"><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:200px" data-i="18"><img src="santabarbara.jpeg"  alt="Santa Barbara" ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:200px" data-i="19"><img src="sanysidro.JPG"      alt="San Ysidro"    ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:300px" data-i="20"><img src="smproper1.JPG"      alt="Photo"         ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:300px" data-i="21"><img src="smproper2.JPG"      alt="Photo"         ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:450px" data-i="22"><img src="tailgate.jpeg" alt="Tailgate" style="object-position: center 15%;"><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:450px" data-i="23"><img src="winery.jpeg"        alt="Winery"        ><div class="gp-curtain"></div></div>
-    <div class="gp" style="flex-basis:200px" data-i="24"><img src="zanti.jpeg"         alt="Zanti"         ><div class="gp-curtain"></div></div>
+  <!-- Carousel -->
+  <div class="gallery-carousel-wrap">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-slide"><img src="alma.jpeg"         alt="Alma"></div>
+      <div class="gallery-slide"><img src="aspendinner.JPG"   alt="Aspen Dinner"></div>
+      <div class="gallery-slide"><img src="bw1.JPG"           alt="Photo"></div>
+      <div class="gallery-slide"><img src="bw2.JPG"           alt="Photo"></div>
+      <div class="gallery-slide"><img src="clarks.JPG"        alt="Clarks"></div>
+      <div class="gallery-slide"><img src="excellence.jpeg"   alt="Excellence"></div>
+      <div class="gallery-slide"><img src="grad.jpeg"         alt="Graduation"></div>
+      <div class="gallery-slide"><img src="Laurelwedding.jpg" alt="Laurel Wedding"></div>
+      <div class="gallery-slide"><img src="maroonbells.JPG"   alt="Maroon Bells"></div>
+      <div class="gallery-slide"><img src="met.jpeg"          alt="The Met"></div>
+      <div class="gallery-slide"><img src="miami.jpeg"        alt="Miami"></div>
+      <div class="gallery-slide"><img src="nola.jpeg"         alt="New Orleans"></div>
+      <div class="gallery-slide"><img src="nycbar.JPG"        alt="NYC"></div>
+      <div class="gallery-slide"><img src="party.jpeg"        alt="Party"></div>
+      <div class="gallery-slide"><img src="pebble.JPG"        alt="Pebble Beach"></div>
+      <div class="gallery-slide"><img src="petitpali.JPG"     alt="Petit Pali"></div>
+      <div class="gallery-slide"><img src="rehearsal.jpeg"    alt="Rehearsal"></div>
+      <div class="gallery-slide"><img src="rockefeller.JPG"   alt="Rockefeller"></div>
+      <div class="gallery-slide"><img src="santabarbara.jpeg" alt="Santa Barbara"></div>
+      <div class="gallery-slide"><img src="sanysidro.JPG"     alt="San Ysidro"></div>
+      <div class="gallery-slide"><img src="smproper1.JPG"     alt="Photo"></div>
+      <div class="gallery-slide"><img src="smproper2.JPG"     alt="Photo"></div>
+      <div class="gallery-slide"><img src="tailgate.jpeg"     alt="Tailgate"></div>
+      <div class="gallery-slide"><img src="winery.jpeg"       alt="Winery"></div>
+      <div class="gallery-slide"><img src="zanti.jpeg"        alt="Zanti"></div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <div class="gallery-nav">
+    <button class="gallery-arrow" id="gPrev" aria-label="Previous">&#8592;</button>
+    <div class="gallery-dots" id="galleryDots"></div>
+    <button class="gallery-arrow" id="gNext" aria-label="Next">&#8594;</button>
   </div>
 </section>
 
@@ -1842,7 +1735,6 @@ button:focus-visible {
     <p class="faq-intro ry">We want your experience celebrating with us to be as seamless and stress-free as possible. Below you'll find answers to some of the questions we've been asked most.</p>
   </div>
 
-  <!-- GROUP: Logistics & RSVPs -->
   <p class="faq-category ry">Logistics &amp; RSVPs</p>
 
   <div class="faq-item">
@@ -1864,7 +1756,7 @@ button:focus-visible {
     </button>
     <div class="faq-panel" role="region">
       <div class="faq-panel-inner">
-        <p>Black Tie Preferred. We prefer our guests to dress in formal attire — tuxedos and floor-length gowns are encouraged. For gentlemen, dark suits are welcome.  Ladies, please avoid wearing white or ivory.</p>
+        <p>Black Tie Preferred. We prefer our guests to dress in formal attire — tuxedos and floor-length gowns are encouraged. For gentlemen, dark suits are welcome. Ladies, please avoid wearing white or ivory.</p>
       </div>
     </div>
   </div>
@@ -1900,7 +1792,7 @@ button:focus-visible {
     </button>
     <div class="faq-panel" role="region">
       <div class="faq-panel-inner">
-        <p>The ceremony will be held indoors at the Annunciation Greek Orthodox Cathedral. The cocktail hour will be outdoors in the Sculpture Garden and reception will take place indoors at The Mansion House at La Colombe D'or.  Guests will then reconvene back outdoors in the Sculpture Garden for dancing and drinks.</p>
+        <p>The ceremony will be held indoors at the Annunciation Greek Orthodox Cathedral. The cocktail hour will be outdoors in the Sculpture Garden and reception will take place indoors at The Mansion House at La Colombe D'or. Guests will then reconvene back outdoors in the Sculpture Garden for dancing and drinks.</p>
       </div>
     </div>
   </div>
@@ -1941,7 +1833,6 @@ button:focus-visible {
     </div>
   </div>
 
-  <!-- GROUP: Accommodations -->
   <p class="faq-category ry">Accommodations</p>
 
   <div class="faq-item">
@@ -1951,7 +1842,7 @@ button:focus-visible {
     </button>
     <div class="faq-panel" role="region">
       <div class="faq-panel-inner">
-        <p>Yes — we have reserved 2 room blocks at nearby hotels. Our reception venue, La Colombe D'or Hotel and another nearby option, Hotel Saint Augustine. The links are provided in the accomodations section above.</p>
+        <p>Yes — we have reserved 2 room blocks at nearby hotels. Our reception venue, La Colombe D'or Hotel and another nearby option, Hotel Saint Augustine. The links are provided in the accommodations section above.</p>
       </div>
     </div>
   </div>
@@ -1963,11 +1854,10 @@ button:focus-visible {
     </button>
     <div class="faq-panel" role="region">
       <div class="faq-panel-inner">
-        <p>Most recommended hotels are within a 5–10 minute drive of both the ceremony and reception venues, making it easy to get around by rideshare.  Distances from each recommended hotel to the ceremony are noted in the accomodations section above.</p>
+        <p>Most recommended hotels are within a 5–10 minute drive of both the ceremony and reception venues, making it easy to get around by rideshare. Distances from each recommended hotel to the ceremony are noted in the accommodations section above.</p>
       </div>
     </div>
   </div>
-
 </section>
 
 <div class="rule" id="r3"></div>
@@ -2025,7 +1915,7 @@ button:focus-visible {
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Custom cursor (pointer devices only) ── */
+/* ── Custom cursor ── */
 const cur = document.getElementById('cursor');
 if (window.matchMedia('(hover: hover)').matches) {
   document.addEventListener('mousemove', e => {
@@ -2033,7 +1923,7 @@ if (window.matchMedia('(hover: hover)').matches) {
   });
   document.querySelectorAll('a,button,select,input,textarea').forEach(el => {
     el.addEventListener('mouseenter', () => cur.classList.add('hovering'));
-    el.addEventListener('mouseleave',  () => cur.classList.remove('hovering'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('hovering'));
   });
 }
 
@@ -2052,7 +1942,6 @@ burger.addEventListener('click', () => {
   burger.setAttribute('aria-expanded', open);
   drawer.setAttribute('aria-hidden', !open);
 });
-// close drawer when a link is tapped
 document.querySelectorAll('.drawer-link').forEach(a => {
   a.addEventListener('click', () => {
     drawer.classList.remove('open');
@@ -2077,79 +1966,50 @@ gsap.timeline()
   const track = document.getElementById('stripTrack');
   const items = Array.from(track.querySelectorAll('.strip-item'));
   if (!items.length) return;
-
-  // Clone the full set once for seamless looping
   items.forEach(item => {
     const clone = item.cloneNode(true);
     clone.setAttribute('aria-hidden', 'true');
     track.appendChild(clone);
   });
-
-  // Measure after clones exist
   function getItemW() {
-    return items[0].getBoundingClientRect().width + 3; // +3 for gap
+    return items[0].getBoundingClientRect().width + 3;
   }
-
   let origW = getItemW() * items.length;
-  let pos   = 0;
-  // Slightly slower on mobile (less motion)
+  let pos = 0;
   const speed = window.matchMedia('(hover: none)').matches ? 0.4 : 0.6;
-  let paused  = false;
-  let raf;
-
+  let paused = false;
   function tick() {
     if (!paused) {
       pos -= speed;
       if (pos <= -origW) pos += origW;
       track.style.transform = `translateX(${pos}px)`;
     }
-    raf = requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
   }
-  raf = requestAnimationFrame(tick);
-
-  // Pause on hover (desktop)
+  requestAnimationFrame(tick);
   const outer = document.getElementById('stripOuter');
-  outer.addEventListener('mouseenter', () => { paused = true;  }, { passive: true });
+  outer.addEventListener('mouseenter', () => { paused = true; }, { passive: true });
   outer.addEventListener('mouseleave', () => { paused = false; }, { passive: true });
-
-  // Recalculate on resize (orientation change etc.)
-  window.addEventListener('resize', () => {
-    origW = getItemW() * items.length;
-  }, { passive: true });
+  window.addEventListener('resize', () => { origW = getItemW() * items.length; }, { passive: true });
 })();
 
-/* ── Scroll reveals — disable on reduced motion ── */
+/* ── Scroll reveals ── */
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (prefersReduced) {
-  // Just make everything visible immediately
   document.querySelectorAll('.ry').forEach(el => {
     el.style.opacity = 1; el.style.transform = 'none';
   });
 } else {
-  /* Rules draw */
   ['#r1','#r2','#r2a','#r2b','#r2c','#r3'].forEach(id => {
     gsap.from(id, {
       scaleX: 0, transformOrigin: 'left', duration: 1.8, ease: 'expo.inOut',
       scrollTrigger: { trigger: id, start: 'top 93%' }
     });
   });
-
-  /* Gallery curtain reveals — staggered in viewport batches */
-  gsap.utils.toArray('.gp-curtain').forEach((curtain, i) => {
-    gsap.to(curtain, {
-      scaleY: 0, transformOrigin: 'top', duration: 1.4, ease: 'expo.inOut',
-      delay: (i % 6) * .07,
-      scrollTrigger: { trigger: curtain, start: 'top 90%' }
-    });
-  });
-
-  /* Story photo curtain reveal */
   gsap.to('#ic1', {
     scaleY: 0, transformOrigin: 'top', duration: 1.6, ease: 'expo.inOut',
     scrollTrigger: { trigger: '.story-photo', start: 'top 82%' }
   });
-
-  /* Generic reveals */
   gsap.utils.toArray('.ry').forEach((el, i) => {
     gsap.to(el, {
       y: 0, opacity: 1, duration: 1.4, ease: 'expo.out',
@@ -2164,106 +2024,197 @@ if (prefersReduced) {
   const el = document.getElementById('countdown-text');
   if (!el) return;
   function update() {
-    const wedding = new Date('2027-03-06T00:00:00');
-    const now     = new Date();
-    // strip time — compare date-only
-    const today   = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const target  = new Date(wedding.getFullYear(), wedding.getMonth(), wedding.getDate());
-    const diff    = Math.round((target - today) / (1000 * 60 * 60 * 24));
-    if (diff > 1)       el.textContent = diff + ' days remaining';
+    const today  = new Date(); today.setHours(0,0,0,0);
+    const target = new Date('2027-03-06'); target.setHours(0,0,0,0);
+    const diff   = Math.round((target - today) / 86400000);
+    if (diff > 1)        el.textContent = diff + ' days remaining';
     else if (diff === 1) el.textContent = 'tomorrow';
     else if (diff === 0) el.textContent = 'today';
     else                 el.textContent = 'married ♥';
   }
   update();
-  // refresh at midnight
   const now = new Date();
   const msToMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
   setTimeout(() => { update(); setInterval(update, 86400000); }, msToMidnight);
 })();
 
-/* ── Things To Do — tabs + map ── */
-(function initThingsToDo() {
-  // Tab switching
-  document.querySelectorAll('.todo-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
-      document.querySelectorAll('.todo-tab').forEach(t => {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      document.querySelectorAll('.todo-panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-      document.getElementById('tab-' + target).classList.add('active');
+/* ── Things To Do tabs ── */
+document.querySelectorAll('.todo-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+    document.querySelectorAll('.todo-tab').forEach(t => {
+      t.classList.remove('active'); t.setAttribute('aria-selected', 'false');
     });
+    document.querySelectorAll('.todo-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
+    document.getElementById('tab-' + target).classList.add('active');
   });
-})();
+});
 
-/* ── Gallery lightbox ── */
-(function initLightbox() {
-  const photos  = Array.from(document.querySelectorAll('.gp img'));
-  const lb      = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lbImg');
-  const lbCtr   = document.getElementById('lbCounter');
-  let   current = 0;
+/* ── Gallery Carousel ── */
+(function initGallery() {
+  const track  = document.getElementById('galleryTrack');
+  const slides = Array.from(track.querySelectorAll('.gallery-slide'));
+  const dotsEl = document.getElementById('galleryDots');
+  const prevBtn = document.getElementById('gPrev');
+  const nextBtn = document.getElementById('gNext');
+  const total  = slides.length;
+  let current  = 0;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragDeltaX = 0;
 
-  function open(idx) {
-    current = idx;
-    lbImg.src = photos[idx].src;
-    lbImg.alt = photos[idx].alt;
-    lbCtr.textContent = (idx + 1) + ' / ' + photos.length;
+  /* Responsive: how many slides visible at once */
+  function slidesVisible() {
+    if (window.innerWidth >= 1100) return 3;
+    if (window.innerWidth >= 680)  return 2;
+    return 1;
+  }
+
+  /* Build dots — one per "page" */
+  function buildDots() {
+    dotsEl.innerHTML = '';
+    const vis = slidesVisible();
+    const pages = Math.ceil(total / vis);
+    for (let i = 0; i < pages; i++) {
+      const d = document.createElement('button');
+      d.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to page ' + (i + 1));
+      d.addEventListener('click', () => goTo(i * vis));
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function updateDots() {
+    const vis = slidesVisible();
+    const page = Math.floor(current / vis);
+    dotsEl.querySelectorAll('.gallery-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === page);
+    });
+  }
+
+  function getSlideWidth() {
+    return slides[0].getBoundingClientRect().width + 3; // +3px gap
+  }
+
+  function goTo(idx) {
+    const vis = slidesVisible();
+    const maxIdx = total - vis;
+    current = Math.max(0, Math.min(idx, maxIdx));
+    track.style.transform = `translateX(${-current * getSlideWidth()}px)`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= maxIdx;
+    updateDots();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - slidesVisible()));
+  nextBtn.addEventListener('click', () => goTo(current + slidesVisible()));
+
+  /* Drag / swipe */
+  function onDragStart(x) {
+    isDragging = true;
+    dragStartX = x;
+    dragDeltaX = 0;
+    track.classList.add('dragging');
+  }
+  function onDragMove(x) {
+    if (!isDragging) return;
+    dragDeltaX = x - dragStartX;
+    track.style.transform = `translateX(${-current * getSlideWidth() + dragDeltaX}px)`;
+  }
+  function onDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    track.classList.remove('dragging');
+    const threshold = getSlideWidth() * 0.25;
+    if (dragDeltaX < -threshold)      goTo(current + slidesVisible());
+    else if (dragDeltaX > threshold)  goTo(current - slidesVisible());
+    else                               goTo(current);
+  }
+
+  /* Mouse */
+  track.addEventListener('mousedown',  e => { onDragStart(e.clientX); e.preventDefault(); });
+  window.addEventListener('mousemove', e => { if (isDragging) onDragMove(e.clientX); });
+  window.addEventListener('mouseup',   () => onDragEnd());
+
+  /* Touch */
+  track.addEventListener('touchstart', e => onDragStart(e.touches[0].clientX), { passive: true });
+  track.addEventListener('touchmove',  e => onDragMove(e.touches[0].clientX),  { passive: true });
+  track.addEventListener('touchend',   () => onDragEnd());
+
+  /* Keyboard */
+  document.addEventListener('keydown', e => {
+    if (document.getElementById('lightbox').classList.contains('active')) return;
+    if (e.key === 'ArrowLeft')  goTo(current - slidesVisible());
+    if (e.key === 'ArrowRight') goTo(current + slidesVisible());
+  });
+
+  /* Resize */
+  window.addEventListener('resize', () => {
+    buildDots();
+    goTo(current);
+  }, { passive: true });
+
+  /* Init */
+  buildDots();
+  goTo(0);
+
+  /* Lightbox on click (only if not dragging) */
+  slides.forEach((slide, i) => {
+    slide.addEventListener('click', () => {
+      if (Math.abs(dragDeltaX) < 5) openLightbox(i);
+    });
+    slide.style.cursor = 'pointer';
+  });
+
+  /* ── Lightbox ── */
+  const lb    = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCtr = document.getElementById('lbCounter');
+  let lbIdx   = 0;
+
+  function openLightbox(idx) {
+    lbIdx = idx;
+    const img = slides[idx].querySelector('img');
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lbCtr.textContent = (idx + 1) + ' / ' + total;
     lb.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
-
-  function close() {
+  function closeLightbox() {
     lb.classList.remove('active');
     document.body.style.overflow = '';
   }
+  function lbPrev() { lbIdx = (lbIdx - 1 + total) % total; openLightbox(lbIdx); }
+  function lbNext() { lbIdx = (lbIdx + 1) % total;         openLightbox(lbIdx); }
 
-  function prev() { open((current - 1 + photos.length) % photos.length); }
-  function next() { open((current + 1) % photos.length); }
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', lbPrev);
+  document.getElementById('lbNext').addEventListener('click', lbNext);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
 
-  // Click photo to open
-  document.querySelectorAll('.gp').forEach((gp, i) => {
-    gp.style.cursor = 'pointer';
-    gp.addEventListener('click', () => open(i));
-  });
+  let lbTouchX = 0;
+  lb.addEventListener('touchstart', e => { lbTouchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - lbTouchX;
+    if (Math.abs(dx) > 50) dx < 0 ? lbNext() : lbPrev();
+  }, { passive: true });
 
-  document.getElementById('lbClose').addEventListener('click', close);
-  document.getElementById('lbPrev').addEventListener('click', prev);
-  document.getElementById('lbNext').addEventListener('click', next);
-
-  // Click backdrop to close
-  lb.addEventListener('click', e => { if (e.target === lb) close(); });
-
-  // Keyboard navigation
   document.addEventListener('keydown', e => {
     if (!lb.classList.contains('active')) return;
-    if (e.key === 'Escape')     close();
-    if (e.key === 'ArrowLeft')  prev();
-    if (e.key === 'ArrowRight') next();
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lbPrev();
+    if (e.key === 'ArrowRight') lbNext();
   });
-
-  // Touch swipe support
-  let touchStartX = 0;
-  lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  lb.addEventListener('touchend',   e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
-  }, { passive: true });
 })();
 
 /* ── FAQ accordion ── */
 document.querySelectorAll('.faq-item').forEach(item => {
   const btn   = item.querySelector('.faq-q');
   const panel = item.querySelector('.faq-panel');
-
   btn.addEventListener('click', () => {
     const isOpen = item.classList.contains('open');
-
-    // Close all other open items
     document.querySelectorAll('.faq-item.open').forEach(other => {
       if (other !== item) {
         other.classList.remove('open');
@@ -2271,8 +2222,6 @@ document.querySelectorAll('.faq-item').forEach(item => {
         other.querySelector('.faq-panel').style.maxHeight = '0';
       }
     });
-
-    // Toggle this item
     if (isOpen) {
       item.classList.remove('open');
       btn.setAttribute('aria-expanded', 'false');
