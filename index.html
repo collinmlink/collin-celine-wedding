@@ -305,22 +305,30 @@ nav {
 /* ── STORY ── */
 #story { padding: var(--sp-lg) var(--px) var(--sp-xl); }
 
-/* Top row: photo left, heading right — both compact */
-.story-top {
+.story-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: end;
-  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(3rem, 7vw, 7rem);
+  align-items: center;
 }
 @media (max-width: 680px) {
-  .story-top { grid-template-columns: 1fr; gap: var(--sp-md); }
+  .story-layout { grid-template-columns: 1fr; gap: var(--sp-lg); }
 }
 
+.story-left { display: flex; flex-direction: column; gap: var(--sp-md); }
+
+.story-h {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5.5vw, 5.5rem);
+  font-weight: 200; line-height: 1.05; letter-spacing: -.01em;
+}
+.story-h em { font-style: italic; }
+
+/* Smaller photo */
 .story-photo {
   position: relative; overflow: hidden;
-  aspect-ratio: 3/2;
-  width: 100%;
+  aspect-ratio: 4/3;
+  width: 80%;
 }
 .story-photo img {
   width: 100%; height: 100%; object-fit: cover; display: block;
@@ -334,27 +342,9 @@ nav {
   background: var(--white); transform-origin: top; z-index: 2;
 }
 
-.story-heading {
-  display: flex; flex-direction: column;
-  gap: var(--sp-sm);
-  padding-bottom: clamp(1rem, 2vw, 1.5rem);
-}
-
-.story-h {
-  font-family: var(--serif);
-  font-size: clamp(2.2rem, 5.5vw, 5.5rem);
-  font-weight: 200; line-height: 1.05; letter-spacing: -.01em;
-}
-.story-h em { font-style: italic; }
-
-/* Bottom: paragraphs in 2 columns on desktop */
 .story-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(1.5rem, 4vw, 3.5rem) clamp(3rem, 7vw, 7rem);
-}
-@media (max-width: 680px) {
-  .story-body { grid-template-columns: 1fr; gap: var(--sp-md); }
+  display: flex; flex-direction: column;
+  gap: var(--sp-md);
 }
 .story-body p {
   font-size: clamp(.82rem, 1.8vw, .9rem);
@@ -1264,24 +1254,22 @@ a:focus-visible, button:focus-visible {
 
 <!-- STORY -->
 <section id="story">
-  <!-- Top: photo + heading side by side -->
-  <div class="story-top">
-    <div class="story-photo ry">
-      <img src="Streetcrossing.jpg" alt="Collin and Celine" onerror="this.parentElement.style.display='none'">
-      <div class="img-curtain" id="ic1"></div>
-    </div>
-    <div class="story-heading">
+  <div class="story-layout">
+    <div class="story-left">
       <div class="eyebrow ry">Our Story</div>
       <h2 class="story-h ry">How it<br>all<br><em>began.</em></h2>
+      <div class="story-photo ry">
+        <img src="Streetcrossing.jpg" alt="Collin and Celine" onerror="this.parentElement.style.display='none'">
+        <div class="img-curtain" id="ic1"></div>
+      </div>
     </div>
-  </div>
-  <!-- Bottom: paragraphs in 2-col grid -->
-  <div class="story-body">
-    <p class="ry">Collin and Celine first crossed paths on the natural gas trade floor at ExxonMobil, where Celine was interning and Collin had already been part of the team for a few years.</p>
-    <p class="ry">They waited until Celine's internship was winding down to act on it, starting with drinks at Padre's and dinner at Coltivare in the Houston Heights. A few more dates followed, and the whole thing wrapped up at BCN, the night they made things official. A Spanish restaurant for a first chapter that would, coincidentally, continue with their first international trip together being Barcelona.</p>
-    <p class="ry">Life together quickly found its rhythm — date nights at El Tiempo, Clark's Oyster Bar, and their favorite local dive, Southern Yankee Crafthouse, mixed with frequent trips to Southern California, New York City, and Miami.</p>
-    <p class="ry">Two and a half years in, Collin brought Celine to Aspen, Colorado — and proposed. What felt like a quiet, intimate moment turned into something even better: a room full of family and friends waiting to celebrate them at a local bar. They spent the rest of the weekend with good food, great drinks, and hitting the hiking trails together.</p>
-    <p class="ry">Now, March 6th is right around the corner, and they can't wait to celebrate with everyone who has been part of the journey.</p>
+    <div class="story-body">
+      <p class="ry">Collin and Celine first crossed paths on the natural gas trade floor at ExxonMobil, where Celine was interning and Collin had already been part of the team for a few years.</p>
+      <p class="ry">They waited until Celine's internship was winding down to act on it, starting with drinks at Padre's and dinner at Coltivare in the Houston Heights. A few more dates followed, and the whole thing wrapped up at BCN, the night they made things official. A Spanish restaurant for a first chapter that would, coincidentally, continue with their first international trip together being Barcelona.</p>
+      <p class="ry">Life together quickly found its rhythm — date nights at El Tiempo, Clark's Oyster Bar, and their favorite local dive, Southern Yankee Crafthouse, mixed with frequent trips to Southern California, New York City, and Miami.</p>
+      <p class="ry">Two and a half years in, Collin brought Celine to Aspen, Colorado — and proposed. What felt like a quiet, intimate moment turned into something even better: a room full of family and friends waiting to celebrate them at a local bar. They spent the rest of the weekend with good food, great drinks, and hitting the hiking trails together.</p>
+      <p class="ry">Now, March 6th is right around the corner, and they can't wait to celebrate with everyone who has been part of the journey.</p>
+    </div>
   </div>
 </section>
 
