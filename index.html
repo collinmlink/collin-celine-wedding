@@ -87,6 +87,9 @@ body {
   background: var(--white); z-index: 1000;
   display: flex; align-items: center; justify-content: center;
 }
+#loader-inner {
+  display: flex; flex-direction: column; align-items: center;
+}
 .loader-text {
   font-family: var(--serif);
   font-size: clamp(1.6rem, 5vw, 4rem);
@@ -95,6 +98,23 @@ body {
   overflow: hidden;
 }
 .loader-text span { display: block; }
+
+.loader-photo {
+  width: clamp(110px, 20vw, 180px);
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  margin: clamp(1rem, 3vw, 1.5rem) auto 0;
+}
+.loader-photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.loader-date {
+  margin-top: clamp(.75rem, 2vw, 1.25rem);
+  font-family: var(--sans);
+  font-size: clamp(.55rem, 1.5vw, .65rem);
+  font-weight: 200; letter-spacing: .35em; text-transform: uppercase;
+  color: var(--ink); text-align: center;
+}
 
 /* ── NAV ── */
 nav {
@@ -1186,7 +1206,11 @@ a:focus-visible, button:focus-visible {
 
 <!-- LOADER -->
 <div id="loader">
-  <div class="loader-text"><span id="lt">Collin &amp; Celine</span></div>
+  <div id="loader-inner">
+    <div class="loader-text"><span id="lt">Collin &amp; Celine</span></div>
+    <div class="loader-photo" id="lp"><img src="cocktails.png" alt="Collin and Celine"></div>
+    <div class="loader-date" id="ld">March 6th, 2027</div>
+  </div>
 </div>
 
 <!-- NAV -->
@@ -1949,9 +1973,12 @@ document.querySelectorAll('.drawer-link').forEach(a => {
 
 /* ── Loader ── */
 const nav = document.getElementById('nav');
+gsap.set(['#lp', '#ld'], { y: 24, opacity: 0 });
 gsap.timeline()
-  .from('#lt',          { y: 40, opacity: 0, duration: 1.2, ease: 'expo.out' })
-  .to('#lt',            { opacity: 0, duration: .6, ease: 'power2.in' }, '+=.7')
+  .from('#lt',            { y: 40, opacity: 0, duration: 1.2, ease: 'expo.out' })
+  .to('#lp',               { y: 0, opacity: 1, duration: .9, ease: 'expo.out' }, '-=.5')
+  .to('#ld',               { y: 0, opacity: 1, duration: .8, ease: 'expo.out' }, '-=.6')
+  .to('#loader-inner',     { opacity: 0, duration: .6, ease: 'power2.in' }, '+=.7')
   .to('#loader',        { scaleY: 0, transformOrigin: 'top', duration: 1.4, ease: 'expo.inOut' })
   .to(nav,              { opacity: 1, duration: .8, ease: 'expo.out' }, '-=.4')
   .from('.strip-outer', { opacity: 0, y: 20, duration: 1.1, ease: 'expo.out' }, '-=.5')
