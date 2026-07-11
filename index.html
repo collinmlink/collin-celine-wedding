@@ -624,6 +624,75 @@ nav {
   letter-spacing: .3em; text-transform: uppercase; color: var(--grey-muted);
 }
 
+/* ── RSVP LIVE SEARCH ── */
+.rsvp-suggestions {
+  position: absolute; left: 0; right: 0; top: 100%;
+  background: var(--white); border: 1px solid var(--grey-line); border-top: none;
+  z-index: 20; max-height: 260px; overflow-y: auto; display: none;
+}
+.rsvp-suggestion-item {
+  padding: .85rem clamp(.75rem, 2vw, 1rem); font-size: clamp(.78rem, 1.7vw, .85rem);
+  font-weight: 200; cursor: pointer;
+  border-bottom: 1px solid var(--grey-line);
+  transition: background .2s ease;
+}
+.rsvp-suggestion-item:last-child { border-bottom: none; }
+@media (hover: hover) {
+  .rsvp-suggestion-item:hover { background: var(--tint); }
+}
+
+.rsvp-help {
+  font-size: clamp(.65rem, 1.4vw, .72rem); font-weight: 200; line-height: 1.85;
+  color: var(--grey-muted); margin-top: var(--sp-sm);
+}
+
+.rsvp-party-label {
+  font-size: clamp(.6rem, 1.4vw, .68rem); font-weight: 200; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--grey-muted); margin-bottom: .5rem;
+}
+.rsvp-party-name {
+  font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 200; margin-bottom: var(--sp-md);
+}
+
+.rsvp-guest-block {
+  border: 1px solid var(--grey-line);
+  padding: clamp(1.25rem, 3.5vw, 1.75rem);
+  margin-bottom: var(--sp-sm);
+  display: flex; flex-direction: column; gap: var(--sp-sm);
+}
+.rsvp-guest-top {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: .75rem;
+}
+.rsvp-guest-name {
+  font-family: var(--serif); font-size: clamp(1rem, 2.2vw, 1.2rem); font-weight: 200;
+}
+.rsvp-toggle-group { display: flex; gap: .5rem; }
+.rsvp-toggle-btn {
+  font-family: var(--sans); font-size: clamp(.48rem, 1.1vw, .52rem); font-weight: 200;
+  letter-spacing: .2em; text-transform: uppercase;
+  padding: .55rem .9rem; border: 1px solid var(--grey-line);
+  background: transparent; color: var(--ink); cursor: pointer;
+  transition: background .3s ease, color .3s ease, border-color .3s ease;
+  min-height: 36px;
+}
+.rsvp-toggle-btn.selected-yes { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.rsvp-toggle-btn.selected-no { background: var(--grey-muted); color: var(--white); border-color: var(--grey-muted); }
+
+.rsvp-guest-details {
+  display: none; flex-direction: column; gap: var(--sp-sm);
+  padding-top: var(--sp-sm); border-top: 1px solid var(--grey-line);
+}
+.rsvp-guest-details.show { display: flex; }
+.rsvp-guest-details .frow { padding: .5rem 0; }
+
+.rsvp-status-msg {
+  font-size: clamp(.65rem, 1.4vw, .72rem); color: var(--grey-muted);
+  margin-top: var(--sp-sm); min-height: 1em;
+}
+.rsvp-status-msg.error { color: #a33333; }
+
 /* ── FOOTER ── */
 footer {
   border-top: 1px solid var(--grey-line);
@@ -1988,7 +2057,7 @@ a:focus-visible, button:focus-visible {
       <div class="eyebrow ry">Registry</div>
       <h2 class="registry-h ry">Gifts<br><em>and wishes.</em></h2>
     </div>
-    <p class="registry-intro ry">Please find our complete registry and honeymoon fund below.</p>
+    <p class="registry-intro ry">Your company at our wedding is the only gift we need. For those who'd still like to celebrate with us this way, our registry is linked below.</p>
   </div>
 
   <div class="registry-card featured ry">
@@ -2020,42 +2089,25 @@ a:focus-visible, button:focus-visible {
 <section id="rsvp">
   <div>
     <div class="eyebrow ry">RSVP</div>
-    <h2 class="rsvp-h ry">Kindly<br><em>reply</em><br>by January 23.</h2>
-    <p class="rsvp-p ry">Let us know if you are able to join us, and please note any dietary requirements.</p>
+    <h2 class="rsvp-h ry">Find your<br><em>invitation.</em></h2>
+    <p class="rsvp-p ry">Search for your name below to find your invitation and let us know if you'll be joining us.</p>
     <p class="rsvp-dl ry">Deadline — January 23, 2027</p>
   </div>
   <div>
-    <form class="rsvp-form" id="rf" novalidate>
-      <div class="frow">
-        <label for="f-name">Full Name</label>
-        <input id="f-name" type="text" placeholder="Your full name"
-               autocomplete="name" autocapitalize="words" required>
+    <div id="rsvpSearchStage">
+      <div class="frow" style="position:relative;">
+        <label for="guestSearch">Full Name</label>
+        <input id="guestSearch" type="text" placeholder="Start typing your name" autocomplete="off">
+        <div class="rsvp-suggestions" id="rsvpSuggestions"></div>
       </div>
-      <div class="frow">
-        <label for="f-email">Email Address</label>
-        <input id="f-email" type="email" placeholder="your@email.com"
-               autocomplete="email" inputmode="email" required>
-      </div>
-      <div class="frow">
-        <label for="f-attend">Attendance</label>
-        <select id="f-attend" required>
-          <option value="" disabled selected>Please select</option>
-          <option value="1">Attending — 1 guest</option>
-          <option value="2">Attending — 2 guests</option>
-          <option value="no">Unable to attend</option>
-        </select>
-      </div>
-      <div class="frow">
-        <label for="f-diet">Dietary Requirements</label>
-        <textarea id="f-diet" placeholder="Any dietary restrictions or allergies…"></textarea>
-      </div>
-      <button type="submit" class="btn-go">
-        <span>Confirm RSVP</span><span class="arr" aria-hidden="true">→</span>
-      </button>
-    </form>
-    <div id="form-confirm" role="alert" aria-live="polite">
-      <p>Thank you — we cannot wait to see you.</p>
-      <small>Your RSVP has been received</small>
+      <p class="rsvp-help">Can't find your invitation? Contact Collin directly at (682) 438-1788.</p>
+    </div>
+
+    <div id="rsvpPartyStage" style="display:none;"></div>
+
+    <div id="rsvpConfirm" role="alert" aria-live="polite" style="display:none; padding: var(--sp-xl) 0;">
+      <p style="font-family:var(--serif); font-size:clamp(1.4rem,3.5vw,2rem); font-weight:200; font-style:italic; line-height:1.4; color:var(--ink); margin-bottom:var(--sp-sm);">Thank you — we cannot wait to see you.</p>
+      <small style="font-size:clamp(.48rem,1.2vw,.55rem); font-weight:200; letter-spacing:.3em; text-transform:uppercase; color:var(--grey-muted);">Your RSVP has been received</small>
     </div>
   </div>
 </section>
@@ -2391,19 +2443,208 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 
-/* ── RSVP submit ── */
-document.getElementById('rf').addEventListener('submit', function(e) {
-  e.preventDefault();
-  gsap.to(this, {
-    opacity: 0, y: -16, duration: .5, ease: 'power2.in',
-    onComplete: () => {
-      this.style.display = 'none';
-      const c = document.getElementById('form-confirm');
-      c.style.display = 'block';
-      gsap.from(c, { opacity: 0, y: 24, duration: 1.4, ease: 'expo.out' });
+/* ── RSVP live search + submit ── */
+(function() {
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxWYtJD9eSTecYWqMLOGeYC6rLb8GgyH2HrcadM-d_nr8ttsQCaFnVksOr3tzRyGoHO/exec';
+  var MEALS = ['Roasted Organic Chicken Breast', 'Prime NY Strip'];
+
+  var searchInput = document.getElementById('guestSearch');
+  var suggestionsBox = document.getElementById('rsvpSuggestions');
+  var searchStage = document.getElementById('rsvpSearchStage');
+  var partyStage = document.getElementById('rsvpPartyStage');
+  var confirmStage = document.getElementById('rsvpConfirm');
+
+  if (!searchInput) return;
+
+  var debounceTimer = null;
+
+  searchInput.addEventListener('input', function() {
+    var q = searchInput.value.trim();
+    clearTimeout(debounceTimer);
+    if (q.length < 2) {
+      suggestionsBox.style.display = 'none';
+      suggestionsBox.innerHTML = '';
+      return;
+    }
+    debounceTimer = setTimeout(function() { runSearch(q); }, 300);
+  });
+
+  function runSearch(query) {
+    fetch(APPS_SCRIPT_URL + '?action=search&query=' + encodeURIComponent(query))
+      .then(function(res) { return res.json(); })
+      .then(function(data) { renderSuggestions(data.results || []); })
+      .catch(function() { suggestionsBox.style.display = 'none'; });
+  }
+
+  function renderSuggestions(results) {
+    suggestionsBox.innerHTML = '';
+    if (!results.length) { suggestionsBox.style.display = 'none'; return; }
+    results.forEach(function(r) {
+      var item = document.createElement('div');
+      item.className = 'rsvp-suggestion-item';
+      item.textContent = r.invitationName;
+      item.addEventListener('click', function() { selectInvitation(r); });
+      suggestionsBox.appendChild(item);
+    });
+    suggestionsBox.style.display = 'block';
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!searchStage.contains(e.target)) {
+      suggestionsBox.style.display = 'none';
     }
   });
-});
+
+  function selectInvitation(invitation) {
+    suggestionsBox.style.display = 'none';
+    searchStage.style.display = 'none';
+    partyStage.innerHTML = '';
+
+    var label = document.createElement('div');
+    label.className = 'rsvp-party-label';
+    label.textContent = 'Your Invitation';
+    partyStage.appendChild(label);
+
+    var nameEl = document.createElement('div');
+    nameEl.className = 'rsvp-party-name';
+    nameEl.textContent = invitation.invitationName;
+    partyStage.appendChild(nameEl);
+
+    var guestStates = {};
+
+    invitation.guests.forEach(function(guestName) {
+      var block = document.createElement('div');
+      block.className = 'rsvp-guest-block';
+
+      var top = document.createElement('div');
+      top.className = 'rsvp-guest-top';
+
+      var nameDiv = document.createElement('div');
+      nameDiv.className = 'rsvp-guest-name';
+      nameDiv.textContent = guestName;
+      top.appendChild(nameDiv);
+
+      var toggleGroup = document.createElement('div');
+      toggleGroup.className = 'rsvp-toggle-group';
+      var yesBtn = document.createElement('button');
+      yesBtn.type = 'button';
+      yesBtn.className = 'rsvp-toggle-btn';
+      yesBtn.textContent = 'Attending';
+      var noBtn = document.createElement('button');
+      noBtn.type = 'button';
+      noBtn.className = 'rsvp-toggle-btn';
+      noBtn.textContent = 'Not Attending';
+      toggleGroup.appendChild(yesBtn);
+      toggleGroup.appendChild(noBtn);
+      top.appendChild(toggleGroup);
+      block.appendChild(top);
+
+      var details = document.createElement('div');
+      details.className = 'rsvp-guest-details';
+
+      var mealRow = document.createElement('div');
+      mealRow.className = 'frow';
+      var mealLabel = document.createElement('label');
+      mealLabel.textContent = 'Meal Selection';
+      var mealSelect = document.createElement('select');
+      var defOpt = document.createElement('option');
+      defOpt.textContent = 'Please select';
+      defOpt.disabled = true; defOpt.selected = true;
+      mealSelect.appendChild(defOpt);
+      MEALS.forEach(function(m) {
+        var o = document.createElement('option');
+        o.textContent = m;
+        mealSelect.appendChild(o);
+      });
+      mealRow.appendChild(mealLabel);
+      mealRow.appendChild(mealSelect);
+
+      var dietRow = document.createElement('div');
+      dietRow.className = 'frow';
+      var dietLabel = document.createElement('label');
+      dietLabel.textContent = 'Dietary Requirements';
+      var dietInput = document.createElement('input');
+      dietInput.type = 'text';
+      dietInput.placeholder = 'Any allergies or restrictions';
+      dietRow.appendChild(dietLabel);
+      dietRow.appendChild(dietInput);
+
+      details.appendChild(mealRow);
+      details.appendChild(dietRow);
+      block.appendChild(details);
+
+      guestStates[guestName] = {
+        attending: null, mealSelect: mealSelect, dietInput: dietInput,
+        details: details, yesBtn: yesBtn, noBtn: noBtn
+      };
+
+      yesBtn.addEventListener('click', function() {
+        guestStates[guestName].attending = 'Yes';
+        yesBtn.classList.add('selected-yes');
+        noBtn.classList.remove('selected-no');
+        details.classList.add('show');
+      });
+      noBtn.addEventListener('click', function() {
+        guestStates[guestName].attending = 'No';
+        noBtn.classList.add('selected-no');
+        yesBtn.classList.remove('selected-yes');
+        details.classList.remove('show');
+      });
+
+      partyStage.appendChild(block);
+    });
+
+    var statusMsg = document.createElement('div');
+    statusMsg.className = 'rsvp-status-msg';
+    partyStage.appendChild(statusMsg);
+
+    var submitBtn = document.createElement('button');
+    submitBtn.type = 'button';
+    submitBtn.className = 'btn-go';
+    submitBtn.innerHTML = '<span>Confirm RSVP</span><span class="arr" aria-hidden="true">→</span>';
+    submitBtn.addEventListener('click', function() {
+      var responses = [];
+      var missing = false;
+      Object.keys(guestStates).forEach(function(name) {
+        var g = guestStates[name];
+        if (!g.attending) { missing = true; return; }
+        responses.push({
+          guestName: name,
+          attending: g.attending,
+          meal: g.attending === 'Yes' ? g.mealSelect.value : '',
+          dietary: g.attending === 'Yes' ? g.dietInput.value.trim() : ''
+        });
+      });
+      if (missing) {
+        statusMsg.textContent = 'Please mark attendance for everyone on the invitation.';
+        statusMsg.classList.add('error');
+        return;
+      }
+      statusMsg.classList.remove('error');
+      statusMsg.textContent = 'Submitting…';
+      submitBtn.disabled = true;
+
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ invitationName: invitation.invitationName, responses: responses })
+      })
+        .then(function(res) { return res.json(); })
+        .then(function() {
+          partyStage.style.display = 'none';
+          confirmStage.style.display = 'block';
+          gsap.from(confirmStage, { opacity: 0, y: 24, duration: 1.4, ease: 'expo.out' });
+        })
+        .catch(function() {
+          statusMsg.textContent = 'Something went wrong — please try again or contact Collin directly.';
+          statusMsg.classList.add('error');
+          submitBtn.disabled = false;
+        });
+    });
+    partyStage.appendChild(submitBtn);
+
+    partyStage.style.display = 'block';
+  }
+})();
 </script>
 </body>
 </html>
